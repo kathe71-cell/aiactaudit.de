@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowRight, Search } from 'lucide-react';
 import { LogoMark } from './LogoMark';
 
 interface HeaderProps {
   currentPath: string;
   navigate: (path: string) => void;
+  onOpenSearch?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
+export const Header: React.FC<HeaderProps> = ({ currentPath, navigate, onOpenSearch }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
@@ -42,7 +43,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
       {/* Main navigation */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
@@ -64,7 +65,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
           </div>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-6">
+          <nav className="hidden xl:flex items-center gap-6">
             {navLinks.map((link) => (
               <button
                 key={link.label}
@@ -76,8 +77,21 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
             ))}
           </nav>
 
-          {/* Right Action CTA */}
-          <div className="hidden sm:flex items-center gap-3">
+          {/* Right Actions: Search trigger + CTA */}
+          <div className="hidden sm:flex items-center gap-2.5">
+            {/* Quick Search Button (⌘K) */}
+            <button
+              onClick={onOpenSearch}
+              title="Volltextsuche öffnen (⌘K)"
+              className="inline-flex items-center gap-2 bg-slate-100 hover:bg-slate-200/80 text-slate-600 hover:text-slate-900 font-medium text-xs px-3.5 py-2.5 rounded-xl border border-slate-200 transition-all cursor-pointer shadow-2xs"
+            >
+              <Search className="w-3.5 h-3.5 text-slate-500" />
+              <span className="hidden md:inline">Suchen...</span>
+              <kbd className="hidden md:inline-flex items-center gap-0.5 text-[10px] font-mono text-slate-400 bg-white px-1.5 py-0.5 rounded border border-slate-300">
+                ⌘K
+              </kbd>
+            </button>
+
             <button
               onClick={() => handleNav('/audit-check')}
               className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs px-4 py-2.5 rounded-xl shadow-xs transition-all hover:shadow-md cursor-pointer"
@@ -87,8 +101,26 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex items-center lg:hidden">
+          {/* Mobile Search & Menu Buttons */}
+          <div className="flex items-center gap-1.5 sm:hidden">
+            <button
+              onClick={onOpenSearch}
+              className="p-2 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-100"
+              aria-label="Suche öffnen"
+            >
+              <Search className="w-5 h-5" />
+            </button>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-100 focus:outline-hidden"
+              aria-label="Menü umschalten"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+
+          {/* Medium Screen Menu Button (between sm and xl) */}
+          <div className="hidden sm:flex xl:hidden items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-100 focus:outline-hidden"
@@ -102,7 +134,23 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-2 shadow-lg animate-in fade-in duration-200">
+        <div className="xl:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-2 shadow-lg animate-in fade-in duration-200">
+          <button
+            onClick={() => {
+              setMobileMenuOpen(false);
+              onOpenSearch?.();
+            }}
+            className="w-full flex items-center justify-between py-2.5 px-3 rounded-lg text-sm font-bold text-slate-800 bg-slate-100 hover:bg-slate-200 border border-slate-200 mb-2"
+          >
+            <span className="flex items-center gap-2">
+              <Search className="w-4 h-4 text-emerald-600" />
+              <span>Volltextsuche starten...</span>
+            </span>
+            <kbd className="text-[10px] font-mono text-slate-500 bg-white px-1.5 py-0.5 rounded border border-slate-300">
+              ⌘K
+            </kbd>
+          </button>
+
           {navLinks.map((link) => (
             <button
               key={link.label}

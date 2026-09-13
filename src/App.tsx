@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { StickyBar } from './components/StickyBar';
 import { ScrollToTop } from './components/ScrollToTop';
+import { SearchModal } from './components/SearchModal';
 import { HomePage } from './pages/HomePage';
 import { AuditCheckPage } from './pages/AuditCheckPage';
 import { MatrixPage } from './pages/MatrixPage';
@@ -37,7 +38,39 @@ export const App: React.FC = () => {
     return '/';
   };
 
+  // Check initial URL query parameters directly (e.g. ?q=bussgeld for Schema.org SearchAction)
+  const getInitialSearchQuery = () => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('q') || '';
+    }
+    return '';
+  };
+
+  const initialSearchQ = getInitialSearchQuery();
   const [currentPath, setCurrentPath] = useState<string>(getInitialPath());
+  const [isSearchOpen, setIsSearchOpen] = useState<boolean>(Boolean(initialSearchQ));
+  const [searchInitialQuery, setSearchInitialQuery] = useState<string>(initialSearchQ);
+
+  // Global keyboard shortcut: Cmd+K or Ctrl+K or '/'
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't trigger if already typing in an input or textarea
+      const activeTag = document.activeElement?.tagName.toLowerCase();
+      const isInput = activeTag === 'input' || activeTag === 'textarea';
+
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsSearchOpen((prev) => !prev);
+      } else if (e.key === '/' && !isInput) {
+        e.preventDefault();
+        setIsSearchOpen(true);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -76,7 +109,6 @@ export const App: React.FC = () => {
         setTimeout(() => {
           const rect = container.getBoundingClientRect();
           const headerOffset = 90; // Header height
-          // If the element's top is cut off or too close to header, or partially below fold
           if (rect.top < headerOffset || rect.bottom > window.innerHeight) {
             const elementPosition = rect.top + window.scrollY;
             const offsetPosition = Math.max(0, elementPosition - headerOffset - 16);
@@ -93,13 +125,13 @@ export const App: React.FC = () => {
     return () => document.removeEventListener('click', handleGlobalClick);
   }, []);
 
-  const navigate = (path: string) => {
+  const navigate = useCallback((path: string) => {
     if (path !== currentPath) {
       window.history.pushState({}, '', path);
       setCurrentPath(path);
       window.scrollTo({ top: 0, behavior: 'instant' });
     }
-  };
+  }, [currentPath]);
 
   const basePath = currentPath.split('?')[0].split('#')[0];
 
@@ -133,13 +165,33 @@ export const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-emerald-200 selection:text-emerald-950 font-sans">
-      <Header currentPath={currentPath} navigate={navigate} />
+      <Header
+        currentPath={currentPath}
+        navigate={navigate}
+        onOpenSearch={() => setIsSearchOpen(true)}
+      />
+      
       <div className="flex-1">
         {renderPage()}
       </div>
+
       <Footer navigate={navigate} />
       <StickyBar navigate={navigate} />
       <ScrollToTop />
+      
+      {/* Full-Text Search Overlay Modal (⌘K) */}
+      {isSearchOpen && (
+        <SearchModal
+          isOpen={isSearchOpen}
+          onClose={() => {
+            setIsSearchOpen(false);
+            setSearchInitialQuery('');
+          }}
+          navigate={navigate}
+          initialQuery={searchInitialQuery}
+        />
+      )}
+
       <Analytics />
       <SpeedInsights />
     </div>
