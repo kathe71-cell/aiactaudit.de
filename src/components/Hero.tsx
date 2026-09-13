@@ -97,8 +97,8 @@ export const Hero: React.FC<HeroProps> = ({ navigate, onScrollToFinder }) => {
                 <div className="text-xs text-slate-500 font-medium mt-0.5">Behörden &amp; Gremien</div>
               </div>
               <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs">
-                <div className="text-xl sm:text-2xl font-black text-amber-700">27 Staaten</div>
-                <div className="text-xs text-slate-500 font-medium mt-0.5">EU-weite Abdeckung</div>
+                <div className="text-xl sm:text-2xl font-black text-amber-700">31 Gebiete</div>
+                <div className="text-xs text-slate-500 font-medium mt-0.5">27 EU-Staaten + EWR/UK</div>
               </div>
             </div>
 
