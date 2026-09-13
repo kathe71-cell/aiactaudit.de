@@ -17,13 +17,13 @@ export const Hero: React.FC<HeroProps> = ({ navigate, onScrollToFinder }) => {
   };
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-white via-slate-50 to-slate-100/70 pt-10 pb-16 lg:pt-14 lg:pb-24 border-b border-slate-200">
-      {/* Decorative background grid subtle */}
+    <section className="relative overflow-hidden bg-gradient-to-b from-white via-slate-50 to-slate-100/70 pt-8 pb-16 lg:pt-12 lg:pb-24 border-b border-slate-200">
+      {/* Decorative subtle ambient background */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#0f172a_1px,transparent_1px)] [background-size:20px_20px]" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Top Badges */}
+        {/* Top Badges (Myriad-style source tag cluster) */}
         <div className="flex flex-wrap items-center gap-2 mb-6">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-950 border border-emerald-300 shadow-2xs">
             <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
@@ -32,25 +32,25 @@ export const Hero: React.FC<HeroProps> = ({ navigate, onScrollToFinder }) => {
           </span>
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-950 border border-amber-300 shadow-2xs">
             <Clock className="w-3.5 h-3.5 text-amber-700" />
-            Stufe 1 aktiv: Verbote greifen seit 02.02.2025
+            Stufe 1 &amp; 2 in Kraft (Art. 5 Verbote &amp; GPAI)
           </span>
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200">
-            Unabhängige Regulatory Intelligence &amp; Audit-Plattform
+            Unabhängige Regulatory Intelligence DACH
           </span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          {/* Main Hero Copy */}
+          {/* Left Hero Column: B2B Value Proposition */}
           <div className="lg:col-span-7 space-y-6">
-            <h1 className="text-3xl sm:text-5xl lg:text-5xl font-black text-slate-950 tracking-tight leading-[1.15]">
+            <h1 className="text-3xl sm:text-5xl lg:text-[46px] font-black text-slate-950 tracking-tight leading-[1.14]">
               Europas führende <span className="text-emerald-700 underline decoration-emerald-300 decoration-wavy underline-offset-4">Regulatory Intelligence</span> &amp; Audit-Plattform für den EU AI Act
             </h1>
 
             <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-normal">
-              Automatisierte Überwachung aller Rechtsakte des <strong>EU AI Office, der BaFin, des BSI &amp; CEN-CENELEC</strong>. 
-              Kombinieren Sie lückenloses Horizon Scanning mit interaktiven Audit-Prüfungen nach <strong>Art. 9 bis 15</strong>, 
-              Klausel-Screening und behördlicher Zertifizierungsvorbereitung.
+              Die maßgeblichen Rechtsakte liegen dort, wo herkömmliche Suchmaschinen und allgemeine KI nicht hinreichen: 
+              Wir erfassen fortlaufend alle Veröffentlichungen des <strong>EU AI Office, der BaFin, des BSI und von CEN-CENELEC</strong>, 
+              übersetzen Gesetzesänderungen in konkrete Handlungspflichten nach <strong>Art. 9–15</strong> und begleiten Sie lückenlos bis zur behördlichen Audit-Readiness.
             </p>
 
             {/* CTAs */}
@@ -68,12 +68,12 @@ export const Hero: React.FC<HeroProps> = ({ navigate, onScrollToFinder }) => {
                 className="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-900 font-bold text-base px-6 py-3.5 rounded-xl border border-slate-300 shadow-2xs hover:border-slate-400 transition-all cursor-pointer"
               >
                 <Radio className="w-4 h-4 text-emerald-600" />
-                <span>Live Horizon Scanning ansehen</span>
+                <span>Live Horizon Scanning öffnen</span>
               </button>
             </div>
 
             <p className="text-xs text-slate-500 font-medium">
-              * Kostenfreie, unabhängige Modellprüfung &amp; Orientierungshilfe zur Selbsteinstufung.
+              * Kostenfreie, neutrale Selbsteinstufung &amp; Modellrechnung nach § 5 DDG.
             </p>
 
             {/* Position-0 Definition Snippet */}
@@ -105,18 +105,37 @@ export const Hero: React.FC<HeroProps> = ({ navigate, onScrollToFinder }) => {
 
           </div>
 
-          {/* Right Card: Interactive Live Preview (Myriad-Style Pulse Widget) */}
-          <div className="lg:col-span-5">
+          {/* Right Card: Myriad-Style Multi-Layer Deck Component */}
+          <div className="lg:col-span-5 relative">
+            
+            {/* Background Floating Stack Cards (Like Myriad.ai) */}
+            <div className="hidden lg:block absolute -top-4 -right-3 w-[88%] bg-white/70 border border-slate-200/80 rounded-2xl p-4 shadow-sm rotate-[2.5deg] pointer-events-none -z-10">
+              <div className="flex items-center justify-between text-[11px] font-bold text-slate-400 mb-1">
+                <span>Watchtower · EU AI Act</span>
+                <span className="text-emerald-600 font-black">AKTIV</span>
+              </div>
+              <div className="text-xs font-bold text-slate-600 truncate">EU AI Office · Code of Practice GPAI veröffentlicht</div>
+            </div>
+
+            <div className="hidden lg:block absolute -top-8 -left-3 w-[85%] bg-white/70 border border-slate-200/80 rounded-2xl p-4 shadow-sm -rotate-[2deg] pointer-events-none -z-10">
+              <div className="flex items-center justify-between text-[11px] font-bold text-slate-400 mb-1">
+                <span>Policy Screener · Audit-Trail</span>
+                <span className="text-amber-600 font-black">GAP-SCAN</span>
+              </div>
+              <div className="text-xs font-bold text-slate-600 truncate">Art. 14 Human-in-the-Loop validiert</div>
+            </div>
+
+            {/* Foreground Main SaaS Interface Widget */}
             <div className="bg-white rounded-2xl border border-slate-200 shadow-xl p-6 relative">
               
               {/* Top Selector Bar */}
               <div className="flex items-center justify-between border-b border-slate-200 pb-3 mb-4">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5 p-0.5 bg-slate-100 rounded-lg border border-slate-200">
                   <button
                     onClick={() => setActiveTab('scan')}
-                    className={`text-xs font-bold px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
+                    className={`text-xs font-bold px-3 py-1.5 rounded-md transition-colors cursor-pointer ${
                       activeTab === 'scan'
-                        ? 'bg-slate-900 text-white shadow-xs'
+                        ? 'bg-white text-slate-900 shadow-xs'
                         : 'text-slate-600 hover:text-slate-900'
                     }`}
                   >
@@ -124,9 +143,9 @@ export const Hero: React.FC<HeroProps> = ({ navigate, onScrollToFinder }) => {
                   </button>
                   <button
                     onClick={() => setActiveTab('classes')}
-                    className={`text-xs font-bold px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
+                    className={`text-xs font-bold px-3 py-1.5 rounded-md transition-colors cursor-pointer ${
                       activeTab === 'classes'
-                        ? 'bg-slate-900 text-white shadow-xs'
+                        ? 'bg-white text-slate-900 shadow-xs'
                         : 'text-slate-600 hover:text-slate-900'
                     }`}
                   >
@@ -134,7 +153,7 @@ export const Hero: React.FC<HeroProps> = ({ navigate, onScrollToFinder }) => {
                   </button>
                 </div>
                 
-                <span className="inline-flex items-center gap-1.5 text-[11px] font-extrabold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-extrabold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
                   <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
                   LIVE RADAR
                 </span>
@@ -144,7 +163,7 @@ export const Hero: React.FC<HeroProps> = ({ navigate, onScrollToFinder }) => {
                 <div className="space-y-3">
                   <div className="text-xs text-slate-500 font-medium flex items-center justify-between mb-1">
                     <span>Zuletzt erfasste Veröffentlichungen</span>
-                    <span className="text-emerald-700 font-bold">Heute aktualisiert</span>
+                    <span className="text-emerald-700 font-bold">Heute synchronisiert</span>
                   </div>
 
                   {recentEvents.map((evt) => (
@@ -178,7 +197,7 @@ export const Hero: React.FC<HeroProps> = ({ navigate, onScrollToFinder }) => {
                       onClick={scrollToHorizon}
                       className="w-full text-center py-2 text-xs font-bold text-emerald-700 hover:text-emerald-800 bg-emerald-50 rounded-lg border border-emerald-200 cursor-pointer"
                     >
-                      Alle 6 neuen Dokumente im Horizon Feed einsehen →
+                      Alle Veröffentlichungen im Horizon Feed anzeigen →
                     </button>
                   </div>
                 </div>
@@ -238,7 +257,7 @@ export const Hero: React.FC<HeroProps> = ({ navigate, onScrollToFinder }) => {
               )}
 
               <div className="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between text-xs">
-                <span className="text-slate-500">Audit-Dauer: ~ 4 Minuten</span>
+                <span className="text-slate-500">Prüfungsdauer: ~ 4 Minuten</span>
                 <button
                   onClick={() => navigate('/audit-check')}
                   className="font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 cursor-pointer"
