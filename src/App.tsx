@@ -57,6 +57,41 @@ export const App: React.FC = () => {
     }
   }, [currentPath]);
 
+  // Auto-scroll clicked interactive cards/accordions into comfortable viewport view
+  useEffect(() => {
+    const handleGlobalClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+
+      // Find closest interactive card, article, or accordion item
+      const container = target.closest<HTMLElement>(
+        'article, [role="button"], button, .cursor-pointer, details, .accordion-item'
+      );
+
+      if (container) {
+        // Skip sticky bars, scroll to top buttons, and fixed headers
+        if (container.closest('header, aside, .fixed, nav')) return;
+
+        setTimeout(() => {
+          const rect = container.getBoundingClientRect();
+          const headerOffset = 90; // Header height
+          // If the element's top is cut off or too close to header, or partially below fold
+          if (rect.top < headerOffset || rect.bottom > window.innerHeight) {
+            const elementPosition = rect.top + window.scrollY;
+            const offsetPosition = Math.max(0, elementPosition - headerOffset - 16);
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth',
+            });
+          }
+        }, 120);
+      }
+    };
+
+    document.addEventListener('click', handleGlobalClick);
+    return () => document.removeEventListener('click', handleGlobalClick);
+  }, []);
+
   const navigate = (path: string) => {
     if (path !== currentPath) {
       window.history.pushState({}, '', path);
