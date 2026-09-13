@@ -231,6 +231,8 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate }) => {
     }
   ];
 
+  const [systemName, setSystemName] = useState<string>('');
+  const [systemDescription, setSystemDescription] = useState<string>('');
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [submitted, setSubmitted] = useState<boolean>(false);
 
@@ -325,6 +327,47 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate }) => {
         {/* Questions Form */}
         {!submitted ? (
           <div className="space-y-6">
+            
+            {/* System Info & Freetext Assessment Card */}
+            <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-7 shadow-xs">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-600" />
+                <h2 className="text-sm font-black text-slate-900 uppercase tracking-wider">
+                  Angaben zum KI-System (Optional &amp; vertraulich)
+                </h2>
+              </div>
+              <p className="text-xs text-slate-600 mb-4">
+                Geben Sie den Namen und eine kurze Freitext-Beschreibung ein, um die individuelle Auswertung und den Prüfbericht für Ihre Dokumentation zu personalisieren.
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    Name des KI-Systems / Projekts
+                  </label>
+                  <input
+                    type="text"
+                    value={systemName}
+                    onChange={(e) => setSystemName(e.target.value)}
+                    placeholder="z. B. SmartRecruit AI, SupportBot v2, ScoringEngine..."
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-slate-900 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent font-medium"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    Kurzbeschreibung &amp; geplanter Einsatzzweck (Freitext)
+                  </label>
+                  <input
+                    type="text"
+                    value={systemDescription}
+                    onChange={(e) => setSystemDescription(e.target.value)}
+                    placeholder="z. B. Automatische Filterung von Bewerberprofilen vor Fachabteilungsinterview..."
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-slate-900 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent font-medium"
+                  />
+                </div>
+              </div>
+            </div>
+
             {questions.map((q) => {
               const currentAnswer = answers[q.id];
               return (
@@ -434,9 +477,14 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate }) => {
                     Audit-Readiness Gesamtbewertung
                   </span>
                   <h2 className="text-2xl sm:text-3xl font-black text-slate-950">
-                    Ergebnisbericht für Ihr KI-System
+                    {systemName.trim() ? `Ergebnisbericht: ${systemName}` : 'Ergebnisbericht für Ihr KI-System'}
                   </h2>
-                  <p className="text-xs text-slate-600">
+                  {systemDescription.trim() && (
+                    <p className="text-xs text-slate-700 bg-slate-100 p-2 rounded-lg border border-slate-200 inline-block font-mono">
+                      Prüfgegenstand: {systemDescription}
+                    </p>
+                  )}
+                  <p className="text-xs text-slate-500">
                     Erstellt auf Grundlage der Verordnung (EU) 2024/1689.
                   </p>
                 </div>
