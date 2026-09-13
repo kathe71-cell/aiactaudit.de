@@ -65,12 +65,12 @@ export const App: React.FC = () => {
 
       // Find closest interactive card, article, or accordion item
       const container = target.closest<HTMLElement>(
-        'article, [role="button"], button, .cursor-pointer, details, .accordion-item'
+        'article, details, .accordion-item, .clickable-card'
       );
 
       if (container) {
-        // Skip sticky bars, scroll to top buttons, and fixed headers
-        if (container.closest('header, aside, .fixed, nav')) return;
+        // Skip sticky bars, scroll to top buttons, navigation links, and full page CTAs
+        if (container.closest('header, aside, .fixed, nav, [data-no-autoscroll="true"]')) return;
 
         setTimeout(() => {
           const rect = container.getBoundingClientRect();

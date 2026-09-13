@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
-import { ShieldCheck, CheckCircle2, AlertTriangle, ArrowRight, RotateCcw, Printer } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ShieldCheck, CheckCircle2, AlertTriangle, ArrowRight, RotateCcw, Printer, Globe, Scale } from 'lucide-react';
 import type { RiskLevel } from '../types';
+import { EU_AUTHORITIES_DATA } from '../data/euAuthoritiesData';
+import type { EUAuthorityInfo } from '../data/euAuthoritiesData';
 
 interface AuditCheckPageProps {
   navigate: (path: string) => void;
@@ -238,10 +240,31 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate }) => {
     }
   ];
 
+  const getInitialCountry = (): string => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const c = params.get('country');
+      if (c) {
+        const found = EU_AUTHORITIES_DATA.find(a => a.isoCode.toLowerCase() === c.toLowerCase() || a.id.toLowerCase() === c.toLowerCase());
+        if (found) return found.isoCode;
+      }
+    }
+    return 'DE';
+  };
+
+  const [selectedCountry, setSelectedCountry] = useState<string>(getInitialCountry());
   const [systemName, setSystemName] = useState<string>('');
   const [systemDescription, setSystemDescription] = useState<string>('');
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [submitted, setSubmitted] = useState<boolean>(false);
+
+  // Guarantee that on entering AuditCheckPage, page always scrolls cleanly to top
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, []);
+
+  const activeJurisdiction: EUAuthorityInfo =
+    EU_AUTHORITIES_DATA.find(a => a.isoCode === selectedCountry) || EU_AUTHORITIES_DATA[1];
 
   const handleSelect = (questionId: string, optionIndex: number) => {
     setAnswers(prev => ({
@@ -373,6 +396,50 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate }) => {
                   />
                 </div>
               </div>
+
+              {/* National Jurisdiction Selection */}
+              <div className="mt-5 pt-4 border-t border-slate-100">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                  <label className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                    <Globe className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Zuständiger europäischer Rechtsraum / Marktüberwachung:</span>
+                  </label>
+                  <span className="text-[11px] font-mono text-slate-500">
+                    Aufsicht: <strong className="text-slate-900">{activeJurisdiction.authorityAcronym}</strong> ({activeJurisdiction.headquarters})
+                  </span>
+                </div>
+
+                <div className="flex flex-wrap gap-1.5 mb-3">
+                  {EU_AUTHORITIES_DATA.map((item) => {
+                    const isSelected = item.isoCode === selectedCountry;
+                    return (
+                      <button
+                        type="button"
+                        key={item.id}
+                        onClick={() => setSelectedCountry(item.isoCode)}
+                        className={`px-2.5 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                          isSelected
+                            ? 'bg-emerald-600 text-white shadow-2xs font-extrabold ring-1 ring-emerald-600'
+                            : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
+                        }`}
+                      >
+                        <span>{item.flag}</span>
+                        <span>{item.isoCode}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Country specifics callout */}
+                <div className="p-3 bg-emerald-50/70 rounded-xl border border-emerald-200/80 flex items-start gap-2.5">
+                  <Scale className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" />
+                  <div className="text-xs text-emerald-950">
+                    <strong className="font-bold">{activeJurisdiction.country} ({activeJurisdiction.authorityAcronym}): </strong>
+                    <span>{activeJurisdiction.nationalSpecifics}</span>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
             {questions.map((q) => {
@@ -491,9 +558,15 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate }) => {
                       Prüfgegenstand: {systemDescription}
                     </p>
                   )}
-                  <p className="text-xs text-slate-500">
-                    Erstellt auf Grundlage der Verordnung (EU) 2024/1689.
-                  </p>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-slate-500">
+                      Erstellt auf Grundlage der Verordnung (EU) 2024/1689.
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-950 border border-emerald-300">
+                      <span>{activeJurisdiction.flag}</span>
+                      <span>Hoheitsgebiet: {activeJurisdiction.country} ({activeJurisdiction.authorityAcronym})</span>
+                    </span>
+                  </div>
                 </div>
 
                 <div className="flex items-center gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-200 shrink-0">
@@ -505,6 +578,24 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate }) => {
                     {result.percent >= 75 ? 'A' : result.percent >= 50 ? 'B' : 'C'}
                   </div>
                 </div>
+              </div>
+
+              {/* National Authority & Sandbox Callout in Audit Report */}
+              <div className="mt-5 p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2 pb-2 border-b border-slate-200">
+                  <div className="flex items-center gap-2">
+                    <Scale className="w-4 h-4 text-emerald-700" />
+                    <span className="text-xs font-bold text-slate-900">
+                      Zuständige nationale Aufsichtsbehörde: {activeJurisdiction.authorityName} ({activeJurisdiction.headquarters})
+                    </span>
+                  </div>
+                  <span className="text-[11px] font-mono font-bold text-emerald-800 bg-emerald-100/60 px-2 py-0.5 rounded border border-emerald-300">
+                    Status Reallabor: {activeJurisdiction.sandboxStatus}
+                  </span>
+                </div>
+                <p className="text-xs text-slate-700 leading-relaxed">
+                  <strong className="font-semibold">Nationale Rechtsbesonderheit:</strong> {activeJurisdiction.nationalSpecifics}
+                </p>
               </div>
 
               {/* Classification Banner */}
