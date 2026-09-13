@@ -39,11 +39,12 @@ export const DatenschutzPage: React.FC<DatenschutzPageProps> = ({ navigate }) =>
           <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-950 space-y-2">
             <div className="font-black text-xs uppercase tracking-wider flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              <span>Datensparsame Architektur (Zero-CDN &amp; Zero-Cookies)</span>
+              <span>Datensparsame Architektur &amp; Lokale Rechner-Verarbeitung</span>
             </div>
             <p className="text-xs text-slate-700 leading-relaxed">
-              Dieses Webangebot speichert keine Tracking-Cookies, verwendet keine externen Schriftarten (keine Google Fonts CDNs) 
-              und überträgt beim normalen Aufruf keine IP-Adressen an Drittstaaten oder Werbenetzwerke.
+              Dieses Fachportal verwendet keine externen Schriftarten (keine Google Fonts CDNs) – stattdessen greift der native System-Font-Stack Ihres Betriebssystems. 
+              Sämtliche interaktiven Selbstevaluationen und Risiko-Checks werden rein lokal im Browser-Arbeitsspeicher ausgeführt und niemals auf unseren Servern gespeichert. 
+              Werbeeinbindungen durch Google AdSense sind in Ziffer 5 transparent und detailliert ausgewiesen.
             </p>
           </div>
 
@@ -98,14 +99,15 @@ export const DatenschutzPage: React.FC<DatenschutzPageProps> = ({ navigate }) =>
               </p>
             </div>
 
-            {/* 4. Cookies & Externe Schriftarten (Zero-CDN) */}
+            {/* 4. Schriftarten (Zero-CDN) & Lokale Browser-Berechnung */}
             <div>
-              <h2 className="text-base font-bold text-slate-900 mb-2">4. Cookies &amp; Externe Schriftarten (Zero-CDN)</h2>
+              <h2 className="text-base font-bold text-slate-900 mb-2">4. Schriftarten (Zero-CDN) &amp; Lokale Browser-Berechnung</h2>
               <p>
                 Zur Schriftartendarstellung nutzen wir ausschließlich den System-Schriftarten-Stack Ihres Betriebssystems. 
                 Es werden keine externen Verbindungen zu Google Fonts oder ähnlichen Drittanbieter-Netzwerken aufgebaut.
-                Alle interaktiven Checks (wie der Audit-Readiness Rechner) laufen rein lokal im Arbeitsspeicher Ihres 
-                Browsers und werden nicht an unsere Server übermittelt.
+                Alle interaktiven Checks (wie der Audit-Readiness Rechner und der Bußgeld-Kalkulator) laufen rein lokal im Arbeitsspeicher Ihres 
+                Browsers und werden zu keinem Zeitpunkt an unsere Server übermittelt oder gespeichert.
+                Hinsichtlich Werbe-Cookies verweisen wir auf die nachfolgende Ziffer 5 zu Google AdSense.
               </p>
             </div>
 
