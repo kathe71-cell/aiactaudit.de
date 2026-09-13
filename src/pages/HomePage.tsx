@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Hero } from '../components/Hero';
 import { HorizonFeed } from '../components/HorizonFeed';
 import { WatchtowersSection } from '../components/WatchtowersSection';
+import { EuEnforcementRadar } from '../components/EuEnforcementRadar';
 import { PolicyScreener } from '../components/PolicyScreener';
 import { AuditFinder } from '../components/AuditFinder';
 import { RequirementsMatrix } from '../components/RequirementsMatrix';
@@ -42,6 +43,9 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
 
       {/* 3. Regulatory Watchtowers & Progress Radar (AI Act, DORA, NIS-2, GDPR-AI) */}
       <WatchtowersSection navigate={navigate} />
+
+      {/* 3b. Interactive EU Enforcement Radar (National Authorities & Sandboxes Art. 70 / Art. 57) */}
+      <EuEnforcementRadar navigate={navigate} />
 
       {/* 4. Policy & Clause Screener (Interactive Non-Compliance vs. Compliant formulation comparison) */}
       <PolicyScreener navigate={navigate} />

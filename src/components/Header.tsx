@@ -12,6 +12,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
 
   const navLinks = [
     { label: 'Horizon Scanning', path: '/#horizon-feed', targetId: 'horizon-feed' },
+    { label: 'EU-Radar', path: '/#eu-radar', targetId: 'eu-radar' },
     { label: 'Watchtowers', path: '/#watchtowers', targetId: 'watchtowers' },
     { label: 'Policy-Screener', path: '/#policy-screener', targetId: 'policy-screener' },
     { label: 'Hochrisiko-Matrix', path: '/hochrisiko-matrix' },
