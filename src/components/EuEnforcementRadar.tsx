@@ -130,12 +130,17 @@ export const EuEnforcementRadar: React.FC<EuEnforcementRadarProps> = ({ navigate
               </div>
             </div>
 
-            {/* Quick Country Pills Selection */}
-            <div className="mt-5">
-              <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider mb-2">
-                Schnellauswahl nach Mitgliedsstaat:
+            {/* Quick Country Selection Matrix (All 31 at a glance without scrolling) */}
+            <div className="mt-5 pt-4 border-t border-slate-800/80">
+              <div className="flex items-center justify-between gap-2 mb-2.5">
+                <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider font-semibold">
+                  Alle 31 Hoheitsgebiete im Direktzugriff:
+                </span>
+                <span className="text-[10px] font-mono text-slate-500">
+                  Klick wählt Land &amp; synchronisiert Karte
+                </span>
               </div>
-              <div className="flex flex-wrap gap-1.5 max-h-36 overflow-y-auto pr-1">
+              <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-1.5">
                 {EU_AUTHORITIES_DATA.map((item) => {
                   const isSelected = item.id === selectedId;
                   return (
@@ -143,15 +148,15 @@ export const EuEnforcementRadar: React.FC<EuEnforcementRadarProps> = ({ navigate
                       key={item.id}
                       onClick={() => setSelectedId(item.id)}
                       data-no-autoscroll="true"
-                      className={`px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                      title={`${item.country} (${item.authorityAcronym})`}
+                      className={`px-2 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1 text-center ${
                         isSelected
                           ? 'bg-emerald-500 text-slate-950 font-black shadow-xs ring-1 ring-white'
-                          : 'bg-slate-900 text-slate-300 border border-slate-800 hover:text-white hover:border-slate-700 hover:bg-slate-800'
+                          : 'bg-slate-900/90 text-slate-300 border border-slate-800 hover:text-white hover:border-slate-600 hover:bg-slate-800'
                       }`}
                     >
-                      <span>{item.flag}</span>
-                      <span>{item.isoCode}</span>
-                      <span className="text-[10px] opacity-70 font-normal">{item.authorityAcronym}</span>
+                      <span className="text-xs shrink-0">{item.flag}</span>
+                      <span className="font-mono text-[11px]">{item.isoCode}</span>
                     </button>
                   );
                 })}

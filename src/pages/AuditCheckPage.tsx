@@ -425,7 +425,7 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate, curren
                   </span>
                 </div>
 
-                <div className="flex flex-wrap gap-1.5 mb-3">
+                <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-1.5 mb-3">
                   {EU_AUTHORITIES_DATA.map((item) => {
                     const isSelected = item.isoCode === selectedCountry;
                     return (
@@ -433,14 +433,15 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate, curren
                         type="button"
                         key={item.id}
                         onClick={() => setSelectedCountry(item.isoCode)}
-                        className={`px-2.5 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                        title={`${item.country} (${item.authorityAcronym})`}
+                        className={`px-2 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1 ${
                           isSelected
                             ? 'bg-emerald-600 text-white shadow-2xs font-extrabold ring-1 ring-emerald-600'
                             : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
                         }`}
                       >
-                        <span>{item.flag}</span>
-                        <span>{item.isoCode}</span>
+                        <span className="text-xs">{item.flag}</span>
+                        <span className="font-mono text-[11px]">{item.isoCode}</span>
                       </button>
                     );
                   })}
