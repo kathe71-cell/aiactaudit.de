@@ -279,25 +279,6 @@ export const HorizonFeed: React.FC<HorizonFeedProps> = ({ navigate }) => {
           )}
         </div>
 
-        {/* Bottom Banner */}
-        <div className="mt-10 p-5 rounded-2xl bg-gradient-to-r from-slate-900 to-slate-950 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h4 className="text-base font-bold text-white">Automatischer wöchentlicher Regulatory Digest</h4>
-            <p className="text-xs text-slate-300 mt-0.5">
-              Erhalten Sie neue Veröffentlichungen des AI Office und DIN-Normen direkt in Ihre Compliance-Workflows.
-            </p>
-          </div>
-          <button
-            onClick={() => {
-              if (navigate) navigate('/audit-check');
-              else window.location.assign('/audit-check');
-            }}
-            className="px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs transition-colors shrink-0 shadow-sm text-center cursor-pointer"
-          >
-            Audit-Digest anfordern *
-          </button>
-        </div>
-
       </div>
     </section>
   );
