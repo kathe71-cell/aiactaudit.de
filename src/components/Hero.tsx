@@ -106,23 +106,23 @@ export const Hero: React.FC<HeroProps> = ({ navigate, onScrollToFinder }) => {
           </div>
 
           {/* Right Card: Myriad-Style Multi-Layer Deck Component */}
-          <div className="lg:col-span-5 relative">
+          <div className="lg:col-span-5 relative pt-10">
             
-            {/* Background Floating Stack Cards (Like Myriad.ai) */}
-            <div className="hidden lg:block absolute -top-4 -right-3 w-[88%] bg-white/70 border border-slate-200/80 rounded-2xl p-4 shadow-sm rotate-[2.5deg] pointer-events-none -z-10">
-              <div className="flex items-center justify-between text-[11px] font-bold text-slate-400 mb-1">
+            {/* Background Floating Stack Cards - Positioned clearly above main card */}
+            <div className="hidden lg:flex items-center justify-between absolute top-1 right-2 w-[78%] bg-white border border-slate-300/80 rounded-t-xl px-4 py-2 shadow-xs rotate-[2deg] pointer-events-none -z-10">
+              <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-700">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
                 <span>Watchtower · EU AI Act</span>
-                <span className="text-emerald-600 font-black">AKTIV</span>
               </div>
-              <div className="text-xs font-bold text-slate-600 truncate">EU AI Office · Code of Practice GPAI veröffentlicht</div>
+              <span className="text-[10px] bg-emerald-100 text-emerald-900 border border-emerald-300 font-extrabold px-1.5 py-0.5 rounded">AKTIV</span>
             </div>
 
-            <div className="hidden lg:block absolute -top-8 -left-3 w-[85%] bg-white/70 border border-slate-200/80 rounded-2xl p-4 shadow-sm -rotate-[2deg] pointer-events-none -z-10">
-              <div className="flex items-center justify-between text-[11px] font-bold text-slate-400 mb-1">
+            <div className="hidden lg:flex items-center justify-between absolute -top-4 left-2 w-[75%] bg-slate-100 border border-slate-300/80 rounded-t-xl px-4 py-2 shadow-xs -rotate-[2deg] pointer-events-none -z-10">
+              <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-700">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-600" />
                 <span>Policy Screener · Audit-Trail</span>
-                <span className="text-amber-600 font-black">GAP-SCAN</span>
               </div>
-              <div className="text-xs font-bold text-slate-600 truncate">Art. 14 Human-in-the-Loop validiert</div>
+              <span className="text-[10px] bg-amber-100 text-amber-900 border border-amber-300 font-extrabold px-1.5 py-0.5 rounded">GAP-SCAN</span>
             </div>
 
             {/* Foreground Main SaaS Interface Widget */}
