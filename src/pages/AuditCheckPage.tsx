@@ -67,6 +67,13 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate }) => {
           gapWarning: 'Fällt unter Art. 50 Abs. 1. Transparenzhinweis an Nutzer zwingend vorgeschrieben.'
         },
         {
+          label: 'HR, Scoring oder Bildung – jedoch nur rein verfahrenstechnische Vorarbeit (Art. 6 Abs. 3)',
+          description: 'Das Tool sortiert nur Dubletten oder formatiert Daten, ohne Entscheidungen materiell zu beeinflussen (gesetzliche Ausnahme).',
+          points: 18,
+          riskTrigger: 'minimal',
+          gapWarning: 'Art. 6 Abs. 3 Ausnahme: Dokumentationspflicht der Ausnahmegründe vor Inbetriebnahme erforderlich!'
+        },
+        {
           label: 'Interne Büro-Tools, Spam-Filter, Übersetzung, Code-Assistenten für Entwickler',
           description: 'Standardisierte Software-Unterstützung ohne Grundrechtseingriff bei Dritten.',
           points: 20,

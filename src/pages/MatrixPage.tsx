@@ -92,6 +92,17 @@ export const MatrixPage: React.FC<MatrixPageProps> = ({ navigate }) => {
             grundlegend zwischen Sicherheitsbauteilen in regulierten Produkten (Anhang I) und eigenständigen 
             Hochrisiko-Anwendungen (Anhang III).
           </p>
+
+          {/* Art. 6 Abs. 3 Exception Callout */}
+          <div className="mt-6 p-4 sm:p-5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs">
+            <div className="flex items-center gap-2 text-emerald-950 font-black text-sm mb-1">
+              <CheckCircle2 className="w-4 h-4 text-emerald-700" />
+              <span>Praxis-Tipp: Die Ausnahmeregelung nach Art. 6 Abs. 3 EU AI Act</span>
+            </div>
+            <p className="text-slate-800 leading-relaxed">
+              Ein System aus Anhang III gilt <strong>nicht</strong> als Hochrisiko-System, wenn es kein erhebliches Risiko für Gesundheit, Sicherheit oder Grundrechte birgt. Das greift insbesondere, wenn die KI (a) nur eine enge verfahrenstechnische Teilaufgabe erfüllt, (b) die Ergebnisse einer vorangegangenen menschlichen Tätigkeit lediglich verbessert, (c) nur rein vorbereitende Muster detektiert oder (d) keine wesentliche Beeinflussung der menschlichen Entscheidung bewirkt. <em>Achtung: Anbieter müssen diese Ausnahmegründe vor dem Inverkehrbringen schriftlich dokumentieren und auf Anfrage der Aufsichtsbehörde vorlegen.</em>
+            </p>
+          </div>
         </div>
 
         {/* Section 1: Comparison Annex I vs Annex III */}

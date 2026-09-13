@@ -62,8 +62,9 @@ export const PolicyScreener: React.FC<PolicyScreenerProps> = ({ navigate }) => {
       });
     }
 
-    // 4. Logging & Tracing (Art. 12)
-    if (!text.includes('protokoll') && !text.includes('audit') && !text.includes('log') && !text.includes('nachvollziehbar')) {
+    // 4. Logging & Tracing (Art. 12) - only trigger if text is substantial and lacks logging, but not if already explicitly compliant
+    const isAlreadyCompliant = text.includes('human-in-the-loop') || text.includes('letztentscheidung') || text.includes('voranalyse');
+    if (!isAlreadyCompliant && !text.includes('protokoll') && !text.includes('audit') && !text.includes('log') && !text.includes('nachvollziehbar')) {
       gaps.push({
         article: 'Art. 12 EU AI Act (Automatische Protokollierung)',
         issue: 'Keine Angaben zur lückenlosen Protokollierung von System-Ereignissen und Entscheidungsfindung auffindbar.',
@@ -73,7 +74,7 @@ export const PolicyScreener: React.FC<PolicyScreenerProps> = ({ navigate }) => {
     }
 
     // 5. Transparency (Art. 50)
-    if (text.includes('chatbot') || text.includes('gpt') || text.includes('bot') || text.includes('assistent')) {
+    if ((text.includes('chatbot') || text.includes('gpt') || text.includes('bot') || text.includes('assistent')) && !text.includes('sie sprechen mit') && !text.includes('hinweis') && !text.includes('gekennzeichnet')) {
       gaps.push({
         article: 'Art. 50 EU AI Act (Transparenzpflicht)',
         issue: 'Interaktionspartner müssen unverzüglich darüber informiert werden, dass sie mit einem KI-System kommunizieren.',

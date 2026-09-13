@@ -6,7 +6,7 @@ interface HorizonFeedProps {
   navigate?: (path: string) => void;
 }
 
-export const HorizonFeed: React.FC<HorizonFeedProps> = () => {
+export const HorizonFeed: React.FC<HorizonFeedProps> = ({ navigate }) => {
   const [activeCategory, setActiveCategory] = useState<string>('ALL');
   const [activeJurisdiction, setActiveJurisdiction] = useState<string>('ALL');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -258,12 +258,15 @@ export const HorizonFeed: React.FC<HorizonFeedProps> = () => {
                           </p>
                           <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
                             <span className="text-slate-500">Sofortige Prüfung empfohlen</span>
-                            <a
-                              href="#audit-check"
-                              className="font-bold text-emerald-700 hover:text-emerald-800 underline inline-flex items-center gap-1"
+                            <button
+                              onClick={() => {
+                                if (navigate) navigate('/audit-check');
+                                else window.location.assign('/audit-check');
+                              }}
+                              className="font-bold text-emerald-700 hover:text-emerald-800 underline inline-flex items-center gap-1 cursor-pointer"
                             >
                               Audit-Check starten * <ExternalLink className="w-3 h-3" />
-                            </a>
+                            </button>
                           </div>
                         </div>
 
@@ -284,12 +287,15 @@ export const HorizonFeed: React.FC<HorizonFeedProps> = () => {
               Erhalten Sie neue Veröffentlichungen des AI Office und DIN-Normen direkt in Ihre Compliance-Workflows.
             </p>
           </div>
-          <a
-            href="#audit-check"
-            className="px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs transition-colors shrink-0 shadow-sm text-center"
+          <button
+            onClick={() => {
+              if (navigate) navigate('/audit-check');
+              else window.location.assign('/audit-check');
+            }}
+            className="px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs transition-colors shrink-0 shadow-sm text-center cursor-pointer"
           >
-            Digest abonnieren *
-          </a>
+            Audit-Digest anfordern *
+          </button>
         </div>
 
       </div>

@@ -364,7 +364,7 @@ export const TIMELINE_MILESTONES: TimelineMilestone[] = [
     title: 'Stufe 1: Verbot unannehmbarer Risiken (Kapitel I & II)',
     status: 'past',
     targetGroup: 'Alle Entwickler, Anbieter und Betreiber von KI-Systemen',
-    description: 'Vollständiges Verbot bestimmter KI-Praktiken nach Art. 5. Verstöße sind ab diesem Tag rechtswidrig und strafbewehrt.',
+    description: 'Vollständiges Verbot bestimmter KI-Praktiken nach Art. 5. Verstöße sind seit diesem Tag EU-weit rechtswidrig und unmittelbar bußgeldbewehrt.',
     keyPoints: [
       'Verbot von Social Scoring durch Behörden und private Stellen',
       'Verbot kognitiver Verhaltensmanipulation mit Schadensfolge',
@@ -376,15 +376,15 @@ export const TIMELINE_MILESTONES: TimelineMilestone[] = [
   {
     date: '02. August 2025',
     dateRaw: '2025-08-02',
-    title: 'Stufe 2: GPAI-Modelle & Governance-Strukturen',
-    status: 'imminent',
-    targetGroup: 'Hersteller von Basismodellen (LLMs) & Notifizierungsstellen',
-    description: 'Inkrafttreten der Pflichten für General Purpose AI (Kapitel V) sowie Vorgaben für benannte Stellen und nationale Behörden.',
+    title: 'Stufe 2: GPAI-Basismodelle & europäisches KI-Büro (Kapitel V)',
+    status: 'past',
+    targetGroup: 'Hersteller von General Purpose AI (LLMs) & Notifizierungsstellen',
+    description: 'Inkrafttreten der Pflichten für Basismodelle. Das europäische KI-Büro überwacht Transparenz, Urheberrecht und systemische Risiken.',
     keyPoints: [
-      'Transparenz- und Urheberrechtsvorgaben für GPAI-Modelle (Art. 53)',
+      'Verbindliche Transparenz- und Copyright-Vorgaben für GPAI-Modelle (Art. 53)',
       'Zusatzpflichten für Modelle mit systemischem Risiko (Rechenaufwand > 10^25 FLOPs)',
-      'Einrichtung und Arbeitsaufnahme des europäischen KI-Büros (AI Office)',
-      'Notifizierung und Benennung akkreditierter Konformitätsbewertungsstellen'
+      'Volle Durchsetzungsbefugnisse des europäischen KI-Büros (AI Office)',
+      'Akkreditierung benannter Konformitätsbewertungsstellen in den EU-Staaten'
     ],
     penaltyRisk: 'Geldbußen bei GPAI-Verstößen: Bis zu 15 Mio. € oder 3 % des Jahresumsatzes (Art. 101)'
   },
@@ -392,9 +392,9 @@ export const TIMELINE_MILESTONES: TimelineMilestone[] = [
     date: '02. August 2026',
     dateRaw: '2026-08-02',
     title: 'Stufe 3: Vollständige Geltung & Hochrisiko-Systeme (Anhang III)',
-    status: 'future',
+    status: 'imminent',
     targetGroup: 'Anbieter & Betreiber aller Anhang-III-Hochrisiko-Systeme',
-    description: 'Der Kern des AI Acts wird wirksam. Alle Hochrisiko-Systeme aus Anhang III müssen vor Inbetriebnahme auditiert und CE-gekennzeichnet sein.',
+    description: 'Der zentrale Durchsetzungs-Meilenstein des EU AI Acts: Sämtliche Hochrisiko-Systeme aus Anhang III müssen auditiert, CE-zertifiziert und registriert sein.',
     keyPoints: [
       'Volle Pflichten für HR-Systeme, Kredit-Scoring, Bildungsbewertung und Justiz',
       'Vollständige Einhaltung von Art. 9–15 (Risikomanagement, Logging, Aufsicht)',
