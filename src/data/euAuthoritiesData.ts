@@ -218,53 +218,6 @@ export const EU_AUTHORITIES_DATA: EUAuthorityInfo[] = [
     recommendedNextStep: 'Benennen Sie unverzüglich einen EU-Bevollmächtigten nach Art. 22 mit Sitz in einem EU-Mitgliedsstaat (z. B. Deutschland oder Österreich).'
   },
   {
-    id: 'gr',
-    country: 'Griechenland',
-    flag: '🇬🇷',
-    isoCode: 'GR',
-    geoName: 'Greece',
-    authorityName: 'Ministerium für digitale Governance & HDPA (Datenschutz)',
-    authorityAcronym: 'Mindigital / HDPA',
-    roleType: 'Marktüberwachungsbehörde (MSA)',
-    status: 'Gesetzgebung im parlamentarischen Verfahren',
-    sandboxStatus: 'Reallabor im Aufbau',
-    headquarters: 'Athen',
-    focusArea: 'Gesetz 4961/2022 (Griechisches KI-Rahmengesetz) & Vorreiter bei Ethik-Ausschüssen',
-    description: 'Griechenland hat bereits 2022 mit Gesetz 4961/2022 einen nationalen Rechtsrahmen für KI im öffentlichen und privaten Sektor geschaffen, der Algorithmenregister und Ethikausschüsse vorschreibt.',
-    keyFacts: [
-      'Pioniergesetz 4961/2022 verpflichtet private Unternehmen zur Folgenabschätzung bei algorithmischer HR-Auswahl',
-      'Hellenic Data Protection Authority (HDPA) überwacht biometrische Identifikationssysteme strikt',
-      'Aufbau des ersten nationalen KI-Reallabors im Athener Tech-Hub'
-    ],
-    nationalSpecifics: 'Griechisches Gesetz 4961/2022: Pflicht zur Einrichtung von Ethikausschüssen für KI in mittleren und großen Unternehmen.',
-    officialUrl: 'https://mindigital.gr',
-    nationalQuestion: {
-      questionTitle: '8. [Griechenland / Gesetz 4961/2022] Wurde ein Ethikausschuss eingerichtet und das nationale Algorithmenregister beachtet?',
-      questionSubtitle: 'In Griechenland verlangt Art. 7 ff. des Gesetzes 4961/2022 ethische Vorprüfungen und Registerpflichten bei KI-Einsatz.',
-      legalRef: 'Griechisches Gesetz 4961/2022 & Art. 26 AI Act',
-      options: [
-        {
-          label: 'Ja, ethische Konformitätsprüfung nach Gesetz 4961/2022 durchgeführt',
-          description: 'Interne Richtlinien und Transparenzpflichten für algorithmische Entscheidungen sind hinterlegt.',
-          points: 15
-        },
-        {
-          label: 'System erfüllt Standard-AI-Act, griechische Sondernormen wurden aber noch nicht geprüft',
-          description: 'Prüfung nach EU-Vorgaben läuft, lokales Gesetz 4961/2022 steht noch aus.',
-          points: 8,
-          gapWarning: 'Unternehmen mit griechischen Niederlassungen müssen Ethikausschuss-Vorgaben nach Gesetz 4961/2022 beachten.'
-        },
-        {
-          label: 'Bisher keine Prüfung der griechischen Gesetzeslage',
-          description: 'Keine Dokumentation nach Gesetz 4961/2022 vorhanden.',
-          points: 0,
-          gapWarning: 'In Griechenland drohen arbeits- und datenschutzrechtliche Beanstandungen der HDPA.'
-        }
-      ]
-    },
-    recommendedNextStep: 'Prüfen Sie bei Betrieb in Griechenland die Pflichten zur Einsetzung eines betrieblichen Ethikausschusses nach Gesetz 4961/2022.'
-  },
-  {
     id: 'fr',
     country: 'Frankreich',
     flag: '🇫🇷',
@@ -768,6 +721,53 @@ export const EU_AUTHORITIES_DATA: EUAuthorityInfo[] = [
     recommendedNextStep: 'Prüfen Sie bei innovativen Modellen die Anmeldung in einer portugiesischen ZLT vor dem Rollout.'
   },
   {
+    id: 'gr',
+    country: 'Griechenland',
+    flag: '🇬🇷',
+    isoCode: 'GR',
+    geoName: 'Greece',
+    authorityName: 'Ministerium für digitale Governance & HDPA',
+    authorityAcronym: 'Mindigital / HDPA',
+    roleType: 'Marktüberwachungsbehörde (MSA)',
+    status: 'Gesetzgebung im parlamentarischen Verfahren',
+    sandboxStatus: 'Reallabor im Aufbau',
+    headquarters: 'Athen',
+    focusArea: 'Gesetz 4961/2022 (Griechisches KI-Rahmengesetz) & Ethik-Ausschüsse',
+    description: 'Griechenland hat bereits 2022 mit Gesetz 4961/2022 einen nationalen Rechtsrahmen für KI im öffentlichen und privaten Sektor geschaffen, der Algorithmenregister und Ethikausschüsse vorschreibt.',
+    keyFacts: [
+      'Pioniergesetz 4961/2022 verpflichtet private Unternehmen zur Folgenabschätzung bei algorithmischer HR-Auswahl',
+      'Hellenic Data Protection Authority (HDPA) überwacht biometrische Identifikationssysteme strikt',
+      'Aufbau des ersten nationalen KI-Reallabors im Athener Tech-Hub'
+    ],
+    nationalSpecifics: 'Griechisches Gesetz 4961/2022: Pflicht zur Einrichtung von Ethikausschüssen für KI in mittleren und großen Unternehmen.',
+    officialUrl: 'https://mindigital.gr',
+    nationalQuestion: {
+      questionTitle: '8. [Griechenland / Gesetz 4961/2022] Wurde ein Ethikausschuss eingerichtet und das nationale Algorithmenregister beachtet?',
+      questionSubtitle: 'In Griechenland verlangt Art. 7 ff. des Gesetzes 4961/2022 ethische Vorprüfungen und Registerpflichten bei KI-Einsatz.',
+      legalRef: 'Griechisches Gesetz 4961/2022 & Art. 26 AI Act',
+      options: [
+        {
+          label: 'Ja, ethische Konformitätsprüfung nach Gesetz 4961/2022 durchgeführt',
+          description: 'Interne Richtlinien und Transparenzpflichten für algorithmische Entscheidungen sind hinterlegt.',
+          points: 15
+        },
+        {
+          label: 'System erfüllt Standard-AI-Act, griechische Sondernormen wurden aber noch nicht geprüft',
+          description: 'Prüfung nach EU-Vorgaben läuft, lokales Gesetz 4961/2022 steht noch aus.',
+          points: 8,
+          gapWarning: 'Unternehmen mit griechischen Niederlassungen müssen Ethikausschuss-Vorgaben nach Gesetz 4961/2022 beachten.'
+        },
+        {
+          label: 'Bisher keine Prüfung der griechischen Gesetzeslage',
+          description: 'Keine Dokumentation nach Gesetz 4961/2022 vorhanden.',
+          points: 0,
+          gapWarning: 'In Griechenland drohen arbeits- und datenschutzrechtliche Beanstandungen der HDPA.'
+        }
+      ]
+    },
+    recommendedNextStep: 'Prüfen Sie bei Betrieb in Griechenland die Pflichten zur Einsetzung eines betrieblichen Ethikausschusses nach Gesetz 4961/2022.'
+  },
+  {
     id: 'cz',
     country: 'Tschechien',
     flag: '🇨🇿',
@@ -948,5 +948,511 @@ export const EU_AUTHORITIES_DATA: EUAuthorityInfo[] = [
       ]
     },
     recommendedNextStep: 'Nutzen Sie die frei zugänglichen Audit-Reports des norwegischen Reallabors zur Schließung Ihrer Bias-Lücken.'
+  },
+  {
+    id: 'ee',
+    country: 'Estland',
+    flag: '🇪🇪',
+    isoCode: 'EE',
+    geoName: 'Estonia',
+    authorityName: 'MKM (Wirtschafts- und Kommunikationsministerium) & AKI',
+    authorityAcronym: 'MKM / AKI',
+    roleType: 'Marktüberwachungsbehörde (MSA)',
+    status: 'Aktiv benannt',
+    sandboxStatus: 'Reallabor aktiv',
+    headquarters: 'Tallinn',
+    focusArea: 'e-Estonia, Bürokratt-Ökosystem & autonome KI-Entscheidungssysteme',
+    description: 'Estland ist globaler Vorreiter bei digitaler Verwaltung (e-Estonia) und hat mit dem Bürokratt-Netzwerk ein staatliches KI-Ökosystem geschaffen. MKM und die Datenschutzinspektion (AKI) koordinieren die Aufsicht.',
+    keyFacts: [
+      'Führend bei staatlichen KI-Anwendungen und algorithmischen Verwaltungsentscheidungen',
+      'Pionier bei Rechtsgutachten zur Haftung autonomer intelligenter Agenten (Kratt-Gesetz)',
+      'Aktive Reallabore für GovTech- und FinTech-KI'
+    ],
+    nationalSpecifics: 'Estnisches KrattAI-Framework: Höchste Standards für Interoperabilität staatlicher und privater KI-Dienste.',
+    officialUrl: 'https://mkm.ee',
+    nationalQuestion: {
+      questionTitle: '8. [Estland / e-Estonia] Erfüllt das System die estnischen Interoperabilitäts- und X-Road-Standards für KI-Dienste?',
+      questionSubtitle: 'In Estland müssen KI-Dienste mit Schnittstellen zu Verwaltung oder Bürgern dem Bürokratt- und KrattAI-Standard genügen.',
+      legalRef: 'KrattAI Governance & Art. 12 AI Act',
+      options: [
+        {
+          label: 'Ja, standardisierte Schnittstellen und Revisionsprotokolle nach estnischem GovTech-Muster implementiert',
+          description: 'Logging und API-Sicherheit entsprechen den baltischen Digitalstandards.',
+          points: 15
+        },
+        {
+          label: 'System läuft autonom ohne Schnittstellen zu estnischen Infrastrukturen',
+          description: 'Reine private B2B-Nutzung.',
+          points: 15
+        },
+        {
+          label: 'Schnittstellen vorhanden, aber keine Ausrichtung an estnischen Standards',
+          description: 'Keine Dokumentation der Schnittstellensicherheit.',
+          points: 0,
+          gapWarning: 'Estnische Behörden fordern lückenlose Audit-Trails bei Anbindung an digitale Dienste.'
+        }
+      ]
+    },
+    recommendedNextStep: 'Prüfen Sie bei baltischen Digitalprojekten die Kompatibilität mit den KrattAI-Richtlinien.'
+  },
+  {
+    id: 'lu',
+    country: 'Luxemburg',
+    flag: '🇱🇺',
+    isoCode: 'LU',
+    geoName: 'Luxembourg',
+    authorityName: 'ILNAS & CNPD & CSSF (Finanzsektor)',
+    authorityAcronym: 'ILNAS / CSSF / CNPD',
+    roleType: 'Marktüberwachungsbehörde (MSA)',
+    status: 'Aktiv benannt',
+    sandboxStatus: 'Reallabor aktiv',
+    headquarters: 'Luxemburg',
+    focusArea: 'Normung & Konformität (ILNAS), Finanzaufsicht (CSSF) und DORA-AI-Schnittstelle',
+    description: 'Luxemburg setzt auf eine hochspezialisierte Struktur: Das Institut für Normung ILNAS übernimmt die zentrale Marktüberwachung, während die CSSF KI-Modelle im europäischen Banken- und Fondssektor auditiert.',
+    keyFacts: [
+      'CSSF führt strenge Audits für KI im Asset Management, Risikomanagement und Scoring durch',
+      'ILNAS ist europäischer Vorreiter bei der Normung und Standardisierung von ISO/IEC 42001',
+      'Enge Verschränkung von DORA (Digital Operational Resilience) und AI Act'
+    ],
+    nationalSpecifics: 'CSSF Whitepaper zu KI im Finanzsektor: Banken und Fondshäuser unterliegen doppelter Aufsicht (CSSF + AI Act).',
+    officialUrl: 'https://portail-qualite.public.lu/fr/ilnas.html',
+    nationalQuestion: {
+      questionTitle: '8. [Luxemburg / CSSF & ILNAS] Erfüllt das System die CSSF-Governance-Leitlinien für KI im Finanzsektor?',
+      questionSubtitle: 'Die luxemburgische CSSF verlangt für KI in Banken und Fondsgesellschaften ein formales Validierungs- und Stresstest-Audit.',
+      legalRef: 'CSSF KI-Leitlinien & Art. 6 Abs. 2 i.V.m. Anhang III Nr. 5',
+      options: [
+        {
+          label: 'Ja, Modellvalidierung nach CSSF-Vorgaben und Risikomanagement nach Art. 9 liegen vor',
+          description: 'Fondsadministration und Risikomodelle sind nachprüfbar auditiert.',
+          points: 15
+        },
+        {
+          label: 'Finanzanwendung, aber CSSF-spezifische Modellkarten noch nicht finalisiert',
+          description: 'Modell läuft, regulatorisches Stresstest-Dossier ist noch in Arbeit.',
+          points: 8,
+          gapWarning: 'Luxemburgische Finanzinstitute verlangen vor Produktiveinsatz die Freigabe des Risk-Committees.'
+        },
+        {
+          label: 'Kein Finanzmarkt- oder Fondsbezug (reine Non-Finance-Anwendung)',
+          description: 'Keine Berührung mit der luxemburgischen Finanzaufsicht.',
+          points: 15
+        }
+      ]
+    },
+    recommendedNextStep: 'Gleichen Sie Finanz-KI-Modelle mit dem CSSF-Framework und den ILNAS-Normungsvorgaben ab.'
+  },
+  {
+    id: 'bg',
+    country: 'Bulgarien',
+    flag: '🇧🇬',
+    isoCode: 'BG',
+    geoName: 'Bulgaria',
+    authorityName: 'Ministerium für elektronische Governance (MEG) & CPDP',
+    authorityAcronym: 'MEG / CPDP',
+    roleType: 'Marktüberwachungsbehörde (MSA)',
+    status: 'Gesetzgebung im parlamentarischen Verfahren',
+    sandboxStatus: 'Reallabor im Aufbau',
+    headquarters: 'Sofia',
+    focusArea: 'INSAIT (Institute for Computer Science, Artificial Intelligence and Technology) Hub',
+    description: 'Bulgarien hat sich mit dem Spitzenforschungsinstitut INSAIT in Sofia als osteuropäischer KI-Forschungs-Hub etabliert. Das MEG koordiniert die Marktüberwachung in Abstimmung mit der Datenschutzkommission CPDP.',
+    keyFacts: [
+      'INSAIT Sofia als international anerkannter KI-Innovationsknotenpunkt',
+      'Bulgarischer KI-Fahrplan bis 2030 mit Schwerpunkt auf ethischer KI-Entwicklung',
+      'Aufbau des ersten staatlich geförderten Reallabors für Open-Source-LLMs'
+    ],
+    nationalSpecifics: 'Nationaler bulgarischer KI-Rahmen: Förderung akademischer Spin-offs unter Vorab-Prüfung der Art. 5 Verbote.',
+    officialUrl: 'https://e-gov.bg',
+    nationalQuestion: {
+      questionTitle: '8. [Bulgarien / MEG] Wurden Open-Source-Basiskomponenten und akademische Modelle auf Art. 53 Dokumentationspflichten geprüft?',
+      questionSubtitle: 'In Bulgarien entstehen viele innovative Modelle aus Forschungskooperationen, die den GPAI-Pflichten unterliegen.',
+      legalRef: 'Art. 53 AI Act & Bulgarische KI-Strategie',
+      options: [
+        {
+          label: 'Ja, technische Modellkarten und Urheberrechtsnachweise sind vollständig hinterlegt',
+          description: 'Open-Source-Komponenten erfüllen die Vorgaben des AI Acts.',
+          points: 15
+        },
+        {
+          label: 'Open-Source-Modell im Einsatz, aber Modellkarte nach Anhang XI fehlt noch',
+          description: 'Forschungscode wird genutzt, formale Compliance-Akte ist unvollständig.',
+          points: 8,
+          gapWarning: 'Art. 53 verlangt auch bei Open-Source-GPAI detaillierte Zusammenfassungen der Trainingsinhalte.'
+        },
+        {
+          label: 'Kein Open-Source-Basismodell im Einsatz',
+          description: 'Proprietäres System oder Standard-Cloud-Lösung.',
+          points: 15
+        }
+      ]
+    },
+    recommendedNextStep: 'Erstellen Sie für bulgarische Entwicklungs-Pipelines eine lückenlose Modellkarte nach Anhang XI.'
+  },
+  {
+    id: 'hr',
+    country: 'Kroatien',
+    flag: '🇭🇷',
+    isoCode: 'HR',
+    geoName: 'Croatia',
+    authorityName: 'CroAI & AZOP (Datenschutzagentur) & Wirtschaftsministerium',
+    authorityAcronym: 'MINGOR / AZOP',
+    roleType: 'Marktüberwachungsbehörde (MSA)',
+    status: 'In Vorbereitung (Frist 02.08.2025)',
+    sandboxStatus: 'Reallabor im Aufbau',
+    headquarters: 'Zagreb',
+    focusArea: 'CroAI Ökosystem (z. B. Infobip, Rimac) & Überwachung automatisierter Kommunikation',
+    description: 'Kroatien verfügt über eine sehr aktive KI-Wirtschaft (CroAI). Das Wirtschaftsministerium (MINGOR) und die Datenschutzbehörde AZOP bereiten die nationale Aufsichtsstruktur für Messaging- und Mobilitäts-KI vor.',
+    keyFacts: [
+      'Starkes Unternehmensnetzwerk CroAI treibt Standards für KI-Transparenz voran',
+      'AZOP führt intensive Prüfungen zu Betreiberpflichten nach Art. 26 durch',
+      'Vorbereitung nationaler Reallabore für autonome Mobilität und Conversational AI'
+    ],
+    nationalSpecifics: 'Kroatische KI-Initiativen fokussieren sich auf automatisierte Kundenkommunikation und Transparenz nach Art. 50.',
+    officialUrl: 'https://mingor.gov.hr',
+    nationalQuestion: {
+      questionTitle: '8. [Kroatien / AZOP] Erfüllt das System die Kennzeichnungspflichten für automatisierte Konversation nach Art. 50?',
+      questionSubtitle: 'Die kroatische Aufsicht legt den Schwerpunkt auf unmissverständliche Nutzerhinweise bei Conversational AI.',
+      legalRef: 'Art. 50 Abs. 1 AI Act & AZOP-Praxis',
+      options: [
+        {
+          label: 'Ja, eindeutiger und transparenter KI-Hinweis bei Erstkontakt für kroatische Endkunden implementiert',
+          description: 'Kunden erkennen sofort, dass die Kommunikation über KI gesteuert wird.',
+          points: 15
+        },
+        {
+          label: 'Hinweis existiert im Impressum/AGB, aber nicht direkt im Chat-Widget',
+          description: 'Transparenz ist nur versteckt auffindbar.',
+          points: 5,
+          gapWarning: 'Art. 50 fordert den Hinweis unmittelbar im Interaktionszeitpunkt, nicht versteckt in den AGB.'
+        },
+        {
+          label: 'Kein Chatbot oder Kommunikationssystem (reines Backend-System)',
+          description: 'Keine direkte Interaktion mit Menschen.',
+          points: 15
+        }
+      ]
+    },
+    recommendedNextStep: 'Integrieren Sie einen sofort sichtbaren Transparenzhinweis in kroatische Kundenkontakt-Systeme.'
+  },
+  {
+    id: 'sk',
+    country: 'Slowakei',
+    flag: '🇸🇰',
+    isoCode: 'SK',
+    geoName: 'Slovakia',
+    authorityName: 'MIRRI (Ministerium für Investitionen & Regionalentwicklung) & ÚOOÚ',
+    authorityAcronym: 'MIRRI / ÚOOÚ',
+    roleType: 'Marktüberwachungsbehörde (MSA)',
+    status: 'Gesetzgebung im parlamentarischen Verfahren',
+    sandboxStatus: 'Reallabor im Aufbau',
+    headquarters: 'Bratislava',
+    focusArea: 'Kempelen-Institut für intelligente Technologien (KInIT) & Automotive-KI',
+    description: 'In der Slowakei steuert das MIRRI die Umsetzung des AI Act mit Unterstützung des KInIT-Forschungsinstituts. Die slowakische Wirtschaft ist stark durch Automobilfertigung und Zulieferketten geprägt.',
+    keyFacts: [
+      'Kempelen Institute (KInIT) erforscht Desinformation, Bias und Erklärbarkeit von KI-Modellen',
+      'MIRRI fördert KI-Reallabore für Fertigungs- und Industrieprozesse',
+      'Enge grenzüberschreitende Kooperation mit tschechischen und österreichischen Behörden'
+    ],
+    nationalSpecifics: 'Slowakischer KI-Aktionsplan: Zertifizierung von KI-Qualitätsprüfern in Zusammenarbeit mit KInIT.',
+    officialUrl: 'https://mirri.gov.sk',
+    nationalQuestion: {
+      questionTitle: '8. [Slowakei / MIRRI] Wurde die Systemrobustheit gegen fehlerhafte Sensordaten in Industrie-Pipelines auditiert?',
+      questionSubtitle: 'In der Slowakei steht die funktionale Sicherheit von KI-Komponenten in automatisierten Produktionslinien im Fokus.',
+      legalRef: 'Art. 15 AI Act & KInIT-Kriterien',
+      options: [
+        {
+          label: 'Ja, Rausch- und Anomalie-Tests der Sensordaten wurden erfolgreich dokumentiert',
+          description: 'System fängt Sensorfehler sicher ab und verhindert Fehlsteuerungen.',
+          points: 15
+        },
+        {
+          label: 'Tests unter Idealbedingungen durchgeführt, Stresstests stehen noch aus',
+          description: 'Ausfallverhalten bei Datenstörungen ist noch nicht abschließend validiert.',
+          points: 8,
+          gapWarning: 'Art. 15 fordert ausdrücklich Robustheit gegen Datenrauschen und Sensoranomalien.'
+        },
+        {
+          label: 'Reine Büro-Software ohne Sensor- oder Industrieeingaben',
+          description: 'Keine hardwarenahe Datenerfassung.',
+          points: 15
+        }
+      ]
+    },
+    recommendedNextStep: 'Führen Sie automatisierte Rausch- und Drift-Tests für slowakische Produktionssysteme durch.'
+  },
+  {
+    id: 'si',
+    country: 'Slowenien',
+    flag: '🇸🇮',
+    isoCode: 'SI',
+    geoName: 'Slovenia',
+    authorityName: 'Ministerium für digitale Transformation (MDP) & IRCAI (UNESCO)',
+    authorityAcronym: 'MDP / IRCAI',
+    roleType: 'Marktüberwachungsbehörde (MSA)',
+    status: 'Aktiv benannt',
+    sandboxStatus: 'Reallabor aktiv',
+    headquarters: 'Ljubljana',
+    focusArea: 'UNESCO International Research Centre on AI (IRCAI) & Ethische KI-Audits',
+    description: 'Slowenien ist Heimat des UNESCO-KI-Zentrums IRCAI am Jožef-Stefan-Institut. Das Ministerium für digitale Transformation MDP verbindet modernste Ethik-Forschung mit den Marktüberwachungspflichten des AI Acts.',
+    keyFacts: [
+      'UNESCO-Zentrum IRCAI entwickelt globale Referenzrahmen für ethische KI-Governance',
+      'Jožef-Stefan-Institut als europäisches Spitzenzentrum für Data Science und semantische Technologien',
+      'Vorreiter bei der Bereitstellung standardisierter Bias-Audit-Tools'
+    ],
+    nationalSpecifics: 'Slowenische KI-Strategie NpUI: Starke Betonung der Menschenrechte und UNESCO-Ethik-Empfehlungen.',
+    officialUrl: 'https://www.gov.si/drzavni-organi/ministrstva/ministrstvo-za-digitalno-preobrazbo/',
+    nationalQuestion: {
+      questionTitle: '8. [Slowenien / IRCAI & MDP] Entspricht die Risikobewertung den UNESCO- und IRCAI-Leitlinien für Grundrechtsschutz?',
+      questionSubtitle: 'Slowenien verlangt bei Hochrisiko-Systemen detaillierte Grundrechte-Folgenabschätzungen nach Art. 27.',
+      legalRef: 'Art. 27 AI Act & UNESCO/IRCAI Leitlinien',
+      options: [
+        {
+          label: 'Ja, Grundrechte-Folgenabschätzung (FRIA) nach Art. 27 liegt vollständig vor',
+          description: 'Auswirkungen auf Nichtdiskriminierung, Privatsphäre und Fairness sind systematisch bewertet.',
+          points: 15
+        },
+        {
+          label: 'Datenschutz-Folgenabschätzung (DSFA) liegt vor, aber keine KI-spezifische FRIA',
+          description: 'Allgemeiner Datenschutz ist geprüft, soziale Auswirkungen jedoch nicht.',
+          points: 8,
+          gapWarning: 'Art. 27 verlangt von bestimmten Betreibern vor Inbetriebnahme eine echte Fundamental Rights Impact Assessment.'
+        },
+        {
+          label: 'Kein Hochrisiko-Einsatz mit Auswirkungen auf Grundrechte',
+          description: 'Minimales Risiko ohne Beeinträchtigung natürlicher Personen.',
+          points: 15
+        }
+      ]
+    },
+    recommendedNextStep: 'Erstellen Sie eine dokumentierte Grundrechte-Folgenabschätzung (Art. 27) zur Vorlage bei Aufsichtsbehörden.'
+  },
+  {
+    id: 'lt',
+    country: 'Litauen',
+    flag: '🇱🇹',
+    isoCode: 'LT',
+    geoName: 'Lithuania',
+    authorityName: 'Ministerium für Wirtschaft und Innovation (EIMIN) & VDAI',
+    authorityAcronym: 'EIMIN / VDAI',
+    roleType: 'Marktüberwachungsbehörde (MSA)',
+    status: 'Gesetzgebung im parlamentarischen Verfahren',
+    sandboxStatus: 'Reallabor aktiv',
+    headquarters: 'Vilnius',
+    focusArea: 'FinTech-Regulierung, AI Sandbox Vilnius & Cyber-Resilienz',
+    description: 'Litauen ist einer der führenden FinTech-Standorte Europas. Das Wirtschaftsministerium EIMIN und die Datenschutzbehörde VDAI betreiben spezialisierte Reallabore für KI-gestützte Finanz- und Zahlungssysteme.',
+    keyFacts: [
+      'Vilnius FinTech Sandbox als europäischer Referenzort für regulierte KI-Innovationen',
+      'Strikte Marktüberwachung bei algorithmenbasierter Geldwäschebekämpfung (AML-KI)',
+      'Litauische KI-Strategie fördert Open Data für das Modelltraining'
+    ],
+    nationalSpecifics: 'Litauische FinTech-Regulierung: Bank of Lithuania verlangt strenge Modellvalidierung bei automatisiertem Scoring.',
+    officialUrl: 'https://eimin.lrv.lt',
+    nationalQuestion: {
+      questionTitle: '8. [Litauen / EIMIN] Wurden Algorithmen zur Betrugs- und Geldwäscheerkennung gegen ungerechtfertigte Kontosperrungen validiert?',
+      questionSubtitle: 'In Litauen prüfen Aufsichtsbehörden AML- und Betrugserkennungs-KI auf Diskriminierung und menschliche Eskalationspfade.',
+      legalRef: 'Art. 14 AI Act & Bank of Lithuania AML-Leitlinien',
+      options: [
+        {
+          label: 'Ja, menschliche Freigabe und Einspruchsprozesse bei automatisierten Kontomaßnahmen sind garantiert',
+          description: 'Kunden können bei Sperrungen sofort eine menschliche Prüfung verlangen.',
+          points: 15
+        },
+        {
+          label: 'Automatisierte Sperrungen aktiv, manuelle Überprüfung erfolgt nur mit Verzögerung',
+          description: 'Keine sofortige Interventionsmöglichkeit nach Art. 14.',
+          points: 7,
+          gapWarning: 'Art. 14 verlangt wirksame Kontrollmöglichkeiten gegen ungerechtfertigte Eingriffe.'
+        },
+        {
+          label: 'Kein Einsatz im Finanz-, Transaktions- oder Scoring-Bereich',
+          description: 'Keine Betrugserkennung natürlicher Personen.',
+          points: 15
+        }
+      ]
+    },
+    recommendedNextStep: 'Etablieren Sie einen klaren menschlichen Interventionsprozess nach Art. 14 für litauische Finanzsysteme.'
+  },
+  {
+    id: 'lv',
+    country: 'Lettland',
+    flag: '🇱🇻',
+    isoCode: 'LV',
+    geoName: 'Latvia',
+    authorityName: 'VARAM (Ministerium für Umwelt & regionale Entwicklung) & DVI',
+    authorityAcronym: 'VARAM / DVI',
+    roleType: 'Marktüberwachungsbehörde (MSA)',
+    status: 'In Vorbereitung (Frist 02.08.2025)',
+    sandboxStatus: 'Konzeptphase',
+    headquarters: 'Riga',
+    focusArea: 'Sprachtechnologien für weniger verbreitete Sprachen & digitale Verwaltung',
+    description: 'Lettland hat herausragende Kompetenzen im Bereich natürlicher Sprachverarbeitung (NLP) für baltische Sprachen entwickelt (z. B. Tilde). Das VARAM koordiniert die Benennung der notifizierenden Stellen.',
+    keyFacts: [
+      'Lettland ist Spitzenreiter bei Sprachtechnologien und maschineller Übersetzung für EU-Minderheitssprachen',
+      'Staatliche Datenschutzinspektion (DVI) überwacht KI-Datenpipelines',
+      'Integration von Sprachtools in den baltischen Bildungs- und Behördensektor'
+    ],
+    nationalSpecifics: 'Lettische KI-Strategie: Vermeidung von Sprach-Bias bei LLM-Übersetzungen und Behörden-Bots.',
+    officialUrl: 'https://www.varam.gov.lv',
+    nationalQuestion: {
+      questionTitle: '8. [Lettland / VARAM] Wurde das System auf Sprach-Bias und Genauigkeit bei baltischen Sprachen evaluiert?',
+      questionSubtitle: 'In Lettland fordert die Aufsicht Nachweise über fehlerfreie Verarbeitung und Nichtdiskriminierung lokaler Landessprachen.',
+      legalRef: 'Art. 10 Abs. 2 lit. f & Art. 15 AI Act',
+      options: [
+        {
+          label: 'Ja, Genauigkeit und Sprachneutralität für regionale Sprachen wurden formal evaluiert',
+          description: 'NLP-Modelle weisen dokumentierte Fehlerraten für baltische Sprachen auf.',
+          points: 15
+        },
+        {
+          label: 'Modell wurde primär auf Englisch trainiert, lettische Leistung wurde nicht gesondert gemessen',
+          description: 'Verzerrungen und Halluzinationen in regionalen Sprachen sind nicht quantifiziert.',
+          points: 8,
+          gapWarning: 'Art. 10 fordert Repräsentativität und Kontextangemessenheit der Datensätze.'
+        },
+        {
+          label: 'Kein NLP- oder Textgenerierungsmodell im Einsatz (rein numerische Daten)',
+          description: 'Keine Sprachverarbeitung.',
+          points: 15
+        }
+      ]
+    },
+    recommendedNextStep: 'Evaluieren Sie Sprachmodelle auf Genauigkeit und Nichtdiskriminierung in lettischen Sprachkontexten.'
+  },
+  {
+    id: 'cy',
+    country: 'Zypern',
+    flag: '🇨🇾',
+    isoCode: 'CY',
+    geoName: 'Cyprus',
+    authorityName: 'DMRID (Unterministerium für Forschung, Innovation & Digitales) & Datenschutzkommission',
+    authorityAcronym: 'DMRID / CPDP',
+    roleType: 'Marktüberwachungsbehörde (MSA)',
+    status: 'In Vorbereitung (Frist 02.08.2025)',
+    sandboxStatus: 'Konzeptphase',
+    headquarters: 'Nikosia',
+    focusArea: 'Maritime KI, Schifffahrts-Logistik und Mittelmeer-Finanzdienstleistungen',
+    description: 'Zypern nutzt seine maritime Stärke und positioniert sich für KI in der Schifffahrt, Hafenlogistik und internationalen Dienstleistungen. DMRID leitet die Gesetzgebung zur Marktüberwachung.',
+    keyFacts: [
+      'Starker Fokus auf maritime KI (Schiffssicherheit, Routenoptimierung, autonome Frachter)',
+      'Zyprische nationale KI-Strategie betont ethische Governance im Offshore-Dienstleistungssektor',
+      'Kooperation mit Griechenland bei regulatorischen Reallaboren'
+    ],
+    nationalSpecifics: 'Maritime KI: Schnittstelle zwischen internationalen Seeschifffahrtsregeln (IMO) und dem EU AI Act.',
+    officialUrl: 'https://www.dmrid.gov.cy',
+    nationalQuestion: {
+      questionTitle: '8. [Zypern / DMRID] Handelt es sich um ein maritimes Sicherheits- oder Logistiksystem mit Anhang-I-Relevanz?',
+      questionSubtitle: 'In Zypern unterliegen KI-Systeme im Seeverkehr doppelten Standards nach IMO-Vorschriften und dem AI Act.',
+      legalRef: 'Art. 6 Abs. 1 & Anhang I AI Act',
+      options: [
+        {
+          label: 'Ja, Konformität ist sowohl maritim (IMO) als auch nach AI Act voll dokumentiert',
+          description: 'Ausfallsicherheit und Redundanz für Schifffahrtsprozesse liegen vor.',
+          points: 15
+        },
+        {
+          label: 'Reine B2B-Verwaltungssoftware ohne Sicherheitsrelevanz für Seefahrt oder Logistik',
+          description: 'Kein Anhang-I-Bezug.',
+          points: 15
+        },
+        {
+          label: 'Maritime KI im Einsatz, Überlappung mit Schiffssicherheitsnormen jedoch ungeprüft',
+          description: 'Konformitätsverfahren nach AI Act wurde noch nicht mit IMO-Zulassungen synchronisiert.',
+          points: 0,
+          gapWarning: 'Sicherheitskomponenten im maritimen Verkehr dürfen ohne vollständige Prüfung nicht eingesetzt werden.'
+        }
+      ]
+    },
+    recommendedNextStep: 'Harmonisieren Sie maritime KI-Dokumentation mit den Anforderungen der zyprischen Schifffahrtsbehörden.'
+  },
+  {
+    id: 'mt',
+    country: 'Malta',
+    flag: '🇲🇹',
+    isoCode: 'MT',
+    geoName: 'Malta',
+    authorityName: 'MDIA (Malta Digital Innovation Authority) & IDPC',
+    authorityAcronym: 'MDIA / IDPC',
+    roleType: 'Marktüberwachungsbehörde (MSA)',
+    status: 'Aktiv benannt',
+    sandboxStatus: 'Reallabor aktiv',
+    headquarters: 'Valletta',
+    focusArea: 'Pionier bei staatlicher KI-Zertifizierung & Gaming-/iGaming-Algorithmen',
+    description: 'Malta gründete bereits 2018 die Malta Digital Innovation Authority (MDIA) und schuf das weltweit erste staatliche Zertifizierungsprogramm für KI und innovative Technologievereinbarungen (ITA).',
+    keyFacts: [
+      'Pionier: MDIA AI Certification Framework bereits vor dem EU AI Act aktiv',
+      'Umfassende Erfahrung bei der Auditierung von Algorithmen in Gaming, iGaming und FinTech',
+      'Etabliertes Technology Assurance Sandbox-Programm'
+    ],
+    nationalSpecifics: 'MDIA Technology Assurance Framework: Eines der ältesten und erprobtesten KI-Zertifizierungsmodelle Europas.',
+    officialUrl: 'https://mdia.gov.mt',
+    nationalQuestion: {
+      questionTitle: '8. [Malta / MDIA] Wurde das System nach dem maltesischen MDIA Technology Assurance Framework zertifiziert?',
+      questionSubtitle: 'Malta verfügt über ein staatliches Zertifizierungssystem (MDIA), das Audit-Prüfungen für Algorithmen anbietet.',
+      legalRef: 'MDIA AI Framework & Art. 43 AI Act',
+      options: [
+        {
+          label: 'Ja, MDIA-Zertifizierung oder Konformitätsbewertung durch akkreditierte Auditoren liegt vor',
+          description: 'Technischer Code und Risikoparameter wurden unabhängig auditiert.',
+          points: 15
+        },
+        {
+          label: 'Interne Qualitätssicherung aktiv, externe MDIA-Auditierung steht noch aus',
+          description: 'System wird nach internen Benchmarks geprüft.',
+          points: 10
+        },
+        {
+          label: 'Bisher keine formale Zertifizierung oder externe Überprüfung erfolgt',
+          description: 'Kein formales Zertifikat vorhanden.',
+          points: 5,
+          gapWarning: 'Für Hochrisiko-Systeme ist eine formale Konformitätsbewertung nach Art. 43 zwingend.'
+        }
+      ]
+    },
+    recommendedNextStep: 'Nutzen Sie das erfahrene MDIA Technology Assurance Framework für eine unabhängige Vorauditierung.'
+  },
+  {
+    id: 'uk',
+    country: 'Großbritannien',
+    flag: '🇬🇧',
+    isoCode: 'UK',
+    geoName: 'United Kingdom',
+    authorityName: 'DSIT (Department for Science, Innovation and Technology) & ICO & CMA',
+    authorityAcronym: 'DSIT / ICO',
+    roleType: 'Marktüberwachungsbehörde (MSA)',
+    status: 'Aktiv benannt',
+    sandboxStatus: 'Reallabor aktiv',
+    headquarters: 'London',
+    focusArea: 'Sektorale KI-Regulierung (Pro-Innovation Approach) & UK AI Safety Institute',
+    description: 'Großbritannien verfolgt nach dem Brexit einen prinzipienbasierten, sektoralen Regulierungsansatz ohne eigenes horizontales KI-Gesetz. UK-Unternehmen unterliegen jedoch voll dem EU AI Act, wenn sie Kunden in der EU bedienen (Art. 2).',
+    keyFacts: [
+      'UK AI Safety Institute leitet globale Frontier-Model-Evaluierungen',
+      'Information Commissioner\'s Office (ICO) auditiert KI streng nach UK-GDPR',
+      'Extraterritoriale Bindung: UK-Entwickler müssen für den EU-Markt CE-Kennzeichnung führen'
+    ],
+    nationalSpecifics: 'Pro-Innovation Approach: Keine universelle Behörde, sondern Aufsicht durch ICO, FCA, CMA und MHRA. EU-Exporteure brauchen EU-Bevollmächtigte (Art. 22).',
+    officialUrl: 'https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology',
+    nationalQuestion: {
+      questionTitle: '8. [UK / Post-Brexit Extraterritorialität] Wurde für den EU-Vertrieb ein EU-Bevollmächtigter (Art. 22) benannt?',
+      questionSubtitle: 'UK-basierte Unternehmen müssen bei Bereitstellung von Systemen in der EU zwingend einen bevollmächtigten Vertreter in der EU mandatieren.',
+      legalRef: 'Art. 2 Abs. 1 lit. c & Art. 22 AI Act',
+      options: [
+        {
+          label: 'Ja, schriftliches EU-Bevollmächtigten-Mandat mit Sitz in der EU liegt vor',
+          description: 'Vertretung gegenüber europäischen Marktüberwachungsbehörden ist rechtssicher gewährleistet.',
+          points: 15
+        },
+        {
+          label: 'System wird ausschließlich im Vereinigten Königreich für UK-Kunden betrieben',
+          description: 'Keine Ausspielung von Outputs oder Diensten in den EU-Binnenmarkt.',
+          points: 15
+        },
+        {
+          label: 'Wir bedienen Kunden in der EU, haben aber keinen Bevollmächtigten nach Art. 22 benannt',
+          description: 'Vertretung in der EU fehlt bislang.',
+          points: 0,
+          gapWarning: 'Verstoß gegen Art. 22: Ohne EU-Bevollmächtigten droht ein sofortiger Vertriebsstopp für den EU-Markt.'
+        }
+      ]
+    },
+    recommendedNextStep: 'Bestellen Sie als UK-Unternehmen vor dem Vertrieb in die EU einen rechtlich bevollmächtigten Vertreter (Art. 22).'
   }
 ];
