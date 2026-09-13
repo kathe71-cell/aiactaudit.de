@@ -155,9 +155,11 @@ export const SearchModal: React.FC<SearchModalProps> = ({
           )}
           <button
             onClick={onClose}
-            className="hidden sm:inline-flex items-center gap-1 text-[11px] font-mono font-semibold text-slate-400 px-2 py-1 rounded bg-slate-200/60 border border-slate-300 hover:text-slate-700"
+            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200/70 transition-colors cursor-pointer"
+            title="Schließen (ESC)"
+            aria-label="Suche schließen"
           >
-            ESC
+            <X className="w-5 h-5" />
           </button>
         </div>
 
