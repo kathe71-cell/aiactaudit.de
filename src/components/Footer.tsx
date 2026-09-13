@@ -1,5 +1,6 @@
 import React from 'react';
-import { ShieldCheck, Scale, CheckCircle2 } from 'lucide-react';
+import { Scale, CheckCircle2 } from 'lucide-react';
+import { LogoMark } from './LogoMark';
 
 interface FooterProps {
   navigate: (path: string) => void;
@@ -45,8 +46,8 @@ export const Footer: React.FC<FooterProps> = ({ navigate }) => {
           {/* Col 1: Brand summary */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-emerald-950 border border-emerald-800 flex items-center justify-center">
-                <ShieldCheck className="w-6 h-6 text-emerald-400" />
+              <div className="w-10 h-10 rounded-xl bg-slate-950 border border-slate-800 text-white flex items-center justify-center">
+                <LogoMark className="w-6 h-6 text-white" />
               </div>
               <span className="text-xl font-black text-white tracking-tight">AI Act Audit</span>
             </div>

@@ -1,10 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
-  <rect width="48" height="48" rx="12" fill="#0f172a"/>
-  <path d="M24 8L12 13V23C12 30.5 17.1 37.5 24 40C30.9 37.5 36 30.5 36 23V13L24 8Z" fill="#1e293b" stroke="#10b981" stroke-width="2" stroke-linejoin="round"/>
-  <circle cx="24" cy="20" r="3" fill="#10b981"/>
-  <path d="M24 23V27" stroke="#10b981" stroke-width="2" stroke-linecap="round"/>
-  <circle cx="18" cy="28" r="2" fill="#38bdf8"/>
-  <circle cx="30" cy="28" r="2" fill="#38bdf8"/>
-  <path d="M18 28L24 27L30 28" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/>
-  <path d="M19 33L23 36L29 30" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Minimalist Obsidian Container -->
+  <rect width="32" height="32" rx="7" fill="#090d16"/>
+  <!-- Geometric Top Beam -->
+  <path d="M5 9L16 4.5L27 9L24.5 11.2L16 7.8L7.5 11.2L5 9Z" fill="#ffffff"/>
+  <!-- Lower Chevron Base -->
+  <path d="M6 22L16 26.5L26 22V24.5L16 29L6 24.5V22Z" fill="#94a3b8"/>
+  <!-- Aperture Lateral Brackets -->
+  <path d="M6 14.5L10 16.5V19.5L6 17.5V14.5Z" fill="#64748b"/>
+  <path d="M26 14.5L22 16.5V19.5L26 17.5V14.5Z" fill="#64748b"/>
+  <!-- Central Precision Compliance Diamond -->
+  <rect x="13.2" y="14.2" width="5.2" height="5.2" rx="1" fill="#10b981" transform="rotate(45 15.8 16.8)"/>
 </svg>

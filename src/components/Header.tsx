@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ShieldCheck, Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowRight } from 'lucide-react';
+import { LogoMark } from './LogoMark';
 
 interface HeaderProps {
   currentPath: string;
@@ -49,13 +50,13 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
             onClick={() => handleNav('/')}
             className="cursor-pointer flex items-center gap-3 group"
           >
-            <div className="w-11 h-11 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center shadow-xs transition-transform group-hover:scale-105">
-              <ShieldCheck className="w-6 h-6 text-emerald-400" />
+            <div className="w-10 h-10 rounded-xl bg-slate-950 border border-slate-800 text-white flex items-center justify-center shadow-xs transition-transform group-hover:scale-105">
+              <LogoMark className="w-6 h-6 text-white" />
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-xl sm:text-2xl text-slate-950 tracking-tight">AI Act Audit</span>
-                <span className="text-xs font-bold bg-emerald-100 text-emerald-900 border border-emerald-300 px-1.5 py-0.5 rounded-sm">.de</span>
+                <span className="font-black text-xl sm:text-2xl text-slate-950 tracking-tight">AI Act Audit</span>
+                <span className="text-[11px] font-black bg-emerald-100 text-emerald-950 border border-emerald-300 px-1.5 py-0.5 rounded-sm">.de</span>
               </div>
               <p className="text-[11px] text-slate-500 font-medium tracking-wide">EU Regulatory Intelligence &amp; Audit-Readiness</p>
             </div>
