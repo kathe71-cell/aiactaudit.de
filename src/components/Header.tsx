@@ -15,8 +15,6 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
     { label: 'Policy-Screener', path: '/#policy-screener', targetId: 'policy-screener' },
     { label: 'Hochrisiko-Matrix', path: '/hochrisiko-matrix' },
     { label: 'Fristen-Guide', path: '/fristen-guide' },
-    { label: 'Bußgeld-Rechner', path: '/#bussgeld', targetId: 'bussgeld' },
-    { label: 'FAQ', path: '/#faq', targetId: 'faq' },
   ];
 
   const handleNav = (path: string, targetId?: string) => {
@@ -64,7 +62,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
           </div>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden xl:flex items-center gap-5">
+          <nav className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) => (
               <button
                 key={link.label}
@@ -77,7 +75,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
           </nav>
 
           {/* Right Action CTA */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden sm:flex items-center gap-3">
             <button
               onClick={() => handleNav('/audit-check')}
               className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs px-4 py-2.5 rounded-xl shadow-xs transition-all hover:shadow-md cursor-pointer"
@@ -112,7 +110,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
               {link.label}
             </button>
           ))}
-          <div className="pt-3 border-t border-slate-100">
+          <div className="pt-3 border-t border-slate-100 sm:hidden">
             <button
               onClick={() => handleNav('/audit-check')}
               className="w-full inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm px-4 py-3 rounded-xl shadow-xs"
