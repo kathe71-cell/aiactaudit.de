@@ -43,14 +43,13 @@ export const Hero: React.FC<HeroProps> = ({ navigate, onScrollToFinder }) => {
           
           {/* Left Hero Column: B2B Value Proposition */}
           <div className="lg:col-span-7 space-y-6">
-            <h1 className="text-3xl sm:text-5xl lg:text-[46px] font-black text-slate-950 tracking-tight leading-[1.14]">
-              Europas führende <span className="text-emerald-700 underline decoration-emerald-300 decoration-wavy underline-offset-4">Regulatory Intelligence</span> &amp; Audit-Plattform für den EU AI Act
+            <h1 className="text-3xl sm:text-5xl lg:text-[44px] font-black text-slate-950 tracking-tight leading-[1.15]">
+              EU AI Act <span className="text-emerald-700 underline decoration-emerald-300 decoration-wavy underline-offset-4">Regulatory Intelligence</span> &amp; Audit-Readiness für Unternehmen
             </h1>
 
             <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-normal">
-              Die maßgeblichen Rechtsakte liegen dort, wo herkömmliche Suchmaschinen und allgemeine KI nicht hinreichen: 
-              Wir erfassen fortlaufend alle Veröffentlichungen des <strong>EU AI Office, der BaFin, des BSI und von CEN-CENELEC</strong>, 
-              übersetzen Gesetzesänderungen in konkrete Handlungspflichten nach <strong>Art. 9–15</strong> und begleiten Sie lückenlos bis zur behördlichen Audit-Readiness.
+              Systematische Überwachung aller Rechtsakte des <strong>EU AI Office, der BaFin, des BSI und von CEN-CENELEC</strong>. 
+              Wir übersetzen Gesetzesänderungen in konkrete Handlungspflichten nach <strong>Art. 9–15</strong> und begleiten Sie lückenlos bis zur behördlichen Audit-Readiness und CE-Kennzeichnung.
             </p>
 
             {/* CTAs */}
@@ -105,27 +104,8 @@ export const Hero: React.FC<HeroProps> = ({ navigate, onScrollToFinder }) => {
 
           </div>
 
-          {/* Right Card: Myriad-Style Multi-Layer Deck Component */}
-          <div className="lg:col-span-5 relative pt-10">
-            
-            {/* Background Floating Stack Cards - Positioned clearly above main card */}
-            <div className="hidden lg:flex items-center justify-between absolute top-1 right-2 w-[78%] bg-white border border-slate-300/80 rounded-t-xl px-4 py-2 shadow-xs rotate-[2deg] pointer-events-none -z-10">
-              <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-700">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
-                <span>Watchtower · EU AI Act</span>
-              </div>
-              <span className="text-[10px] bg-emerald-100 text-emerald-900 border border-emerald-300 font-extrabold px-1.5 py-0.5 rounded">AKTIV</span>
-            </div>
-
-            <div className="hidden lg:flex items-center justify-between absolute -top-4 left-2 w-[75%] bg-slate-100 border border-slate-300/80 rounded-t-xl px-4 py-2 shadow-xs -rotate-[2deg] pointer-events-none -z-10">
-              <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-700">
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-600" />
-                <span>Policy Screener · Audit-Trail</span>
-              </div>
-              <span className="text-[10px] bg-amber-100 text-amber-900 border border-amber-300 font-extrabold px-1.5 py-0.5 rounded">GAP-SCAN</span>
-            </div>
-
-            {/* Foreground Main SaaS Interface Widget */}
+          {/* Right Card: Clean SaaS Interface Widget */}
+          <div className="lg:col-span-5">
             <div className="bg-white rounded-2xl border border-slate-200 shadow-xl p-6 relative">
               
               {/* Top Selector Bar */}
