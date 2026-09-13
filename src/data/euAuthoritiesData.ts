@@ -218,6 +218,53 @@ export const EU_AUTHORITIES_DATA: EUAuthorityInfo[] = [
     recommendedNextStep: 'Benennen Sie unverzüglich einen EU-Bevollmächtigten nach Art. 22 mit Sitz in einem EU-Mitgliedsstaat (z. B. Deutschland oder Österreich).'
   },
   {
+    id: 'gr',
+    country: 'Griechenland',
+    flag: '🇬🇷',
+    isoCode: 'GR',
+    geoName: 'Greece',
+    authorityName: 'Ministerium für digitale Governance & HDPA (Datenschutz)',
+    authorityAcronym: 'Mindigital / HDPA',
+    roleType: 'Marktüberwachungsbehörde (MSA)',
+    status: 'Gesetzgebung im parlamentarischen Verfahren',
+    sandboxStatus: 'Reallabor im Aufbau',
+    headquarters: 'Athen',
+    focusArea: 'Gesetz 4961/2022 (Griechisches KI-Rahmengesetz) & Vorreiter bei Ethik-Ausschüssen',
+    description: 'Griechenland hat bereits 2022 mit Gesetz 4961/2022 einen nationalen Rechtsrahmen für KI im öffentlichen und privaten Sektor geschaffen, der Algorithmenregister und Ethikausschüsse vorschreibt.',
+    keyFacts: [
+      'Pioniergesetz 4961/2022 verpflichtet private Unternehmen zur Folgenabschätzung bei algorithmischer HR-Auswahl',
+      'Hellenic Data Protection Authority (HDPA) überwacht biometrische Identifikationssysteme strikt',
+      'Aufbau des ersten nationalen KI-Reallabors im Athener Tech-Hub'
+    ],
+    nationalSpecifics: 'Griechisches Gesetz 4961/2022: Pflicht zur Einrichtung von Ethikausschüssen für KI in mittleren und großen Unternehmen.',
+    officialUrl: 'https://mindigital.gr',
+    nationalQuestion: {
+      questionTitle: '8. [Griechenland / Gesetz 4961/2022] Wurde ein Ethikausschuss eingerichtet und das nationale Algorithmenregister beachtet?',
+      questionSubtitle: 'In Griechenland verlangt Art. 7 ff. des Gesetzes 4961/2022 ethische Vorprüfungen und Registerpflichten bei KI-Einsatz.',
+      legalRef: 'Griechisches Gesetz 4961/2022 & Art. 26 AI Act',
+      options: [
+        {
+          label: 'Ja, ethische Konformitätsprüfung nach Gesetz 4961/2022 durchgeführt',
+          description: 'Interne Richtlinien und Transparenzpflichten für algorithmische Entscheidungen sind hinterlegt.',
+          points: 15
+        },
+        {
+          label: 'System erfüllt Standard-AI-Act, griechische Sondernormen wurden aber noch nicht geprüft',
+          description: 'Prüfung nach EU-Vorgaben läuft, lokales Gesetz 4961/2022 steht noch aus.',
+          points: 8,
+          gapWarning: 'Unternehmen mit griechischen Niederlassungen müssen Ethikausschuss-Vorgaben nach Gesetz 4961/2022 beachten.'
+        },
+        {
+          label: 'Bisher keine Prüfung der griechischen Gesetzeslage',
+          description: 'Keine Dokumentation nach Gesetz 4961/2022 vorhanden.',
+          points: 0,
+          gapWarning: 'In Griechenland drohen arbeits- und datenschutzrechtliche Beanstandungen der HDPA.'
+        }
+      ]
+    },
+    recommendedNextStep: 'Prüfen Sie bei Betrieb in Griechenland die Pflichten zur Einsetzung eines betrieblichen Ethikausschusses nach Gesetz 4961/2022.'
+  },
+  {
     id: 'fr',
     country: 'Frankreich',
     flag: '🇫🇷',
@@ -719,5 +766,187 @@ export const EU_AUTHORITIES_DATA: EUAuthorityInfo[] = [
       ]
     },
     recommendedNextStep: 'Prüfen Sie bei innovativen Modellen die Anmeldung in einer portugiesischen ZLT vor dem Rollout.'
+  },
+  {
+    id: 'cz',
+    country: 'Tschechien',
+    flag: '🇨🇿',
+    isoCode: 'CZ',
+    geoName: 'Czech Republic',
+    authorityName: 'Ministerstvo průmyslu a obchodu (MPO) & ÚOOÚ',
+    authorityAcronym: 'MPO / ÚOOÚ',
+    roleType: 'Marktüberwachungsbehörde (MSA)',
+    status: 'Gesetzgebung im parlamentarischen Verfahren',
+    sandboxStatus: 'Reallabor im Aufbau',
+    headquarters: 'Prag',
+    focusArea: 'Industrie 4.0, Robotik-KI und Produktsicherheits-Integration',
+    description: 'Das Ministerium für Industrie und Handel (MPO) koordiniert die Marktüberwachung für industrielle und eingebettete KI in Zusammenarbeit mit dem Tschechischen Datenschutzamt (ÚOOÚ).',
+    keyFacts: [
+      'Starker Fokus auf KI im Maschinenbau und Automotive-Zulieferbereich (Anhang I)',
+      'Prager KI-Cluster für Cybersicherheit und Machine Learning'
+    ],
+    nationalSpecifics: 'Nationale KI-Strategie der Tschechischen Republik (NAIS) mit Schwerpunkt auf KMU-Förderung bei der CE-Zertifizierung.',
+    officialUrl: 'https://www.mpo.cz',
+    nationalQuestion: {
+      questionTitle: '8. [Tschechien / MPO] Handelt es sich um eine Sicherheitskomponente eines Maschinen- oder Industrie-4.0-Produkts (Anhang I)?',
+      questionSubtitle: 'Tschechien fokussiert sich auf die Schnittstelle zwischen der EU-Maschinenverordnung und dem AI Act.',
+      legalRef: 'Art. 6 Abs. 1 i.V.m. Anhang I AI Act',
+      options: [
+        {
+          label: 'Ja, Konformitätsbewertung wird mit der Maschinen-CE-Zertifizierung harmonisiert',
+          description: 'Sicherheitsbauteil erfüllt sowohl Maschinen- als auch KI-Verordnung.',
+          points: 15
+        },
+        {
+          label: 'Reine Software ohne Einbettung in physische Maschinen oder Industrieanlagen',
+          description: 'System unterliegt nicht den Anhang-I-Sondervorschriften.',
+          points: 15
+        },
+        {
+          label: 'Industrie-KI, aber Konformitätsüberlappung mit Maschinenrichtlinie noch ungeprüft',
+          description: 'Sicherheitsrisiken an Industrieanlagen sind nicht systematisch harmonisiert.',
+          points: 0,
+          gapWarning: 'Anhang I verlangt die einheitliche CE-Prüfung vor Inverkehrbringen in der Industrie.'
+        }
+      ]
+    },
+    recommendedNextStep: 'Prüfen Sie bei tschechischen Fertigungsstandorten die Konformitätsüberlappung mit der EU-Maschinenverordnung.'
+  },
+  {
+    id: 'ro',
+    country: 'Rumänien',
+    flag: '🇷🇴',
+    isoCode: 'RO',
+    geoName: 'Romania',
+    authorityName: 'Autoritatea pentru Digitalizarea României (ADR) & ANSPDCP',
+    authorityAcronym: 'ADR / ANSPDCP',
+    roleType: 'Marktüberwachungsbehörde (MSA)',
+    status: 'In Vorbereitung (Frist 02.08.2025)',
+    sandboxStatus: 'Konzeptphase',
+    headquarters: 'Bukarest',
+    focusArea: 'Digitalisierungsbehörde und Überwachung von IT-Outsourcing-Hubs',
+    description: 'Rumänien setzt auf die Digitalisierungsbehörde ADR zur Bündelung der KI-Marktaufsicht, insbesondere für den stark wachsenden IT-Dienstleistungssektor in Bukarest und Cluj-Napoca.',
+    keyFacts: [
+      'Bedeutender europäischer Entwicklungs- und BPO-Standort für KI-Datenannotation',
+      'Nationale KI-Strategie betont ethische Entwicklung und Datensicherheit'
+    ],
+    nationalSpecifics: 'Strategia Națională în domeniul Inteligenței Artificiale: Fokus auf Transparenz von Outsourcing-Lieferketten.',
+    officialUrl: 'https://www.adr.gov.ro',
+    nationalQuestion: {
+      questionTitle: '8. [Rumänien / ADR] Werden Qualitätsstandards bei Daten-Annotation und Modellentwicklung durch rumänische Teams dokumentiert?',
+      questionSubtitle: 'Rumänien legt Wert auf lückenlose Dokumentation von Data Labeling und menschlicher Vorfilterung.',
+      legalRef: 'Art. 10 Abs. 2–4 AI Act',
+      options: [
+        {
+          label: 'Ja, standardisierte Annotationsrichtlinien und Qualitätsmetriken für Trainingsdaten liegen vor',
+          description: 'Konsistenz und Bias-Kontrollen beim Labeling sind revisionssicher dokumentiert.',
+          points: 15
+        },
+        {
+          label: 'Annotations-Richtlinien existieren informell, aber keine statistische Qualitätsprüfung',
+          description: 'Kennzeichnung erfolgte nach Erfahrungswerten.',
+          points: 8,
+          gapWarning: 'Art. 10 fordert spezifische Governance-Verfahren bei der Datenbereinigung und Annotation.'
+        },
+        {
+          label: 'Keine Dokumentation über Herkunft oder Annotations-Methoden der Datensätze',
+          description: 'Trainingsdaten wurden ohne formale Dokumentation aufbereitet.',
+          points: 0,
+          gapWarning: 'Kritische Lücke bei behördlichen Audits nach Art. 10.'
+        }
+      ]
+    },
+    recommendedNextStep: 'Dokumentieren Sie die Annotation-Pipelines und Qualitätskontrollen Ihrer rumänischen Entwicklerteams.'
+  },
+  {
+    id: 'hu',
+    country: 'Ungarn',
+    flag: '🇭🇺',
+    isoCode: 'HU',
+    geoName: 'Hungary',
+    authorityName: 'Nemzeti Adatvédelmi és Információszabadság Hatóság (NAIH) & NKI',
+    authorityAcronym: 'NAIH / NKI',
+    roleType: 'Marktüberwachungsbehörde (MSA)',
+    status: 'Gesetzgebung im parlamentarischen Verfahren',
+    sandboxStatus: 'Reallabor im Aufbau',
+    headquarters: 'Budapest',
+    focusArea: 'Nationale Datenschutzbehörde (NAIH) & KI-Koalition für industrielle Automation',
+    description: 'In Ungarn übernimmt die NAIH die Aufsicht über Grundrechte und automatisierte Entscheidungen in enger Koordination mit der nationalen KI-Koalition (Mesterséges Intelligencia Koalíció).',
+    keyFacts: [
+      'Ungarische KI-Koalition vereint über 400 Industrie- und Forschungspartner',
+      'Strikte Auslegung der Informationsrechte betroffener Personen durch die NAIH'
+    ],
+    nationalSpecifics: 'Ungarische KI-Strategie 2020–2030: Fokus auf automatisierte Fertigung und Souveränität digitaler Infrastrukturen.',
+    officialUrl: 'https://www.naih.hu',
+    nationalQuestion: {
+      questionTitle: '8. [Ungarn / NAIH] Sind Auskunftsrechte und Erklärbarkeit gegenüber ungarischen Endnutzern gesichert?',
+      questionSubtitle: 'Die NAIH prüft automatisierte Entscheidungen mit Schwerpunkt auf Transparenz und Einspruchsmöglichkeiten.',
+      legalRef: 'Art. 86 AI Act & NAIH Leitlinien',
+      options: [
+        {
+          label: 'Ja, strukturierter Auskunftsprozess nach Art. 86 AI Act ist etabliert',
+          description: 'Betroffene Personen können die tragenden Gründe einer KI-Entscheidung unkompliziert anfordern.',
+          points: 15
+        },
+        {
+          label: 'Auskunft nach DSGVO (Art. 15) möglich, aber keine KI-spezifische Erklärbarkeit',
+          description: 'Begründungen für Score-Werte können nicht automatisiert ausgegeben werden.',
+          points: 8,
+          gapWarning: 'Art. 86 gewährt ein echtes Recht auf Erklärung bei Hochrisiko-Entscheidungen.'
+        },
+        {
+          label: 'Kein formaler Auskunfts- oder Begründungsprozess implementiert',
+          description: 'Systementscheidungen können gegenüber Betroffenen nicht erklärt werden.',
+          points: 0,
+          gapWarning: 'Erhebliches Sanktionsrisiko bei Beschwerden an die NAIH.'
+        }
+      ]
+    },
+    recommendedNextStep: 'Richten Sie einen Auskunftsworkflow nach Art. 86 zur Erklärung von KI-Einzelfallentscheidungen ein.'
+  },
+  {
+    id: 'no',
+    country: 'Norwegen',
+    flag: '🇳🇴',
+    isoCode: 'NO',
+    geoName: 'Norway',
+    authorityName: 'Datatilsynet & Digitaliseringsdirektoratet (Digdir)',
+    authorityAcronym: 'Datatilsynet / Digdir',
+    roleType: 'Marktüberwachungsbehörde (MSA)',
+    status: 'Aktiv benannt',
+    sandboxStatus: 'Reallabor aktiv',
+    headquarters: 'Oslo',
+    focusArea: 'EWR-Integration des AI Acts & Pionier des europäischen KI-Reallabors',
+    description: 'Als EWR-Mitglied übernimmt Norwegen den EU AI Act vollständig. Das norwegische Datatilsynet betreibt seit 2020 eines der renommiertesten KI-Reallabore Europas für ethische Algorithmen.',
+    keyFacts: [
+      'Pionier: Norwegisches Reallabor (Sandkasse for ansvarlig AI) seit 2020 im operativen Betrieb',
+      'Veröffentlichung wegweisender Fallstudien zu Fairness, Diskriminierung und Transparenz',
+      'Volle Unterwerfung unter die Marktüberwachungsregeln durch EWR-Abkommen'
+    ],
+    nationalSpecifics: 'EWR-Relevanz: Übernahme des AI Acts in norwegisches Recht; Reallabor-Erfahrung als europäischer Goldstandard.',
+    officialUrl: 'https://www.datatilsynet.no',
+    nationalQuestion: {
+      questionTitle: '8. [Norwegen / EWR] Orientiert sich das System an den Fallstudien des norwegischen KI-Reallabors (Sandkasse)?',
+      questionSubtitle: 'Das Datatilsynet Oslo fordert strenge Dokumentation von Diskriminierungsrisiken und Fairnessmetriken.',
+      legalRef: 'Art. 57 AI Act & EWR-Übernahme',
+      options: [
+        {
+          label: 'Ja, Best Practices des norwegischen Datatilsynet für verantwortungsvolle KI sind umgesetzt',
+          description: 'Methoden zur Fairnessmessung entsprechen den norwegischen Pilot-Fallstudien.',
+          points: 15
+        },
+        {
+          label: 'Reallabor-Ergebnisse bekannt, aber eigene Fairness-Metriken noch nicht validiert',
+          description: 'Grundsätzliche Compliance vorhanden, vertiefte Prüfung steht aus.',
+          points: 10
+        },
+        {
+          label: 'Bisher keine Ausrichtung an den EWR-spezifischen Richtlinien',
+          description: 'Norwegische Prüfpraxis wurde nicht berücksichtigt.',
+          points: 5
+        }
+      ]
+    },
+    recommendedNextStep: 'Nutzen Sie die frei zugänglichen Audit-Reports des norwegischen Reallabors zur Schließung Ihrer Bias-Lücken.'
   }
 ];

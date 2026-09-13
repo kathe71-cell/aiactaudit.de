@@ -69,7 +69,7 @@ export const EuEnforcementRadar: React.FC<EuEnforcementRadarProps> = ({ navigate
                 </span>
               </div>
               <div className="text-[11px] font-mono text-slate-400">
-                Interaktive Vektorkarte · 15 Hoheitsgebiete aktiv
+                Interaktive Vektorkarte · {EU_AUTHORITIES_DATA.length} Hoheitsgebiete aktiv
               </div>
             </div>
 
