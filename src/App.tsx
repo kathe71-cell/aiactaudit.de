@@ -17,7 +17,8 @@ export const App: React.FC = () => {
   // Normalize initial path
   const getInitialPath = () => {
     const path = window.location.pathname;
-    if (path.startsWith('/audit-check')) return '/audit-check';
+    const search = window.location.search;
+    if (path.startsWith('/audit-check')) return `/audit-check${search}`;
     if (path.startsWith('/hochrisiko-matrix')) return '/hochrisiko-matrix';
     if (path.startsWith('/fristen-guide')) return '/fristen-guide';
     if (path.startsWith('/impressum')) return '/impressum';
@@ -96,11 +97,13 @@ export const App: React.FC = () => {
     if (path !== currentPath) {
       window.history.pushState({}, '', path);
       setCurrentPath(path);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'instant' });
     }
   };
 
-  if (currentPath === '/rechner-embed') {
+  const basePath = currentPath.split('?')[0].split('#')[0];
+
+  if (basePath === '/rechner-embed') {
     return (
       <>
         <RechnerEmbed />
@@ -111,9 +114,9 @@ export const App: React.FC = () => {
   }
 
   const renderPage = () => {
-    switch (currentPath) {
+    switch (basePath) {
       case '/audit-check':
-        return <AuditCheckPage navigate={navigate} />;
+        return <AuditCheckPage navigate={navigate} currentPath={currentPath} />;
       case '/hochrisiko-matrix':
         return <MatrixPage navigate={navigate} />;
       case '/fristen-guide':

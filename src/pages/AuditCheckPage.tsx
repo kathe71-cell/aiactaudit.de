@@ -6,6 +6,7 @@ import type { EUAuthorityInfo } from '../data/euAuthoritiesData';
 
 interface AuditCheckPageProps {
   navigate: (path: string) => void;
+  currentPath?: string;
 }
 
 interface Question {
@@ -31,8 +32,36 @@ interface AuditResult {
   identifiedGaps: { question: string; warning: string; legalRef: string }[];
 }
 
-export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate }) => {
-  const questions: Question[] = [
+const getCountryFromPath = (path?: string): string => {
+  if (typeof window !== 'undefined') {
+    const searchStr = path?.includes('?') ? path.split('?')[1] : window.location.search;
+    const params = new URLSearchParams(searchStr);
+    const c = params.get('country');
+    if (c) {
+      const found = EU_AUTHORITIES_DATA.find(a => a.isoCode.toLowerCase() === c.toLowerCase() || a.id.toLowerCase() === c.toLowerCase());
+      if (found) return found.isoCode;
+    }
+  }
+  return 'DE';
+};
+
+export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate, currentPath }) => {
+
+  const [selectedCountry, setSelectedCountry] = useState<string>(() => getCountryFromPath(currentPath));
+  const [systemName, setSystemName] = useState<string>('');
+  const [systemDescription, setSystemDescription] = useState<string>('');
+  const [answers, setAnswers] = useState<Record<string, number>>({});
+  const [submitted, setSubmitted] = useState<boolean>(false);
+
+  // Guarantee instant scroll-to-top on route or path change
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [currentPath]);
+
+  const activeJurisdiction: EUAuthorityInfo =
+    EU_AUTHORITIES_DATA.find(a => a.isoCode === selectedCountry) || EU_AUTHORITIES_DATA[1];
+
+  const baseQuestions: Question[] = [
     {
       id: 'purpose',
       title: '1. In welchem Bereich wird das KI-System primär eingesetzt?',
@@ -130,65 +159,65 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate }) => {
           label: 'Nein, bisher kein strukturiertes Risikomanagement für KI vorhanden',
           description: 'Das System wurde ohne formale Risikoanalyse in Betrieb genommen.',
           points: 0,
-          gapWarning: 'Kritische Lücke: Risikomanagementsystem ist nach Art. 9 zwingende Voraussetzung.'
+          gapWarning: 'Art. 9 ist die zwingende Basispflicht für alle Hochrisiko-Systeme vor Markteinführung.'
         }
       ]
     },
     {
-      id: 'data_gov',
-      title: '4. Werden Trainings- und Testdaten auf Verzerrungen (Bias) geprüft?',
-      subtitle: 'Art. 10 verlangt repräsentative, fehlerfreie Datensätze und nachprüfbare Bias-Audits.',
+      id: 'data_governance',
+      title: '4. Werden Trainings- und Testdaten auf Bias und Qualität geprüft?',
+      subtitle: 'Art. 10 verlangt repräsentative, fehlerfreie Datensätze und Schutz gegen Diskriminierung.',
       category: 'Daten-Governance',
       legalRef: 'Art. 10',
       options: [
         {
-          label: 'Ja, statistische Bias-Audits und Datenblatt-Dokumentation vorhanden',
-          description: 'Herkunft, Repräsentativität und Gleichbehandlungstests sind revisionssicher archiviert.',
+          label: 'Ja, statistische Bias-Audits und vollständige Datenblatt-Dokumentation liegen vor',
+          description: 'Datensätze sind auf Verzerrungen untersucht und Herkunft (Data Provenance) ist lückenlos nachweisbar.',
           points: 20
         },
         {
-          label: 'Wir nutzen APIs/Vortrainierte Modelle und haben keine Einsicht in Trainingsdaten',
-          description: 'Verlass auf die Dokumentation des Modellherstellers (z. B. OpenAI, Anthropic, Google).',
-          points: 8,
-          gapWarning: 'Bei Hochrisiko-Systemen müssen Betreiber die Modellkarten und Validierungsberichte anfordern.'
+          label: 'Grundlegende Plausibilitätsprüfungen, jedoch keine formalen statistischen Fairness-Tests',
+          description: 'Daten werden bereinigt, aber es gibt keine formalen Bias-Audit-Berichte für sensible Merkmale.',
+          points: 10,
+          gapWarning: 'Fehlende Bias-Prüfberichte verletzen Art. 10 Abs. 2 und führen zu Beanstandungen bei Audits.'
         },
         {
-          label: 'Nein, Daten wurden bisher nicht auf statistische Verzerrungen geprüft',
-          description: 'Es liegen keine Datenblatt-Dokumente oder Fairness-Metriken vor.',
+          label: 'Keine gesonderte Prüfung der Datensätze auf Verzerrungen oder Repräsentativität',
+          description: 'Nutzung vorhandener Daten ohne formale Qualitätskriterien.',
           points: 0,
-          gapWarning: 'Schwere Lücke: Diskriminierungsrisiken müssen aktiv gemessen und dokumentiert werden.'
+          gapWarning: 'Gefahr diskriminierender Entscheidungen mit unmittelbarem Haftungsrisiko.'
         }
       ]
     },
     {
       id: 'tech_doc',
-      title: '5. Liegt eine vollständige Technische Dokumentation nach Anhang IV vor?',
-      subtitle: 'Die technische Akte muss vor Inverkehrbringen behördlich prüffähig vorliegen.',
+      title: '5. Liegt eine behördlich prüffähige technische Dokumentation (Anhang IV) vor?',
+      subtitle: 'Die technische Akte muss vor dem Inverkehrbringen vollständig vorliegen und 10 Jahre aufbewahrt werden.',
       category: 'Dokumentation',
       legalRef: 'Art. 11 & Anhang IV',
       options: [
         {
-          label: 'Ja, vollständiges Konformitätsdossier inklusive Systemarchitektur liegt vor',
-          description: 'Enthält mathematische Algorithmen, Parameter, Validierungsberichte und Software-Metriken.',
-          points: 20
+          label: 'Ja, lückenlose technische Akte gemäß Anhang IV vorhanden und versioniert',
+          description: 'Architektur, Trainingsmethoden, Modellparameter und Validierungsergebnisse sind vollständig erfasst.',
+          points: 15
         },
         {
-          label: 'Grundlegende Entwickler-Dokumentation vorhanden (Git, READMEs)',
-          description: 'Technische Beschreibung existiert, entspricht jedoch noch nicht der Struktur von Anhang IV.',
-          points: 10,
-          gapWarning: 'Anhang IV erfordert spezifische Abschnitte (z. B. Validierungsmetriken, angewandte Normen).'
+          label: 'Entwickler-Dokumentation vorhanden, aber nicht nach dem formalen Schema von Anhang IV',
+          description: 'Code-Repositories und READMEs existieren, aber keine konsolidierte regulatorische Akte.',
+          points: 8,
+          gapWarning: 'Formale Lücke: Anhang IV verlangt eine spezifische Struktur zur Vorlage bei der Marktüberwachung.'
         },
         {
-          label: 'Keine formale technische Dokumentation erstellt',
-          description: 'System ist im operativen Einsatz ohne standardisierte Konformitätsakte.',
+          label: 'Keine systematische Dokumentation der Entwicklungsentscheidungen',
+          description: 'Modell wurde ohne formale Architekturdokumentation implementiert.',
           points: 0,
-          gapWarning: 'Verstoß gegen Art. 11: Technische Dokumentation muss mindestens 10 Jahre archiviert werden.'
+          gapWarning: 'Ohne technische Akte nach Art. 11 darf kein Hochrisiko-System in der EU betrieben werden.'
         }
       ]
     },
     {
       id: 'logging',
-      title: '6. Werden Systemereignisse automatisch und manipulationssicher protokolliert?',
+      title: '6. Werden Eingaben, Ausgaben und Systemzustände automatisiert protokolliert?',
       subtitle: 'Art. 12 fordert automatisches Logging von Eingaben, Ausgaben und Systemzuständen.',
       category: 'Logging',
       legalRef: 'Art. 12 & Art. 26 Abs. 6',
@@ -240,31 +269,18 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate }) => {
     }
   ];
 
-  const getInitialCountry = (): string => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      const c = params.get('country');
-      if (c) {
-        const found = EU_AUTHORITIES_DATA.find(a => a.isoCode.toLowerCase() === c.toLowerCase() || a.id.toLowerCase() === c.toLowerCase());
-        if (found) return found.isoCode;
-      }
+  // Dynamically attach the country-specific 8th question
+  const questions: Question[] = [
+    ...baseQuestions,
+    {
+      id: `national_${activeJurisdiction.isoCode.toLowerCase()}`,
+      title: activeJurisdiction.nationalQuestion.questionTitle,
+      subtitle: activeJurisdiction.nationalQuestion.questionSubtitle,
+      category: `Länderspezifik (${activeJurisdiction.isoCode})`,
+      legalRef: activeJurisdiction.nationalQuestion.legalRef,
+      options: activeJurisdiction.nationalQuestion.options
     }
-    return 'DE';
-  };
-
-  const [selectedCountry, setSelectedCountry] = useState<string>(getInitialCountry());
-  const [systemName, setSystemName] = useState<string>('');
-  const [systemDescription, setSystemDescription] = useState<string>('');
-  const [answers, setAnswers] = useState<Record<string, number>>({});
-  const [submitted, setSubmitted] = useState<boolean>(false);
-
-  // Guarantee that on entering AuditCheckPage, page always scrolls cleanly to top
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-  }, []);
-
-  const activeJurisdiction: EUAuthorityInfo =
-    EU_AUTHORITIES_DATA.find(a => a.isoCode === selectedCountry) || EU_AUTHORITIES_DATA[1];
+  ];
 
   const handleSelect = (questionId: string, optionIndex: number) => {
     setAnswers(prev => ({
@@ -596,6 +612,10 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate }) => {
                 <p className="text-xs text-slate-700 leading-relaxed">
                   <strong className="font-semibold">Nationale Rechtsbesonderheit:</strong> {activeJurisdiction.nationalSpecifics}
                 </p>
+                <div className="mt-3 pt-3 border-t border-slate-200 flex items-start gap-2 text-xs font-bold text-emerald-900 bg-emerald-100/50 p-2.5 rounded-lg border border-emerald-200">
+                  <span className="shrink-0 text-emerald-700 font-extrabold">▶ Länderspezifische Handlungsempfehlung:</span>
+                  <span>{activeJurisdiction.recommendedNextStep}</span>
+                </div>
               </div>
 
               {/* Classification Banner */}
