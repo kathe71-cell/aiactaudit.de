@@ -1,0 +1,15 @@
+# aiactaudit.de – Interaktiver Konformitätsprüfer zum EU AI Act
+
+> Fachportal zur Verordnung (EU) 2024/1689 (Künstliche Intelligenz Verordnung / Artificial Intelligence Act).
+
+## Rechtlicher Rahmen & Risikoklassen
+- **Verbotene KI-Praktiken (Art. 5):** Social Scoring, biometrische Echtzeit-Fernidentifizierung im öffentlichen Raum, kognitive Verhaltensmanipulation.
+- **Hochrisiko-KI-Systeme (Art. 6 & Anhang III):** HR-/Bewerbungs-Screening, Kreditwürdigkeitsprüfung, kritische Infrastrukturen, Rechtspflege.
+- **Transparenzpflichten (Art. 50):** Kennzeichnungspflicht für Deepfakes und generative Text-/Bild-KI.
+- **GPAI / Basemodelle (Art. 51 ff.):** Pflichten für General Purpose AI mit systemischem Risiko (> 10^25 FLOPs).
+
+## Interaktive Audit-Matrix
+- **/rechner-embed:** Live-Audit-Tool zur Einstufung beliebiger KI-Workloads in die 4 EU-Risikoklassen samt Checkliste nach Art. 9–15 (Qualitätsmanagementsystem, Daten-Governance, Technische Dokumentation).
+
+## Transparenz & Hosting
+- Zero-CDN, datenschutzkonform, unabhängig. Betreiberkennzeichnung unter /impressum.
