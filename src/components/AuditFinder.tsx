@@ -67,7 +67,7 @@ export const AuditFinder: React.FC<AuditFinderProps> = ({ navigate }) => {
   };
 
   return (
-    <section id="audit-finder" className="py-16 bg-slate-50 border-b border-slate-200">
+    <section id="audit-finder" className="py-16 bg-slate-50 border-b border-slate-200 scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}

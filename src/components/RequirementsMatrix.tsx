@@ -14,7 +14,7 @@ export const RequirementsMatrix: React.FC<RequirementsMatrixProps> = ({ navigate
   };
 
   return (
-    <section id="anforderungen" className="py-16 bg-white border-b border-slate-200">
+    <section id="anforderungen" className="py-16 bg-white border-b border-slate-200 scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

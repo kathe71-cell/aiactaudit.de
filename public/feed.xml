@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>aiactaudit.de – EU AI Act Risikoklassen & Konformitäts-Audit</title>
-    <link>https://aiactaudit.de/</link>
+    <link>https://www.aiactaudit.de/</link>
     <description>Strukturierter Konformitätsprüfer für die Verordnung (EU) 2024/1689 (EU AI Act). Risikoklassifizierung, Pflichtenkatalog und Umsetzungsfristen.</description>
     <language>de-DE</language>
-    <lastBuildDate>Mon, 14 Sep 2026 10:25:27 GMT</lastBuildDate>
-    <atom:link href="https://aiactaudit.de/feed.xml" rel="self" type="application/rss+xml"/>
+    <lastBuildDate>Wed, 16 Sep 2026 19:45:00 GMT</lastBuildDate>
+    <atom:link href="https://www.aiactaudit.de/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
       <title>EU AI Act Risikoklassen-Checker</title>
-      <link>https://aiactaudit.de/rechner-embed</link>
+      <link>https://www.aiactaudit.de/rechner-embed</link>
       <description>Interaktive Bestimmung der Risikoklasse nach Verordnung EU 2024/1689.</description>
-      <pubDate>Mon, 14 Sep 2026 10:25:27 GMT</pubDate>
-      <guid>https://aiactaudit.de/rechner-embed</guid>
+      <pubDate>Wed, 16 Sep 2026 19:45:00 GMT</pubDate>
+      <guid>https://www.aiactaudit.de/rechner-embed</guid>
     </item>
     <item>
       <title>Umsetzungsfristen 2025–2027 im Überblick</title>
-      <link>https://aiactaudit.de/#timeline</link>
+      <link>https://www.aiactaudit.de/#timeline</link>
       <description>Stufenplan des Inkrafttretens von Verboten und Hochrisikopflichten.</description>
-      <pubDate>Mon, 14 Sep 2026 10:25:27 GMT</pubDate>
-      <guid>https://aiactaudit.de/#timeline</guid>
+      <pubDate>Wed, 16 Sep 2026 19:45:00 GMT</pubDate>
+      <guid>https://www.aiactaudit.de/#timeline</guid>
     </item>
   </channel>
 </rss>

@@ -12,7 +12,7 @@ export const WatchtowersSection: React.FC<WatchtowersSectionProps> = ({ navigate
   const activeTower = WATCHTOWER_METRICS.find((t) => t.id === activeTowerId) || WATCHTOWER_METRICS[0];
 
   return (
-    <section id="watchtowers" className="py-16 sm:py-24 bg-slate-50/70 border-b border-slate-200">
+    <section id="watchtowers" className="py-16 sm:py-24 bg-slate-50/70 border-b border-slate-200 scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Intro */}

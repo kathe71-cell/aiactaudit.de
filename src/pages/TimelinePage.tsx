@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Calendar, Clock, ArrowRight, ShieldCheck } from 'lucide-react';
 
 interface TimelinePageProps {
@@ -6,6 +6,9 @@ interface TimelinePageProps {
 }
 
 export const TimelinePage: React.FC<TimelinePageProps> = ({ navigate }) => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, []);
   return (
     <div className="py-12 bg-slate-50 min-h-screen">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">

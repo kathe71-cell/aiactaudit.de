@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, ArrowRight, Search } from 'lucide-react';
+import { Menu, X, Search } from 'lucide-react';
 import { LogoMark } from './LogoMark';
 
 interface HeaderProps {
@@ -26,20 +26,31 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate, onOpenSea
       if (currentPath === '/') {
         const el = document.getElementById(targetId);
         if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
+          const headerOffset = 90;
+          const elementPosition = el.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({
+            top: Math.max(0, elementPosition - headerOffset),
+            behavior: 'smooth'
+          });
           return;
         }
       } else {
         navigate('/');
         setTimeout(() => {
           const el = document.getElementById(targetId);
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
+          if (el) {
+            const headerOffset = 90;
+            const elementPosition = el.getBoundingClientRect().top + window.scrollY;
+            window.scrollTo({
+              top: Math.max(0, elementPosition - headerOffset),
+              behavior: 'smooth'
+            });
+          }
         }, 150);
         return;
       }
     }
     navigate(path);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -77,27 +88,18 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate, onOpenSea
             ))}
           </nav>
 
-          {/* Right Actions: Search trigger + CTA */}
-          <div className="hidden sm:flex items-center gap-2.5">
-            {/* Quick Search Button (⌘K) */}
+          {/* Right Actions: Quick Search trigger (⌘K) */}
+          <div className="hidden sm:flex items-center">
             <button
               onClick={onOpenSearch}
               title="Volltextsuche öffnen (⌘K)"
-              className="inline-flex items-center gap-2 bg-slate-100 hover:bg-slate-200/80 text-slate-600 hover:text-slate-900 font-medium text-xs px-3.5 py-2.5 rounded-xl border border-slate-200 transition-all cursor-pointer shadow-2xs"
+              className="inline-flex items-center gap-2 bg-slate-100 hover:bg-slate-200/80 text-slate-700 hover:text-slate-900 font-medium text-xs px-3.5 py-2.5 rounded-xl border border-slate-200 transition-all cursor-pointer shadow-2xs"
             >
               <Search className="w-3.5 h-3.5 text-slate-500" />
               <span className="hidden md:inline">Suchen...</span>
               <kbd className="hidden md:inline-flex items-center gap-0.5 text-[10px] font-mono text-slate-400 bg-white px-1.5 py-0.5 rounded border border-slate-300">
                 ⌘K
               </kbd>
-            </button>
-
-            <button
-              onClick={() => handleNav('/audit-check')}
-              className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs px-4 py-2.5 rounded-xl shadow-xs transition-all hover:shadow-md cursor-pointer"
-            >
-              <span>Audit-Check starten *</span>
-              <ArrowRight className="w-4 h-4" />
             </button>
           </div>
 
@@ -160,15 +162,6 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate, onOpenSea
               {link.label}
             </button>
           ))}
-          <div className="pt-3 border-t border-slate-100 sm:hidden">
-            <button
-              onClick={() => handleNav('/audit-check')}
-              className="w-full inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm px-4 py-3 rounded-xl shadow-xs"
-            >
-              <span>Audit-Check starten *</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
         </div>
       )}
     </header>

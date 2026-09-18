@@ -27,60 +27,110 @@ export const PolicyScreener: React.FC<PolicyScreenerProps> = ({ navigate }) => {
 
   const currentSnippet = POLICY_SNIPPETS.find((s) => s.id === selectedSnippetId) || POLICY_SNIPPETS[0];
 
-  // Dynamic Rule-Engine for Custom Text
+  // Dynamic Rule-Engine for Custom Text with Negation & Context Awareness
   const customAnalysis: CustomAnalysisResult = useMemo(() => {
     const text = customInput.toLowerCase();
     const gaps: CustomAnalysisResult['gaps'] = [];
 
-    // 1. Prohibited Risk Detection (Art. 5)
-    if (text.includes('stimme') || text.includes('emotion') || text.includes('mimik') || text.includes('stimmung') || text.includes('gesichtserkennung') || text.includes('social scoring')) {
-      gaps.push({
-        article: 'Art. 5 Abs. 1 lit. f EU AI Act',
-        issue: 'Erkennung von Emotionen / psychologischen Zuständen am Arbeitsplatz oder im Bewerbungsverfahren ist gesetzlich streng verboten.',
-        severity: 'CRITICAL',
-        recommendation: 'Emotions- und Stimmungsanalysen müssen unverzüglich aus dem System entfernt und deaktiviert werden.',
-      });
+    // Helper: checks if keywords appear in a negated context within the sentence
+    const isNegated = (keywords: string[]): boolean => {
+      // Split into sentences / clauses
+      const clauses = text.split(/[.;,!\n]/);
+      for (const clause of clauses) {
+        const hasKeyword = keywords.some(k => clause.includes(k));
+        if (hasKeyword) {
+          const hasNegationWord = /\b(kein|keine|keinen|keinem|keiner|keines|nicht|nie|niemals|ohne jegliche|ausgeschlossen|verzichten|vermeiden)\b/.test(clause);
+          if (hasNegationWord) {
+            return true;
+          }
+        }
+      }
+      return false;
+    };
+
+    // 1. Prohibited Risk Detection (Art. 5) - Emotionserkennung / Mimik / Social Scoring
+    const emotionKeywords = ['stimme', 'emotion', 'mimik', 'stimmung', 'gesichtserkennung', 'social scoring'];
+    const hasEmotionTerm = emotionKeywords.some(k => text.includes(k));
+    if (hasEmotionTerm) {
+      if (isNegated(emotionKeywords)) {
+        // Negation recognized! Don't trigger CRITICAL breach, provide confirmation / verification note
+        gaps.push({
+          article: 'Art. 5 Abs. 1 lit. f EU AI Act (Ausschluss verbotener Praktiken)',
+          issue: 'Prüfhinweis: Der Text enthält einen Verneinungsvermerk bezüglich Emotions- oder Stimmungsanalyse. Sofern diese Funktionen technisch wirksam deaktiviert sind, liegt kein Art. 5 Verbot vor.',
+          severity: 'MEDIUM',
+          recommendation: 'Halten Sie den Ausschluss verbotener Praktiken in der Systemdokumentation und in Vereinbarungen mit Dienstleistern schriftlich fest.',
+        });
+      } else {
+        gaps.push({
+          article: 'Art. 5 Abs. 1 lit. f EU AI Act (Prüfhinweis: Verbotene Praktik)',
+          issue: 'Hinweis auf Erkennung von Emotionen oder psychologischen Zuständen am Arbeitsplatz / im HR-Prozess. Nach Art. 5 Abs. 1 lit. f streng verboten.',
+          severity: 'CRITICAL',
+          recommendation: 'Prüfen Sie, ob diese Funktionen tatsächlich aktiv sind. Falls ja, müssen sie unverzüglich aus dem System entfernt und deaktiviert werden.',
+        });
+      }
     }
 
-    // 2. High Risk / Human Oversight (Art. 14)
-    if (text.includes('vollautomatisch') || text.includes('ohne mensch') || text.includes('automatische absage') || text.includes('autonom') || text.includes('ohne prüfung')) {
-      gaps.push({
-        article: 'Art. 14 EU AI Act (Menschliche Aufsicht)',
-        issue: 'Vollautomatisierte Entscheidungen ohne wirksame menschliche Letztverantwortung verstoßen gegen Art. 14 und Art. 22 DSGVO.',
-        severity: 'HIGH',
-        recommendation: 'Implementieren Sie ein Human-in-the-Loop-Prinzip: KI darf nur strukturierte Empfehlungen liefern, die Letztentscheidung trifft eine qualifizierte Fachkraft.',
-      });
+    // 2. High Risk / Human Oversight (Art. 14) - Vollautomatisierte Entscheidungen
+    const autoDecisionKeywords = ['vollautomatisch', 'ohne mensch', 'automatische absage', 'autonom', 'ohne prüfung', 'automatisiert bewertet', 'automatische bewertung'];
+    const hasAutoDecision = autoDecisionKeywords.some(k => text.includes(k));
+    if (hasAutoDecision) {
+      if (isNegated(autoDecisionKeywords)) {
+        gaps.push({
+          article: 'Art. 14 EU AI Act (Menschliche Aufsicht)',
+          issue: 'Prüfhinweis: Der Text schließt eine rein automatisierte Bewertung aus. Dies stützt die Einhaltung des Human-in-the-Loop-Grundsatzes.',
+          severity: 'MEDIUM',
+          recommendation: 'Dokumentieren Sie die konkrete fachliche Qualifikation und Überstimmungsbefugnis der prüfenden Personen.',
+        });
+      } else {
+        gaps.push({
+          article: 'Art. 14 EU AI Act (Prüfhinweis: Menschliche Aufsicht)',
+          issue: 'Hinweis auf vollautomatisierte Absagen oder Bewertungen. Nach Art. 14 und Art. 22 DSGVO ist bei wesentlichen Entscheidungen eine menschliche Letztverantwortung erforderlich.',
+          severity: 'HIGH',
+          recommendation: 'Stellen Sie sicher, dass das System nur strukturierte Vorschläge liefert und die finale Entscheidung durch eine geschulte Fachkraft getroffen wird.',
+        });
+      }
     }
 
     // 3. Data Governance & Bias (Art. 10)
-    if (text.includes('bewerber') || text.includes('cv') || text.includes('scoring') || text.includes('kredit') || text.includes('profiling')) {
-      gaps.push({
-        article: 'Art. 10 EU AI Act (Daten-Governance & Diskriminierungsschutz)',
-        issue: 'Hochrisiko-Systeme erfordern dokumentierte Maßnahmen zur Erkennung und Vermeidung von statistischen Verzerrungen (Biases).',
-        severity: 'HIGH',
-        recommendation: 'Dokumentieren Sie Trainingsdatenquellen und etablieren Sie regelmäßige Bias-Audits für geschützte Merkmale (AGG/Gleichbehandlung).',
-      });
+    const hrDataKeywords = ['bewerber', 'cv', 'scoring', 'kredit', 'profiling', 'lebenslauf'];
+    const hasHrData = hrDataKeywords.some(k => text.includes(k));
+    if (hasHrData) {
+      const isCompliantOrNegated = isNegated(hrDataKeywords) || text.includes('diskriminierungsfrei') || text.includes('bias-geprüft') || text.includes('statistisch geprüft');
+      if (!isCompliantOrNegated) {
+        gaps.push({
+          article: 'Art. 10 EU AI Act (Prüfhinweis: Daten-Governance)',
+          issue: 'Hinweis auf personenbezogene Einstufungs- oder HR-Prozesse. Hochrisiko-Systeme erfordern Maßnahmen zur Erkennung und Minderung statistischer Verzerrungen (Bias).',
+          severity: 'HIGH',
+          recommendation: 'Dokumentieren Sie Trainingsdatenquellen und etablieren Sie regelmäßige Bias-Audits für geschützte Merkmale.',
+        });
+      }
     }
 
-    // 4. Logging & Tracing (Art. 12) - only trigger if text is substantial and lacks logging, but not if already explicitly compliant
-    const isAlreadyCompliant = text.includes('human-in-the-loop') || text.includes('letztentscheidung') || text.includes('voranalyse');
-    if (!isAlreadyCompliant && !text.includes('protokoll') && !text.includes('audit') && !text.includes('log') && !text.includes('nachvollziehbar')) {
+    // 4. Logging & Tracing (Art. 12)
+    const isAlreadyCompliant = text.includes('human-in-the-loop') || text.includes('protokoll') || text.includes('audit') || text.includes('log') || text.includes('revisionssicher');
+    const isSubstantialHrSystem = hasHrData && !isNegated(hrDataKeywords);
+    if (isSubstantialHrSystem && !isAlreadyCompliant) {
       gaps.push({
-        article: 'Art. 12 EU AI Act (Automatische Protokollierung)',
-        issue: 'Keine Angaben zur lückenlosen Protokollierung von System-Ereignissen und Entscheidungsfindung auffindbar.',
+        article: 'Art. 12 EU AI Act (Prüfhinweis: Protokollierung)',
+        issue: 'Keine Hinweise auf automatisierte Protokollierung von System-Entscheidungen aufgefunden.',
         severity: 'MEDIUM',
-        recommendation: 'Automatische Speicherung aller Input-Daten, System-Scores und menschlicher Freigaben für mindestens 6 Monate vorschreiben.',
+        recommendation: 'Automatische Speicherung aller Input-Daten, System-Scores und menschlicher Freigaben für mindestens 6 Monate vorsehen.',
       });
     }
 
     // 5. Transparency (Art. 50)
-    if ((text.includes('chatbot') || text.includes('gpt') || text.includes('bot') || text.includes('assistent')) && !text.includes('sie sprechen mit') && !text.includes('hinweis') && !text.includes('gekennzeichnet')) {
-      gaps.push({
-        article: 'Art. 50 EU AI Act (Transparenzpflicht)',
-        issue: 'Interaktionspartner müssen unverzüglich darüber informiert werden, dass sie mit einem KI-System kommunizieren.',
-        severity: 'HIGH',
-        recommendation: 'Eindeutigen Hinweis vor Beginn der Konversation vorschalten („Sie sprechen mit einem KI-Assistenten“).',
-      });
+    const chatbotKeywords = ['chatbot', 'gpt', 'bot', 'assistent'];
+    const hasChatbot = chatbotKeywords.some(k => text.includes(k));
+    if (hasChatbot && !isNegated(chatbotKeywords)) {
+      const hasTransparencyNotice = text.includes('sie sprechen mit') || text.includes('hinweis') || text.includes('gekennzeichnet') || text.includes('informiert');
+      if (!hasTransparencyNotice) {
+        gaps.push({
+          article: 'Art. 50 EU AI Act (Prüfhinweis: Transparenz)',
+          issue: 'Hinweis auf interaktive KI-Komponenten ohne erkennbaren Nutzerhinweis aufgefunden.',
+          severity: 'HIGH',
+          recommendation: 'Eindeutigen Hinweis vor Beginn der Konversation vorschalten („Sie sprechen mit einem KI-Assistenten“).',
+        });
+      }
     }
 
     // Determine overall risk score
@@ -120,7 +170,7 @@ export const PolicyScreener: React.FC<PolicyScreenerProps> = ({ navigate }) => {
   ];
 
   return (
-    <section id="policy-screener" className="py-16 sm:py-24 bg-white border-b border-slate-200">
+    <section id="policy-screener" className="py-16 sm:py-24 bg-white border-b border-slate-200 scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Title */}
@@ -240,14 +290,14 @@ export const PolicyScreener: React.FC<PolicyScreenerProps> = ({ navigate }) => {
                 <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-2xs space-y-3">
                   <div className="flex items-center justify-between border-b border-slate-100 pb-2">
                     <span className="text-xs font-extrabold uppercase tracking-wider text-slate-900">
-                      Gefundene Schwachstellen &amp; Artikel
+                      Regulatorische Prüfhinweise &amp; Artikel-Abgleich
                     </span>
-                    <span className="text-[11px] text-slate-500 font-semibold">Audit-Befund</span>
+                    <span className="text-[11px] text-slate-500 font-semibold">Ergebnis der Textanalyse</span>
                   </div>
 
                   {customAnalysis.gaps.length === 0 ? (
                     <div className="p-6 text-center text-slate-500 text-xs">
-                      Keine offensichtlichen Gesetzesverstöße erkannt. Prüfen Sie Ihr gesamtes System im Audit-Check.
+                      Keine offensichtlichen Gesetzeskonflikte oder Risikobegriffe erkannt. Führen Sie für eine vollständige Bewertung den Audit-Check durch.
                     </div>
                   ) : (
                     <div className="space-y-3">
@@ -257,20 +307,22 @@ export const PolicyScreener: React.FC<PolicyScreenerProps> = ({ navigate }) => {
                           className={`p-3.5 rounded-xl border text-xs space-y-1.5 ${
                             gap.severity === 'CRITICAL'
                               ? 'bg-red-50/70 border-red-200'
-                              : 'bg-amber-50/70 border-amber-200'
+                              : gap.severity === 'HIGH'
+                              ? 'bg-amber-50/70 border-amber-200'
+                              : 'bg-slate-50 border-slate-200'
                           }`}
                         >
                           <div className="flex items-center justify-between">
                             <span className="font-extrabold text-slate-950">{gap.article}</span>
                             <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded ${
-                              gap.severity === 'CRITICAL' ? 'bg-red-200 text-red-950' : 'bg-amber-200 text-amber-950'
+                              gap.severity === 'CRITICAL' ? 'bg-red-200 text-red-950' : gap.severity === 'HIGH' ? 'bg-amber-200 text-amber-950' : 'bg-slate-200 text-slate-800'
                             }`}>
                               {gap.severity}
                             </span>
                           </div>
                           <p className="text-slate-800 font-medium leading-relaxed">{gap.issue}</p>
                           <div className="pt-1 text-[11px] text-slate-600 font-semibold">
-                            Empfohlene Korrektur: <span className="font-normal text-slate-800">{gap.recommendation}</span>
+                            Empfohlene Prüfung / Anpassung: <span className="font-normal text-slate-800">{gap.recommendation}</span>
                           </div>
                         </div>
                       ))}
@@ -278,18 +330,18 @@ export const PolicyScreener: React.FC<PolicyScreenerProps> = ({ navigate }) => {
                   )}
                 </div>
 
-                {/* Right: Suggested Compliant Formulation */}
+                {/* Right: Suggested Formulation Template */}
                 <div className="bg-white rounded-xl border border-emerald-300 p-5 shadow-2xs flex flex-col justify-between">
                   <div>
                     <div className="flex items-center justify-between border-b border-slate-100 pb-2 mb-3">
                       <div className="flex items-center gap-1.5">
                         <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
                         <span className="text-xs font-extrabold uppercase tracking-wider text-emerald-950">
-                          EU-Konforme Formulierungsvorlage
+                          Muster-Formulierungshilfe (Orientierungsvorlage)
                         </span>
                       </div>
                       <span className="text-[11px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                        Audit-Ready
+                        Vorlage
                       </span>
                     </div>
 
@@ -300,13 +352,16 @@ export const PolicyScreener: React.FC<PolicyScreenerProps> = ({ navigate }) => {
                     <div className="mt-4 p-3.5 rounded-lg bg-slate-50 border border-slate-200 text-xs space-y-1.5">
                       <div className="flex items-center gap-1.5 text-slate-900 font-bold">
                         <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-                        <span>Rechtliche Absicherung durch diese Formulierung:</span>
+                        <span>Zielsetzung dieser Formulierungshilfe:</span>
                       </div>
                       <ul className="text-slate-600 text-xs list-disc list-inside space-y-1">
-                        <li>Schließt verbotene Emotionsanalysen explizit aus (Art. 5)</li>
-                        <li>Verankert menschliche Letztverantwortung vor Gericht (Art. 14)</li>
-                        <li>Erfüllt behördliche Nachweispflichten bei Audits und Kontrollen</li>
+                        <li>Dient als Textbaustein zur Dokumentation organisatorischer Grenzen (Art. 5)</li>
+                        <li>Formuliert den Grundsatz menschlicher Letztentscheidungsbefugnis (Art. 14)</li>
+                        <li>Unterstützt als Vorlage für interne Richtlinien und Prozessbeschreibungen</li>
                       </ul>
+                      <p className="text-[10px] text-slate-500 pt-1 italic">
+                        * Hinweis: Eine Textvorlage ersetzt nicht den technischen Nachweis der tatsächlichen Systemfunktion bei behördlichen Prüfungen.
+                      </p>
                     </div>
                   </div>
 
@@ -436,11 +491,11 @@ export const PolicyScreener: React.FC<PolicyScreenerProps> = ({ navigate }) => {
                       <div className="flex items-center gap-2">
                         <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
                         <span className="text-xs font-extrabold uppercase tracking-wider text-emerald-950">
-                          Audit-Ready Klausel (EU-konform)
+                          Muster-Formulierungshilfe
                         </span>
                       </div>
                       <span className="text-[11px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">
-                        Konform nach Art. 9–15
+                        Orientierungshilfe
                       </span>
                     </div>
 
@@ -451,13 +506,16 @@ export const PolicyScreener: React.FC<PolicyScreenerProps> = ({ navigate }) => {
                     <div className="mt-4 p-3.5 rounded-lg bg-slate-50 border border-slate-200 text-xs space-y-2">
                       <div className="flex items-center gap-1.5 text-slate-900 font-bold">
                         <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-                        <span>Konformitäts-Vorteile im Audit:</span>
+                        <span>Zielsetzung dieser Formulierungshilfe:</span>
                       </div>
                       <ul className="space-y-1.5 text-slate-600 text-xs list-disc list-inside">
-                        <li>Explizite Festlegung menschlicher Letztentscheidungsbefugnis (Human-in-the-Loop)</li>
-                        <li>Rechtssichere Nachweiserbringung für Konformitätsbewertungsstellen</li>
-                        <li>Dokumentierte Schutzmaßnahmen gegen algorithmische Voreingenommenheit (Bias)</li>
+                        <li>Formuliert das Human-in-the-Loop-Prinzip für organisatorische Richtlinien</li>
+                        <li>Dient als Textbaustein zur Vorbereitung behördlicher Unterlagen</li>
+                        <li>Unterstützt bei der internen Dokumentation von Kontrollprozessen</li>
                       </ul>
+                      <p className="text-[10px] text-slate-500 pt-1 italic">
+                        * Hinweis: Die tatsächliche Konformität erfordert den technischen Nachweis der Prozesse im Betrieb.
+                      </p>
                     </div>
                   </div>
 

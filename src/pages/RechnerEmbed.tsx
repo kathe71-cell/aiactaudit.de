@@ -7,7 +7,7 @@ export const RechnerEmbed: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'calculator' | 'finder'>('calculator');
 
   const dummyNavigate = (path: string) => {
-    window.open(`https://aiactaudit.de${path}`, '_blank', 'noopener,noreferrer');
+    window.open(`https://www.aiactaudit.de${path}`, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -54,7 +54,7 @@ export const RechnerEmbed: React.FC = () => {
         <div className="flex items-center gap-1">
           <span>Bereitgestellt von</span>
           <a
-            href="https://aiactaudit.de"
+            href="https://www.aiactaudit.de"
             target="_blank"
             rel="noopener"
             className="text-emerald-700 font-bold hover:underline inline-flex items-center gap-0.5"

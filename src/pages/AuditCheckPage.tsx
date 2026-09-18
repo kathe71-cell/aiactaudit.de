@@ -15,6 +15,7 @@ interface Question {
   subtitle: string;
   category: string;
   legalRef: string;
+  applicability?: 'all' | 'high_risk_only';
   options: {
     label: string;
     description: string;
@@ -30,6 +31,10 @@ interface AuditResult {
   percent: number;
   worstRisk: RiskLevel;
   identifiedGaps: { question: string; warning: string; legalRef: string }[];
+  exemptCount: number;
+  applicableCount: number;
+  isDeployer: boolean;
+  roleTitle: string;
 }
 
 const getCountryFromPath = (path?: string): string => {
@@ -52,11 +57,40 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate, curren
   const [systemDescription, setSystemDescription] = useState<string>('');
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const [showExemptQuestions, setShowExemptQuestions] = useState<boolean>(false);
+  const reportRef = React.useRef<HTMLDivElement>(null);
 
   // Guarantee instant scroll-to-top on route or path change
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   }, [currentPath]);
+
+  // Guarantee that submitting or resetting the audit check brings the relevant content directly into the viewport
+  useEffect(() => {
+    // Reset immediately to top of document to avoid any clamped bottom position
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+
+    if (submitted) {
+      // Bring the audit report container cleanly into the visible viewport
+      const timer = setTimeout(() => {
+        if (reportRef.current) {
+          const headerOffset = 90; // Header height plus breathing room
+          const elementPosition = reportRef.current.getBoundingClientRect().top + window.scrollY;
+          const offsetPosition = Math.max(0, elementPosition - headerOffset);
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        } else {
+          window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+        }
+      }, 50);
+
+      return () => clearTimeout(timer);
+    }
+  }, [submitted]);
 
   const activeJurisdiction: EUAuthorityInfo =
     EU_AUTHORITIES_DATA.find(a => a.isoCode === selectedCountry) || EU_AUTHORITIES_DATA[1];
@@ -68,6 +102,7 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate, curren
       subtitle: 'Der Einsatzzweck bestimmt die fundamentale Risikostufe nach dem EU AI Act.',
       category: 'Klassifizierung',
       legalRef: 'Art. 5 & 6',
+      applicability: 'all',
       options: [
         {
           label: 'HR, Bewerberauswahl, Arbeitsplatz-Evaluation oder Beförderung',
@@ -118,6 +153,7 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate, curren
       subtitle: 'Die Pflichtenverteilung unterscheidet strikt zwischen Anbietern und reinen Betreibern.',
       category: 'Rolle',
       legalRef: 'Art. 3 & Art. 25',
+      applicability: 'all',
       options: [
         {
           label: 'Anbieter (Provider / Entwickler)',
@@ -143,6 +179,7 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate, curren
       subtitle: 'Gefordert ist ein kontinuierlicher, iterativer Prozess über den gesamten Lebenszyklus.',
       category: 'Risikomanagement',
       legalRef: 'Art. 9',
+      applicability: 'high_risk_only',
       options: [
         {
           label: 'Ja, vollständig dokumentiert nach anerkannten Standards (z. B. ISO 42001)',
@@ -169,6 +206,7 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate, curren
       subtitle: 'Art. 10 verlangt repräsentative, fehlerfreie Datensätze und Schutz gegen Diskriminierung.',
       category: 'Daten-Governance',
       legalRef: 'Art. 10',
+      applicability: 'high_risk_only',
       options: [
         {
           label: 'Ja, statistische Bias-Audits und vollständige Datenblatt-Dokumentation liegen vor',
@@ -195,6 +233,7 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate, curren
       subtitle: 'Die technische Akte muss vor dem Inverkehrbringen vollständig vorliegen und 10 Jahre aufbewahrt werden.',
       category: 'Dokumentation',
       legalRef: 'Art. 11 & Anhang IV',
+      applicability: 'high_risk_only',
       options: [
         {
           label: 'Ja, lückenlose technische Akte gemäß Anhang IV vorhanden und versioniert',
@@ -221,6 +260,7 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate, curren
       subtitle: 'Art. 12 fordert automatisches Logging von Eingaben, Ausgaben und Systemzuständen.',
       category: 'Logging',
       legalRef: 'Art. 12 & Art. 26 Abs. 6',
+      applicability: 'high_risk_only',
       options: [
         {
           label: 'Ja, Revisionssicheres Logging mit mindestens 6 Monaten Aufbewahrung',
@@ -247,6 +287,7 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate, curren
       subtitle: 'Art. 14 verlangt, dass Menschen KI-Entscheidungen verstehen, anhalten und überstimmen können.',
       category: 'Menschliche Aufsicht',
       legalRef: 'Art. 14',
+      applicability: 'high_risk_only',
       options: [
         {
           label: 'Ja, geschultes Personal mit dokumentierter Überstimmungs- und Not-Aus-Befugnis',
@@ -278,6 +319,7 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate, curren
       subtitle: activeJurisdiction.nationalQuestion.questionSubtitle,
       category: `Länderspezifik (${activeJurisdiction.isoCode})`,
       legalRef: activeJurisdiction.nationalQuestion.legalRef,
+      applicability: 'all',
       options: activeJurisdiction.nationalQuestion.options
     }
   ];
@@ -289,46 +331,104 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate, curren
     }));
   };
 
-  const isComplete = questions.every(q => answers[q.id] !== undefined);
+  const selectedPurposeIdx = answers['purpose'];
+  const currentRisk = selectedPurposeIdx !== undefined ? baseQuestions[0].options[selectedPurposeIdx]?.riskTrigger : undefined;
+  const isMinimalOrTransparency = currentRisk === 'minimal' || currentRisk === 'transparency';
 
-  // Compute results
+  const isQuestionApplicable = (q: Question): boolean => {
+    if (isMinimalOrTransparency && q.applicability === 'high_risk_only') {
+      return false;
+    }
+    return true;
+  };
+
+  const applicableQuestions = questions.filter(isQuestionApplicable);
+  const isComplete = applicableQuestions.every(q => answers[q.id] !== undefined);
+
+  // Compute results with legal branching by risk class and role
   const computeResults = (): AuditResult => {
+    // 1. Determine fundamental risk tier from Q1 (purpose)
+    const purposeOptIdx = answers['purpose'];
+    const purposeOpt = purposeOptIdx !== undefined ? baseQuestions[0].options[purposeOptIdx] : undefined;
+    const worstRisk: RiskLevel = purposeOpt?.riskTrigger || 'minimal';
+
+    // 2. Determine legal role from Q2 (role)
+    const roleOptIdx = answers['role'];
+    const isDeployer = roleOptIdx === 1;
+    const roleTitle = roleOptIdx === 0
+      ? 'Anbieter (Provider / Entwickler)'
+      : roleOptIdx === 1
+      ? 'Reiner Betreiber (Deployer / Anwender)'
+      : roleOptIdx === 2
+      ? 'Betreiber mit wesentlicher Modifikation (Quasi-Anbieter nach Art. 25)'
+      : 'Nicht angegeben';
+
     let totalScore = 0;
     let maxScore = 0;
-    let worstRisk: RiskLevel = 'minimal';
+    let exemptCount = 0;
+    let applicableCount = 0;
     const identifiedGaps: { question: string; warning: string; legalRef: string }[] = [];
 
     questions.forEach(q => {
       const selectedOptIdx = answers[q.id];
-      if (selectedOptIdx !== undefined) {
-        const option = q.options[selectedOptIdx];
-        totalScore += option.points;
+      const option = selectedOptIdx !== undefined ? q.options[selectedOptIdx] : undefined;
+      const isHighRiskReq = q.applicability === 'high_risk_only';
 
-        if (option.riskTrigger === 'prohibited') worstRisk = 'prohibited';
-        else if (option.riskTrigger === 'high' && worstRisk !== 'prohibited') worstRisk = 'high';
-        else if (option.riskTrigger === 'transparency' && worstRisk !== 'prohibited' && worstRisk !== 'high') worstRisk = 'transparency';
+      // Branching: High-risk requirements (Art. 9–15) do NOT apply to minimal-risk or pure transparency systems!
+      const isExempt = (worstRisk === 'minimal' || worstRisk === 'transparency') && isHighRiskReq;
 
-        if (option.gapWarning) {
-          identifiedGaps.push({
-            question: q.title,
-            warning: option.gapWarning,
-            legalRef: q.legalRef
-          });
-        }
+      if (isExempt) {
+        exemptCount++;
+        // Do not deduct points or trigger false GAPs for non-applicable legal requirements!
+        return;
       }
-      // max points calculation
+
+      applicableCount++;
       const highest = Math.max(...q.options.map(o => o.points));
       maxScore += highest;
+
+      if (option) {
+        totalScore += option.points;
+
+        if (option.gapWarning) {
+          // Specific branch for Deployer vs Provider on Art. 11 (Technical documentation Anhang IV):
+          if (q.id === 'tech_doc' && isDeployer) {
+            // A pure deployer does not author Anhang IV. Deployer must check CE-mark & instructions (Art. 26 Abs. 1).
+            if (selectedOptIdx !== 0) {
+              identifiedGaps.push({
+                question: 'Prüfpflicht des Betreibers (Deployer)',
+                warning: 'Als reiner Betreiber müssen Sie nicht selbst die technische Akte nach Anhang IV erstellen. Sie müssen jedoch vor Inbetriebnahme zwingend prüfen, ob der Anbieter die CE-Kennzeichnung, Konformitätserklärung und die Gebrauchsanweisung bereitgestellt hat (Art. 26 Abs. 1).',
+                legalRef: 'Art. 26 Abs. 1'
+              });
+            }
+          } else {
+            identifiedGaps.push({
+              question: q.title,
+              warning: option.gapWarning,
+              legalRef: q.legalRef
+            });
+          }
+        }
+      }
     });
 
-    const percent = Math.round((totalScore / maxScore) * 100);
+    let percent = maxScore > 0 ? Math.round((totalScore / maxScore) * 100) : 100;
+
+    // Strict cap for prohibited practices under Art. 5
+    if (worstRisk === 'prohibited') {
+      percent = Math.min(percent, 10);
+    }
 
     return {
       totalScore,
       maxScore,
       percent,
       worstRisk,
-      identifiedGaps
+      identifiedGaps,
+      exemptCount,
+      applicableCount,
+      isDeployer,
+      roleTitle
     };
   };
 
@@ -361,12 +461,15 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate, curren
             Interaktiver AI Act Audit-Readiness Check
           </h1>
           <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
-            Beantworten Sie die 7 Schlüsselfragen zur Einstufung und zum Reifegrad Ihrer KI-Systeme. 
-            Sie erhalten eine strukturierte Risikobewertung, konkrete GAP-Hinweise und eine exportierbare Checkliste.
+            Beantworten Sie die 8 Prüffragen (7 Kernbereiche nach EU AI Act + 1 länderspezifische Aufsichtsfrage für {activeJurisdiction.country}). 
+            Sie erhalten eine strukturierte, rollen- und risikoadaptive Audit-Bewertung mit konkreten GAP-Hinweisen.
           </p>
           <div className="mt-4 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-500">
             <span>Anonyme Auswertung im Browser • Keine Datenspeicherung</span>
-            <span>Fortschritt: {Object.keys(answers).length} von {questions.length} beantwortet</span>
+            <span>
+              Fortschritt: {applicableQuestions.filter(q => answers[q.id] !== undefined).length} von {applicableQuestions.length} erforderlichen Fragen beantwortet
+              {questions.length - applicableQuestions.length > 0 && ` (${questions.length - applicableQuestions.length} freigestellt)`}
+            </span>
           </div>
         </div>
 
@@ -459,78 +562,155 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate, curren
 
             </div>
 
-            {questions.map((q) => {
-              const currentAnswer = answers[q.id];
-              return (
-                <div
-                  key={q.id}
-                  className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-7 shadow-2xs hover:border-slate-300 transition-all"
-                >
-                  <div className="flex items-start justify-between gap-3 mb-2">
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-slate-100 text-slate-800">
-                          {q.category}
-                        </span>
-                        <span className="text-[10px] font-mono font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                          {q.legalRef}
+            {(() => {
+              const elements: React.ReactNode[] = [];
+              let skipBannerRendered = false;
+
+              questions.forEach((q) => {
+                const currentAnswer = answers[q.id];
+                const isHighRisk = q.applicability === 'high_risk_only';
+                const isExempt = isMinimalOrTransparency && isHighRisk;
+
+                if (isExempt) {
+                  if (!skipBannerRendered) {
+                    skipBannerRendered = true;
+                    elements.push(
+                      <div key="exempt_skip_banner" className="bg-emerald-50/80 rounded-2xl border border-emerald-200/90 p-5 sm:p-6 shadow-2xs">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                          <div className="flex items-start gap-3">
+                            <div className="w-9 h-9 rounded-xl bg-emerald-600 flex items-center justify-center text-white shrink-0 mt-0.5 shadow-2xs">
+                              <CheckCircle2 className="w-5 h-5" />
+                            </div>
+                            <div className="space-y-1">
+                              <div className="flex items-center gap-2">
+                                <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-white text-emerald-950 border border-emerald-300">
+                                  Art. 6 Ausnahme / Freistellung
+                                </span>
+                                <span className="text-[10px] font-mono font-bold text-emerald-800 bg-emerald-100/80 px-2 py-0.5 rounded">
+                                  Art. 9–15 EU AI Act
+                                </span>
+                              </div>
+                              <h3 className="text-sm sm:text-base font-black text-slate-950">
+                                5 Hochrisiko-Prüfpunkte übersprungen (Als „Nicht anwendbar“ gewertet)
+                              </h3>
+                              <p className="text-xs text-slate-700 leading-relaxed max-w-2xl">
+                                Da Ihr System unter Art. 6 als <strong>{currentRisk === 'minimal' ? 'Minimalrisiko' : 'reine Transparenz-KI (Art. 50)'}</strong> eingestuft ist, sind Risikomanagementsystem (Art. 9), Bias-Prüfung (Art. 10), technische Dokumentation Anhang IV (Art. 11), automatisches Logging (Art. 12) und formale menschliche Aufsicht (Art. 14) <strong>gesetzlich nicht obligatorisch</strong>. Diese Fragen wurden automatisch übersprungen.
+                              </p>
+                            </div>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => setShowExemptQuestions(prev => !prev)}
+                            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-white hover:bg-emerald-100/50 border border-emerald-300 text-emerald-950 transition-all cursor-pointer shrink-0 shadow-2xs"
+                          >
+                            {showExemptQuestions ? 'Fragen wieder ausblenden' : 'Optionale Fragen dennoch anzeigen'}
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  }
+
+                  if (!showExemptQuestions) {
+                    return;
+                  }
+                }
+
+                elements.push(
+                  <div
+                    key={q.id}
+                    className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-7 shadow-2xs hover:border-slate-300 transition-all"
+                  >
+                    <div className="flex items-start justify-between gap-3 mb-2">
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-slate-100 text-slate-800">
+                            {q.category}
+                          </span>
+                          <span className="text-[10px] font-mono font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                            {q.legalRef}
+                          </span>
+                          {isExempt && (
+                            <span className="text-[10px] font-bold text-emerald-900 bg-emerald-100/70 px-2 py-0.5 rounded border border-emerald-300">
+                              Freigestellt nach Art. 6 (N/A)
+                            </span>
+                          )}
+                        </div>
+                        <h2 className="text-base sm:text-lg font-black text-slate-900 tracking-tight pt-1">
+                          {q.title}
+                        </h2>
+                      </div>
+                      {currentAnswer !== undefined && (
+                        <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-1" />
+                      )}
+                    </div>
+
+                    <p className="text-xs text-slate-500 mb-4 font-normal">
+                      {q.subtitle}
+                    </p>
+
+                    {isExempt && (
+                      <div className="mb-4 p-3 rounded-xl bg-emerald-50/80 border border-emerald-200/90 flex items-center justify-between gap-2 text-xs text-emerald-950 font-medium">
+                        <div className="flex items-center gap-2">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0" />
+                          <span>
+                            <strong>Freigestellt für Ihre Risikoklasse:</strong> Da Ihr System unter Art. 6 als {currentRisk === 'minimal' ? 'Minimalrisiko' : 'reine Transparenz-KI (Art. 50)'} eingestuft ist, sind die Hochrisiko-Auflagen nach Art. 9–15 für dieses System rechtlich nicht obligatorisch.
+                          </span>
+                        </div>
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800 bg-white px-2 py-0.5 rounded border border-emerald-200 shrink-0 hidden sm:inline-block">
+                          Freiwillig / N/A
                         </span>
                       </div>
-                      <h2 className="text-base sm:text-lg font-black text-slate-900 tracking-tight pt-1">
-                        {q.title}
-                      </h2>
-                    </div>
-                    {currentAnswer !== undefined && (
-                      <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-1" />
                     )}
-                  </div>
 
-                  <p className="text-xs text-slate-500 mb-4 font-normal">
-                    {q.subtitle}
-                  </p>
-
-                  <div className="space-y-2.5">
-                    {q.options.map((opt, optIdx) => {
-                      const isSelected = currentAnswer === optIdx;
-                      return (
-                        <div
-                          key={optIdx}
-                          onClick={() => handleSelect(q.id, optIdx)}
-                          className={`p-3.5 rounded-xl border text-left cursor-pointer transition-all ${
-                            isSelected
-                              ? 'bg-emerald-50/80 border-emerald-500 ring-1 ring-emerald-500'
-                              : 'bg-slate-50 border-slate-200 hover:bg-slate-100/70 hover:border-slate-300'
-                          }`}
-                        >
-                          <div className="flex items-start gap-3">
-                            <div className={`w-4 h-4 rounded-full border mt-0.5 flex items-center justify-center shrink-0 ${
-                              isSelected ? 'border-emerald-600 bg-emerald-600' : 'border-slate-400 bg-white'
-                            }`}>
-                              {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
-                            </div>
-                            <div className="space-y-0.5">
-                              <div className="text-xs sm:text-sm font-bold text-slate-900">
-                                {opt.label}
+                    <div className="space-y-2.5">
+                      {q.options.map((opt, optIdx) => {
+                        const isSelected = currentAnswer === optIdx;
+                        return (
+                          <div
+                            key={optIdx}
+                            onClick={() => handleSelect(q.id, optIdx)}
+                            className={`p-3.5 rounded-xl border text-left cursor-pointer transition-all ${
+                              isSelected
+                                ? 'bg-emerald-50/80 border-emerald-500 ring-1 ring-emerald-500'
+                                : 'bg-slate-50 border-slate-200 hover:bg-slate-100/70 hover:border-slate-300'
+                            }`}
+                          >
+                            <div className="flex items-start gap-3">
+                              <div className={`w-4 h-4 rounded-full border mt-0.5 flex items-center justify-center shrink-0 ${
+                                isSelected ? 'border-emerald-600 bg-emerald-600' : 'border-slate-400 bg-white'
+                              }`}>
+                                {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
                               </div>
-                              <div className="text-xs text-slate-600">
-                                {opt.description}
+                              <div className="space-y-0.5">
+                                <div className="text-xs sm:text-sm font-bold text-slate-900">
+                                  {opt.label}
+                                </div>
+                                <div className="text-xs text-slate-600">
+                                  {opt.description}
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      );
-                    })}
-                  </div>
+                        );
+                      })}
+                    </div>
 
-                </div>
-              );
-            })}
+                  </div>
+                );
+              });
+
+              return elements;
+            })()}
 
             {/* Submit Action */}
             <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
                 <p className="text-xs font-bold text-slate-900">
-                  {isComplete ? 'Alle Fragen beantwortet!' : 'Bitte beantworten Sie alle Fragen für ein verlässliches Ergebnis.'}
+                  {isComplete
+                    ? (applicableQuestions.length < questions.length
+                        ? `Alle erforderlichen Fragen beantwortet (${questions.length - applicableQuestions.length} Hochrisiko-Fragen freigestellt)!`
+                        : 'Alle Fragen beantwortet!')
+                    : 'Bitte beantworten Sie alle erforderlichen Fragen für ein verlässliches Ergebnis.'}
                 </p>
                 <p className="text-xs text-slate-500 mt-0.5">
                   * Unverbindliche Modellrechnung &amp; strukturierte Orientierungshilfe
@@ -540,8 +720,10 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate, curren
               <button
                 disabled={!isComplete}
                 onClick={() => {
+                  window.scrollTo(0, 0);
+                  document.documentElement.scrollTop = 0;
+                  document.body.scrollTop = 0;
                   setSubmitted(true);
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
                 className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-extrabold text-sm transition-all shadow-md cursor-pointer ${
                   isComplete
@@ -557,7 +739,7 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate, curren
           </div>
         ) : (
           /* Results View */
-          <div className="space-y-8">
+          <div ref={reportRef} id="audit-report-container" className="space-y-8 scroll-mt-24">
             
             {/* Main Scorecard */}
             <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-lg text-slate-900 relative overflow-hidden">
@@ -669,14 +851,49 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate, curren
                   <div className="p-4 rounded-xl bg-slate-100 border border-slate-300 text-slate-900">
                     <div className="flex items-center gap-2 font-black text-base text-slate-900">
                       <CheckCircle2 className="w-5 h-5 text-emerald-700" />
-                      <span>Minimales / Kein Risiko</span>
+                      <span>Minimales / Kein Risiko (Art. 6)</span>
                     </div>
                     <p className="text-xs text-slate-700 mt-1 leading-relaxed">
-                      Für dieses System bestehen keine obligatorischen Sonderpflichten nach dem EU AI Act. 
+                      Für dieses System greifen nach den getroffenen Angaben keine obligatorischen Hochrisiko-Auflagen nach Art. 9–15 EU AI Act. 
+                      Keine Lücken innerhalb der geprüften, anwendbaren Kriterien erkannt. Dies bestätigt keine vollständige Rechtskonformität. 
                       Wir empfehlen die Dokumentation der Einstufung im betrieblichen KI-Verzeichnis.
                     </p>
                   </div>
                 )}
+              </div>
+
+              {/* Role and Legal Applicability Section */}
+              <div className="mt-6 p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2 pb-2 border-b border-slate-200">
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-emerald-700" />
+                    <span className="text-xs font-bold text-slate-900">
+                      Rollen- &amp; Anwendbarkeitsanalyse: {result.roleTitle}
+                    </span>
+                  </div>
+                  <span className="text-[11px] font-mono font-bold text-emerald-800 bg-emerald-100/60 px-2 py-0.5 rounded border border-emerald-300">
+                    {result.exemptCount > 0 ? `${result.exemptCount} von ${questions.length} Kriterien freigestellt` : 'Alle Prüfkriterien anwendbar'}
+                  </span>
+                </div>
+                <p className="text-xs text-slate-700 leading-relaxed">
+                  {result.worstRisk === 'minimal' ? (
+                    <span>
+                      <strong>Rechtsfolge nach Art. 6:</strong> Da Ihr System als Minimalrisiko eingestuft wurde, sind die umfassenden Hochrisiko-Pflichten der Art. 9–15 (Risikomanagementsystem, Anhang-IV-Akte, automatisches Logging, formale menschliche Aufsicht) <strong>gesetzlich nicht anwendbar</strong> ({result.exemptCount} Kriterien freigestellt). Keine Lücken innerhalb der geprüften, anwendbaren Kriterien erkannt. Dies bestätigt keine vollständige Rechtskonformität.
+                    </span>
+                  ) : result.worstRisk === 'transparency' ? (
+                    <span>
+                      <strong>Rechtsfolge nach Art. 50:</strong> Als Dialog- bzw. Chatbot-System unterliegt die KI primär der Transparenzkennzeichnung gegenüber Nutzern. Vollumfängliche Hochrisiko-Audits nach Art. 9–15 entfallen ({result.exemptCount} Prüfkriterien freigestellt). Keine Lücken innerhalb der geprüften, anwendbaren Kriterien erkannt. Dies bestätigt keine vollständige Rechtskonformität.
+                    </span>
+                  ) : result.isDeployer ? (
+                    <span>
+                      <strong>Pflichtenverteilung für Betreiber (Deployer nach Art. 26):</strong> Als Anwender eines Drittsystems müssen Sie dieses bestimmungsgemäß einsetzen, Eingabedaten überwachen, Logs für mind. 6 Monate speichern und menschliche Aufsicht gewährleisten. Die technische Dokumentation nach Anhang IV obliegt dem Anbieter.
+                    </span>
+                  ) : (
+                    <span>
+                      <strong>Pflichtenverteilung für Anbieter (Provider nach Art. 16):</strong> Als Hersteller tragen Sie die Gesamtverantwortung für die CE-Konformitätsbewertung, die Anhang-IV-Akte und das Risikomanagementsystem nach Art. 9.
+                    </span>
+                  )}
+                </p>
               </div>
 
               {/* Identified Gaps List */}
@@ -687,8 +904,15 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate, curren
                 </h3>
 
                 {result.identifiedGaps.length === 0 ? (
-                  <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-950 text-xs font-semibold">
-                    Hervorragend! Auf Basis Ihrer Angaben wurden keine kritischen Abweichungen identifiziert.
+                  <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-950 text-xs">
+                    <div className="flex items-center gap-2 mb-1.5 text-emerald-950 font-black text-sm">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0" />
+                      <span>Keine Compliance-GAPs innerhalb der geprüften Kriterien identifiziert</span>
+                    </div>
+                    <p className="text-emerald-900 leading-relaxed font-medium">
+                      Keine Lücken innerhalb der geprüften, anwendbaren Kriterien erkannt. Dies bestätigt keine vollständige Rechtskonformität.
+                      {result.worstRisk === 'minimal' && ' Für dieses System greifen nach den getroffenen Angaben keine obligatorischen Hochrisiko-Auflagen nach Art. 9–15 EU AI Act.'}
+                    </p>
                   </div>
                 ) : (
                   <div className="space-y-3">
@@ -713,6 +937,9 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate, curren
               <div className="mt-8 pt-6 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
                 <button
                   onClick={() => {
+                    window.scrollTo(0, 0);
+                    document.documentElement.scrollTop = 0;
+                    document.body.scrollTop = 0;
                     setSubmitted(false);
                     setAnswers({});
                   }}
@@ -748,8 +975,8 @@ export const AuditCheckPage: React.FC<AuditCheckPageProps> = ({ navigate, curren
 
             {/* Micro disclaimer */}
             <div className="text-center text-xs text-slate-500">
-              * <strong>Orientierungshilfe &amp; Modellrechnung:</strong> Diese Auswertung dient ausschließlich der vorbereitenden Selbsteinschätzung 
-              und begründet kein Mandatsverhältnis oder behördliche Rechtsverbindlichkeit.
+              * <strong>Orientierungshilfe &amp; Modellrechnung:</strong> Diese Auswertung basiert auf unüberprüften Selbstauskünften und dient ausschließlich der vorbereitenden Selbsteinschätzung. 
+              Keine Lücken innerhalb der geprüften, anwendbaren Kriterien erkannt. Dies bestätigt keine vollständige Rechtskonformität und ersetzt keine behördliche Prüfung oder Rechtsberatung.
             </div>
 
           </div>

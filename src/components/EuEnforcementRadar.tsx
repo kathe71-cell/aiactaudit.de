@@ -24,7 +24,7 @@ export const EuEnforcementRadar: React.FC<EuEnforcementRadarProps> = ({ navigate
   };
 
   return (
-    <section id="eu-radar" className="py-16 sm:py-24 bg-white border-b border-slate-200 relative overflow-hidden">
+    <section id="eu-radar" className="py-16 sm:py-24 bg-white border-b border-slate-200 relative overflow-hidden scroll-mt-24">
       {/* Background Architectural Grid Pattern (Myriad style) */}
       <div 
         className="absolute inset-0 pointer-events-none opacity-[0.03]"

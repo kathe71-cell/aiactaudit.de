@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ShieldAlert, CheckCircle2, ArrowRight } from 'lucide-react';
 
 interface MatrixPageProps {
@@ -6,6 +6,9 @@ interface MatrixPageProps {
 }
 
 export const MatrixPage: React.FC<MatrixPageProps> = ({ navigate }) => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, []);
   const annexThreeDomains = [
     {
       nr: '1',

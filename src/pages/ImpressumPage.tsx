@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Scale, Mail, Phone, ExternalLink } from 'lucide-react';
 
 interface ImpressumPageProps {
@@ -6,6 +6,9 @@ interface ImpressumPageProps {
 }
 
 export const ImpressumPage: React.FC<ImpressumPageProps> = ({ navigate }) => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, []);
   return (
     <div className="py-12 bg-slate-50 min-h-screen">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -50,7 +50,7 @@ export const HorizonFeed: React.FC<HorizonFeedProps> = ({ navigate }) => {
   };
 
   return (
-    <section id="horizon-feed" className="py-16 sm:py-24 bg-white border-b border-slate-200">
+    <section id="horizon-feed" className="py-16 sm:py-24 bg-white border-b border-slate-200 scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -242,8 +242,22 @@ export const HorizonFeed: React.FC<HorizonFeedProps> = ({ navigate }) => {
                           <p className="text-xs text-slate-700 leading-relaxed font-medium">
                             {item.bindingStatus}
                           </p>
-                          <div className="mt-3 pt-3 border-t border-slate-100 text-[11px] text-slate-500">
-                            <strong>Zitierfähige Fundstelle:</strong> {item.officialRef}
+                          <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                            <div>
+                              <strong>Zitierfähige Fundstelle:</strong> {item.officialRef}
+                            </div>
+                            {item.officialUrl && (
+                              <a
+                                href={item.officialUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                className="inline-flex items-center gap-1 font-bold text-emerald-700 hover:text-emerald-800 underline ml-2"
+                              >
+                                <span>Primärquelle</span>
+                                <ExternalLink className="w-3 h-3" />
+                              </a>
+                            )}
                           </div>
                         </div>
 

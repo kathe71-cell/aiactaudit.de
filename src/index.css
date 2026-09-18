@@ -16,9 +16,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Smooth scrolling */
+/* Smooth scrolling and header offset padding */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
 }
 
 /* Custom scrollbar */

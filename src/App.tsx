@@ -14,11 +14,11 @@ import { RechnerEmbed } from './pages/RechnerEmbed';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 
-export const App: React.FC = () => {
+export const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
   // Normalize initial path
   const getInitialPath = () => {
-    const path = window.location.pathname;
-    const search = window.location.search;
+    const path = initialPath || (typeof window !== 'undefined' ? window.location.pathname : '/');
+    const search = typeof window !== 'undefined' ? window.location.search : '';
     if (path.startsWith('/audit-check')) return `/audit-check${search}`;
     if (path.startsWith('/hochrisiko-matrix')) return '/hochrisiko-matrix';
     if (path.startsWith('/fristen-guide')) return '/fristen-guide';
@@ -27,7 +27,7 @@ export const App: React.FC = () => {
     if (path.startsWith('/rechner-embed')) return '/rechner-embed';
     
     // Hash fallback
-    const hash = window.location.hash;
+    const hash = typeof window !== 'undefined' ? window.location.hash : '';
     if (hash === '#audit-check') return '/audit-check';
     if (hash === '#hochrisiko-matrix') return '/hochrisiko-matrix';
     if (hash === '#fristen-guide') return '/fristen-guide';
@@ -75,6 +75,9 @@ export const App: React.FC = () => {
   useEffect(() => {
     const handlePopState = () => {
       setCurrentPath(getInitialPath());
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
     };
 
     window.addEventListener('popstate', handlePopState);
@@ -82,12 +85,37 @@ export const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // Track SPA route changes in Vercel Analytics
+    // Track SPA route changes in Vercel Analytics and update dynamic Document Title & Canonical
     if (typeof window !== 'undefined') {
       const w = window as unknown as { va?: (event: string, data: { route: string }) => void };
       if (w.va) {
         w.va('pageview', { route: currentPath });
       }
+
+      // Dynamic Title & Canonical per route
+      const cleanPath = currentPath.split('?')[0].split('#')[0];
+      const titles: Record<string, string> = {
+        '/': 'AI Act Audit – EU KI-Verordnung Konformitäts- & Regulatory Intelligence Portal',
+        '/audit-check': 'Audit-Readiness Check & Risikoklassifizierung – AI Act Audit',
+        '/hochrisiko-matrix': 'Hochrisiko-Matrix & Pflichtenkatalog (Art. 6, Anhang III) – AI Act Audit',
+        '/fristen-guide': 'Fristen-Guide & Meilensteine (2025–2027) – AI Act Audit',
+        '/impressum': 'Impressum – AI Act Audit',
+        '/datenschutz': 'Datenschutzerklärung – AI Act Audit',
+      };
+
+      document.title = titles[cleanPath] || 'AI Act Audit – EU KI-Verordnung Konformitäts-Portal';
+
+      // Update Canonical Link
+      let canonicalLink = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+      if (!canonicalLink) {
+        canonicalLink = document.createElement('link');
+        canonicalLink.setAttribute('rel', 'canonical');
+        document.head.appendChild(canonicalLink);
+      }
+      const canonicalUrl = cleanPath === '/' 
+        ? 'https://www.aiactaudit.de/' 
+        : `https://www.aiactaudit.de${cleanPath}`;
+      canonicalLink.setAttribute('href', canonicalUrl);
     }
   }, [currentPath]);
 
@@ -126,12 +154,28 @@ export const App: React.FC = () => {
   }, []);
 
   const navigate = useCallback((path: string) => {
-    if (path !== currentPath) {
-      window.history.pushState({}, '', path);
-      setCurrentPath(path);
-      window.scrollTo({ top: 0, behavior: 'instant' });
+    window.history.pushState({}, '', path);
+    setCurrentPath(path);
+
+    if (path.includes('#')) {
+      const targetId = path.split('#')[1];
+      setTimeout(() => {
+        const el = document.getElementById(targetId);
+        if (el) {
+          const headerOffset = 90;
+          const elementPosition = el.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({
+            top: Math.max(0, elementPosition - headerOffset),
+            behavior: 'smooth'
+          });
+        }
+      }, 50);
+    } else {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
     }
-  }, [currentPath]);
+  }, []);
 
   const basePath = currentPath.split('?')[0].split('#')[0];
 
@@ -176,7 +220,7 @@ export const App: React.FC = () => {
       </div>
 
       <Footer navigate={navigate} />
-      <StickyBar navigate={navigate} />
+      <StickyBar navigate={navigate} currentPath={currentPath} />
       <ScrollToTop />
       
       {/* Full-Text Search Overlay Modal (⌘K) */}

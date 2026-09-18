@@ -3,9 +3,10 @@ import { ArrowRight, ShieldAlert } from 'lucide-react';
 
 interface StickyBarProps {
   navigate: (path: string) => void;
+  currentPath?: string;
 }
 
-export const StickyBar: React.FC<StickyBarProps> = ({ navigate }) => {
+export const StickyBar: React.FC<StickyBarProps> = ({ navigate, currentPath }) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -21,7 +22,7 @@ export const StickyBar: React.FC<StickyBarProps> = ({ navigate }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  if (!visible) return null;
+  if (currentPath?.startsWith('/audit-check') || !visible) return null;
 
   return (
     <aside aria-label="Mobile Schnell-Aktion" className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 p-3 shadow-2xl transition-all duration-300">

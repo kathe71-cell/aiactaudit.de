@@ -12,6 +12,7 @@ export interface RegulatoryEvent {
   affectedIndustries: string;
   summary: string;
   officialRef: string;
+  officialUrl?: string;
   actionRequired: string;
   priority: 'CRITICAL' | 'HIGH' | 'MEDIUM';
 }
@@ -50,16 +51,17 @@ export const REGULATORY_EVENTS: RegulatoryEvent[] = [
     jurisdiction: 'EU',
     category: 'AI_ACT',
     categoryLabel: 'EU AI Act',
-    status: 'NEW',
-    statusLabel: 'NEU',
-    title: 'Code of Practice für General Purpose AI (GPAI) – Veröffentlichung des Entwurfs',
-    date: '10. September 2026',
-    bindingStatus: 'Verbindliche Leitlinie · Konsultation läuft',
-    affectedIndustries: 'Software, Tech-Plattformen, KI-Modellhersteller',
-    summary: 'Das europäische KI-Büro hat die vorläufigen Verhaltenskodizes für Hersteller von GPAI-Modellen (u. a. Transparenz über Trainingsdaten, Copyright-Compliance und systemische Risikobewertungen nach Art. 53 & 55) vorgelegt.',
-    officialRef: 'Verordnung (EU) 2024/1689, Art. 53, 56',
-    actionRequired: 'Prüfung der Modellkarten und Urheberrechts-Filter vor dem Stichtag August 2025.',
-    priority: 'CRITICAL'
+    status: 'GUIDANCE',
+    statusLabel: 'VERÖFFENTLICHT',
+    title: 'Code of Practice für General Purpose AI (GPAI) – Veröffentlichung durch das EU AI Office',
+    date: '10. Juli 2025',
+    bindingStatus: 'Freiwilliger Verhaltenskodex · Vermutungswirkung nach Art. 56',
+    affectedIndustries: 'Modellhersteller, Tech-Plattformen, GPAI-Anbieter & Downstream-Entwickler',
+    summary: 'Die Europäische Kommission und das AI Office haben den finalen GPAI Code of Practice vorgelegt. Er präzisiert Transparenzpflichten für Trainingsdaten, Copyright-Compliance (Art. 53) und Sicherheitsmaßnahmen gegen systemische Risiken (Art. 55).',
+    officialRef: 'Verordnung (EU) 2024/1689, Art. 53, 55, 56',
+    officialUrl: 'https://digital-strategy.ec.europa.eu/en/news/general-purpose-ai-code-practice-now-available',
+    actionRequired: 'Abgleich eigener GPAI-Modellkarten und Urheberrechts-Filter mit den veröffentlichten Standards des AI Office.',
+    priority: 'HIGH'
   },
   {
     id: 'reg-02',

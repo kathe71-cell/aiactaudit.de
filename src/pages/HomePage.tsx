@@ -27,7 +27,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
   };
 
   const copyEmbedCode = () => {
-    const code = `<iframe src="https://aiactaudit.de/rechner-embed" width="100%" height="720" style="border:none; border-radius:16px; box-shadow:0 4px 16px rgba(0,0,0,0.08);" title="EU AI Act Audit Rechner"></iframe>\n<p style="font-size:12px; color:#64748b; text-align:center;">Audit-Rechner bereitgestellt von <a href="https://aiactaudit.de" target="_blank" rel="noopener" style="color:#059669; text-decoration:underline;">aiactaudit.de</a></p>`;
+    const code = `<iframe src="https://www.aiactaudit.de/rechner-embed" width="100%" height="720" style="border:none; border-radius:16px; box-shadow:0 4px 16px rgba(0,0,0,0.08);" title="EU AI Act Audit Rechner"></iframe>\n<p style="font-size:12px; color:#64748b; text-align:center;">Audit-Rechner bereitgestellt von <a href="https://www.aiactaudit.de" target="_blank" rel="noopener" style="color:#059669; text-decoration:underline;">aiactaudit.de</a></p>`;
     navigator.clipboard.writeText(code);
     setCopiedEmbed(true);
     setTimeout(() => setCopiedEmbed(false), 2500);
@@ -80,7 +80,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
               </button>
             </div>
             <div className="bg-slate-900 rounded-lg p-3 text-xs font-mono text-slate-300 overflow-x-auto border border-slate-800">
-              <code>{`<iframe src="https://aiactaudit.de/rechner-embed" width="100%" height="720" style="border:none; border-radius:16px;" title="EU AI Act Audit Rechner"></iframe>\n<p style="font-size:12px; color:#64748b; text-align:center;">Bereitgestellt von <a href="https://aiactaudit.de" target="_blank" rel="noopener">aiactaudit.de</a></p>`}</code>
+              <code>{`<iframe src="https://www.aiactaudit.de/rechner-embed" width="100%" height="720" style="border:none; border-radius:16px;" title="EU AI Act Audit Rechner"></iframe>\n<p style="font-size:12px; color:#64748b; text-align:center;">Bereitgestellt von <a href="https://www.aiactaudit.de" target="_blank" rel="noopener">aiactaudit.de</a></p>`}</code>
             </div>
           </div>
         </div>
