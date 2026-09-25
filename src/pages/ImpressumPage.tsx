@@ -69,14 +69,6 @@ export const ImpressumPage: React.FC<ImpressumPageProps> = ({ navigate }) => {
               </div>
             </div>
 
-            {/* Kleinunternehmer */}
-            <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
-              <p className="font-bold text-slate-950">Umsatzsteuer-Status:</p>
-              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
-                Kleinunternehmer nach § 19 UStG. Es wird keine Umsatzsteuer berechnet und ausgewiesen.
-              </p>
-            </div>
-
             {/* MStV */}
             <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
               <p className="font-bold text-slate-950">Inhaltlich Verantwortlicher gemäß § 18 Abs. 2 MStV:</p>
