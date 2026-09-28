@@ -64,10 +64,13 @@ export const DatenschutzPage: React.FC<DatenschutzPageProps> = ({ navigate }) =>
 
             {/* 2. Erhebung und Speicherung bei Serveraufruf */}
             <div>
-              <h2 className="text-base font-bold text-slate-900 mb-2">2. Bereitstellung der Website und Server-Logfiles</h2>
+              <h2 className="text-base font-bold text-slate-900 mb-2">2. Hosting und Server-Logfiles</h2>
+              <p className="mb-2">
+                Diese Website wird über die Infrastruktur der <strong>Vercel Inc.</strong>, 440 N Barranca Ave #4133, Covina, CA 91723, USA, gehostet. Die Datenübertragung in die USA ist durch die Zertifizierung von Vercel unter dem EU-U.S. Data Privacy Framework (DPF) abgesichert.
+              </p>
               <p>
-                Beim Aufrufen unserer Website durch Ihren Browser werden durch den Webserver (Hosting-Infrastruktur) 
-                automatisch Informationen temporär in sogenannten Server-Logdateien erhoben. Dies sind:
+                Beim Aufrufen unserer Website durch Ihren Browser werden durch den Webserver automatisch 
+                Informationen temporär in sogenannten Server-Logdateien erhoben. Dies sind:
               </p>
               <ul className="list-disc pl-5 mt-2 space-y-1 text-xs text-slate-600">
                 <li>Browsertyp und Browserversion</li>
