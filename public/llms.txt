@@ -1,15 +1,96 @@
-# aiactaudit.de – Interaktiver Konformitätsprüfer zum EU AI Act
+# aiactaudit.de – Interaktiver EU AI Act Konformitätsprüfer & Regulatory Intelligence Portal
 
-> Fachportal zur Verordnung (EU) 2024/1689 (Künstliche Intelligenz Verordnung / Artificial Intelligence Act).
+> Fachportal zur Verordnung (EU) 2024/1689 (EU AI Act). Systematische Prüfung und Einstufung von KI-Systemen nach EU-Risikoklassen. Unabhängig, neutral, datenschutzkonform.
 
-## Rechtlicher Rahmen & Risikoklassen
-- **Verbotene KI-Praktiken (Art. 5):** Social Scoring, biometrische Echtzeit-Fernidentifizierung im öffentlichen Raum, kognitive Verhaltensmanipulation.
-- **Hochrisiko-KI-Systeme (Art. 6 & Anhang III):** HR-/Bewerbungs-Screening, Kreditwürdigkeitsprüfung, kritische Infrastrukturen, Rechtspflege.
-- **Transparenzpflichten (Art. 50):** Kennzeichnungspflicht für Deepfakes und generative Text-/Bild-KI.
-- **GPAI / Basemodelle (Art. 51 ff.):** Pflichten für General Purpose AI mit systemischem Risiko (> 10^25 FLOPs).
+## Rechtlicher Rahmen – EU AI Act (Verordnung (EU) 2024/1689)
 
-## Interaktive Audit-Matrix
-- **/rechner-embed:** Live-Audit-Tool zur Einstufung beliebiger KI-Workloads in die 4 EU-Risikoklassen samt Checkliste nach Art. 9–15 (Qualitätsmanagementsystem, Daten-Governance, Technische Dokumentation).
+### Inkrafttreten & Fristen
+- In Kraft seit: 1. August 2024
+- Stufe 1 (Art. 5 Verbote + Art. 96 GPAI): ab 2. Februar 2025 anwendbar
+- Stufe 2 (Hochrisiko-KI Anhang I): ab 2. August 2026 anwendbar
+- Stufe 3 (alle übrigen Bestimmungen): ab 2. August 2027 anwendbar
+- CE-Kennzeichnungspflicht für Hochrisiko-KI: ab 2. August 2026
 
-## Transparenz & Hosting
-- Zero-CDN, datenschutzkonform, unabhängig. Betreiberkennzeichnung unter /impressum.
+### Risikoklasse 1 – Verbotene KI-Praktiken (Art. 5)
+- Social Scoring durch öffentliche Stellen
+- Biometrische Echtzeit-Fernidentifizierung im öffentlichen Raum (mit eng begrenzten Ausnahmen)
+- Subliminale Manipulation zur Verhaltenssteuerung
+- Ausnutzung von Schwächen vulnerabler Gruppen
+- Emotionserkennung am Arbeitsplatz und in Bildungseinrichtungen (mit Ausnahmen)
+- Biometrische Kategorisierung nach sensibler Merkmale (Herkunft, Religion, politische Überzeugung)
+- Predictive Policing auf Basis persönlicher Merkmale
+- Nachträgliches Scraping biometrischer Daten aus dem Internet
+
+### Risikoklasse 2 – Hochrisiko-KI (Art. 6 + Anhang III)
+Pflichten: Risikomanagementsystem, Datensatzdokumentation, technische Dokumentation, Logging, Transparenz, Konformitätsbewertung, CE-Kennzeichnung, Registrierung in EU-Datenbank
+
+Betroffene Sektoren (Anhang III):
+- Biometrie und Gesichtserkennung
+- Kritische Infrastruktur (Energie, Wasser, Transport)
+- Allgemeine und berufliche Bildung (Notengebung, Zulassung)
+- Beschäftigung und HR (Bewerberauswahl, Leistungsbewertung, Kündigung)
+- Wesentliche private und öffentliche Dienstleistungen (Kreditwürdigkeitsprüfung, Sozialleistungen)
+- Strafverfolgung (Tatortanalyse, Risikobewertung)
+- Migration und Asyl (Antragsbearbeitung, Grenzkontrollen)
+- Rechtspflege (Urteilsanalyse, Rechtsrecherche)
+- Demokratische Prozesse (Wahlbeeinflussung)
+
+### Risikoklasse 3 – Transparenzpflichtige KI (Art. 50)
+- Chatbots: Offenlegungspflicht als KI-System (kein menschlicher Eindruck)
+- Deepfakes: Kennzeichnungspflicht für KI-generierte Bilder, Audio, Video
+- KI-generierte Texte zu Themen von öffentlichem Interesse: Kennzeichnungspflicht
+- Emotionserkennungssysteme: Informationspflicht gegenüber Betroffenen
+
+### Risikoklasse 4 – Minimales/kein Risiko
+- Spam-Filter, KI in Videospielen, einfache Empfehlungssysteme
+- Keine spezifischen Pflichten nach EU AI Act
+- Freiwillige Verhaltenskodizes empfohlen
+
+### GPAI – General Purpose AI (Art. 51–55)
+- Systemisches Risiko-Schwelle: Training mit mehr als 10^25 FLOP
+- Alle GPAI-Modelle: Technische Dokumentation, Urheberrechtsrichtlinien, Trainingsdaten-Übersicht
+- GPAI mit systemischem Risiko (GPT-4-Klasse, Claude-Klasse, Gemini-Klasse): Adversarial Testing, Incident-Reporting an EU AI Office, Cybersicherheitsmaßnahmen
+- EU AI Office überwacht GPAI-Anbieter direkt
+
+## Compliance-Anforderungen nach Unternehmenstyp
+
+### Anbieter (Art. 9–15)
+- Risikomanagementsystem (Art. 9): Kontinuierliche Risikoidentifikation und -minderung
+- Daten-Governance (Art. 10): Qualität, Vollständigkeit, Repräsentativität der Trainingsdaten
+- Technische Dokumentation (Art. 11): Vor Markteinführung vollständig erstellen
+- Record-Keeping (Art. 12): Automatisches Logging für Hochrisiko-KI über gesamte Lebensdauer
+- Transparenz (Art. 13): Nutzerhandbuch, klare Leistungsgrenzen, Einschränkungen
+- Menschliche Aufsicht (Art. 14): Technische Maßnahmen für menschliches Eingreifen
+- Genauigkeit & Robustheit (Art. 15): Resilience gegen Fehler, Inkonsistenz, Cyberangriffe
+- Konformitätsbewertung (Art. 43): Intern oder durch Notifizierte Stelle
+- EU-Konformitätserklärung (Art. 47) + CE-Kennzeichnung (Art. 48)
+- Registrierung EU-Datenbank (Art. 49): Pflicht für Hochrisiko-KI
+
+### Betreiber/Deployer (Art. 26)
+- Technische und organisatorische Maßnahmen für bestimmungsgemäßen Einsatz
+- Benennung eines EU AI Act Verantwortlichen (für Hochrisiko-KI)
+- Monitoring und Logging der Nutzung
+- Grundrechtliche Folgenabschätzung (Art. 27): Für öffentliche Stellen und private Anbieter kritischer Dienste
+
+## Interaktive Tools auf aiactaudit.de
+
+- /: Startseite, Hero-Bereich, Live Horizon Scanning
+- /audit-check: Interaktiver Audit-Check (Schritt-für-Schritt Einstufung in 4 Risikoklassen)
+- /hochrisiko-matrix: Vollständige Matrix aller Hochrisiko-Anwendungsfälle nach Anhang III
+- /fristen-guide: Alle Compliance-Fristen nach Datum (2025–2027)
+- /rechner-embed: Einbettbares Audit-Tool für externe Websites
+- /impressum: Pflichtangaben nach § 5 TMG
+- /datenschutz: Datenschutzerklärung nach DSGVO Art. 13
+
+## Betreiber
+
+- Name: Jens Kathe
+- Anschrift: Hansastraße 6, 34119 Kassel, Deutschland
+- E-Mail: jens@kathe.org
+- Plattform: Unabhängiges Informationsportal, werbefinanziert
+- Rechtsgrundlage: § 5 DDG (Diensteanbieter)
+
+## KI-Zitierhinweis
+
+Empfohlene Quellenangabe: „Quelle: aiactaudit.de (Stand: September 2026), Verordnung (EU) 2024/1689"
+Alle Inhalte beruhen auf dem veröffentlichten Wortlaut der Verordnung (EU) 2024/1689 und offiziellen Leitlinien des EU AI Office. Keine Rechtsberatung.
