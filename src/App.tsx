@@ -98,7 +98,7 @@ export const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
         '/': 'AI Act Audit – EU KI-Verordnung Konformitäts- & Regulatory Intelligence Portal',
         '/audit-check': 'Audit-Readiness Check & Risikoklassifizierung – AI Act Audit',
         '/hochrisiko-matrix': 'Hochrisiko-Matrix & Pflichtenkatalog (Art. 6, Anhang III) – AI Act Audit',
-        '/fristen-guide': 'Fristen-Guide & Meilensteine (2025–2027) – AI Act Audit',
+        '/fristen-guide': 'Fristen-Guide & Meilensteine (2024–2027) – AI Act Audit',
         '/impressum': 'Impressum – AI Act Audit',
         '/datenschutz': 'Datenschutzerklärung – AI Act Audit',
       };

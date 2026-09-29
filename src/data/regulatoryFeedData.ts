@@ -147,6 +147,25 @@ export const REGULATORY_EVENTS: RegulatoryEvent[] = [
     officialRef: 'CEN/CLC JTC 21 / Mandat M/593 der EU-Kommission',
     actionRequired: 'Abgleich interner Dokumentationsvorlagen mit den Normentwürfen.',
     priority: 'HIGH'
+  ,
+  {
+    id: 'reg-07',
+    sourceCode: 'EU · AI Office',
+    jurisdiction: 'EU',
+    category: 'AI_ACT',
+    categoryLabel: 'EU AI Act',
+    status: 'IN_FORCE',
+    statusLabel: 'IN KRAFT',
+    title: 'Stufe 3 in Kraft: Hochrisiko-KI jetzt vollständig reguliert (02. August 2026)',
+    date: '02. August 2026',
+    bindingStatus: 'Unmittelbar geltend · Bußgeldbewehrt ab 02.08.2026',
+    affectedIndustries: 'HR, Finanzwesen, Bildung, Justiz, Gesundheit, kritische Infrastruktur',
+    summary: 'Seit dem 02.08.2026 müssen alle Hochrisiko-KI-Systeme nach Anhang III konform mit Art. 9–15 sein: Risikomanagementsystem, Datensatz-Governance, technische Dokumentation, Logging, menschliche Aufsicht und CE-Kennzeichnung. Nationalbehörden haben volle Durchsetzungsbefugnisse.',
+    officialRef: 'ABl. L 2024/1689, Art. 6, 9–15, 26, 43–49, 99 Abs. 4, Anhang III',
+    officialUrl: 'https://artificialintelligenceact.eu/',
+    actionRequired: 'Sofortiger Status-Check: Systeme prüfen, ob Anhang-III-Einstufung vorliegt und ob Konformitätsdokumentation lückenlos vorliegt. Bußgelder bis 15 Mio. € oder 3 % des Umsatzes drohen.',
+    priority: 'CRITICAL'
+  }
   }
 ];
 
@@ -158,7 +177,7 @@ export const WATCHTOWER_METRICS: WatchtowerMetric[] = [
     eventsCount: 214,
     criticalAlerts: 18,
     progressPercent: 92,
-    statusBadge: 'STUFE 1 AKTIV',
+    statusBadge: 'STUFE 3 AKTIV',
     description: 'Vollständige Überwachung aller delegierten Rechtsakte, Leitlinien des KI-Büros und nationalen Durchsetzungsmaßnahmen in den 27 EU-Staaten.',
     keyLegislation: 'Kapitel I–XII, Anhänge I–XIII',
     lastUpdate: 'Heute, vor 2 Stunden'

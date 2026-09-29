@@ -392,9 +392,9 @@ export const TIMELINE_MILESTONES: TimelineMilestone[] = [
     date: '02. August 2026',
     dateRaw: '2026-08-02',
     title: 'Stufe 3: Vollständige Geltung & Hochrisiko-Systeme (Anhang III)',
-    status: 'imminent',
+    status: 'past',
     targetGroup: 'Anbieter & Betreiber aller Anhang-III-Hochrisiko-Systeme',
-    description: 'Der zentrale Durchsetzungs-Meilenstein des EU AI Acts: Sämtliche Hochrisiko-Systeme aus Anhang III müssen auditiert, CE-zertifiziert und registriert sein.',
+    description: 'Seit dem 02. August 2026 sind alle Hochrisiko-Systeme aus Anhang III vollständig reguliert. Sämtliche Systeme müssen auditiert, CE-zertifiziert und in der EU-Datenbank registriert sein – behördliche Kontrollen und Bußgelder sind jetzt möglich.',
     keyPoints: [
       'Volle Pflichten für HR-Systeme, Kredit-Scoring, Bildungsbewertung und Justiz',
       'Vollständige Einhaltung von Art. 9–15 (Risikomanagement, Logging, Aufsicht)',
