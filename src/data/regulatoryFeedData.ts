@@ -147,7 +147,7 @@ export const REGULATORY_EVENTS: RegulatoryEvent[] = [
     officialRef: 'CEN/CLC JTC 21 / Mandat M/593 der EU-Kommission',
     actionRequired: 'Abgleich interner Dokumentationsvorlagen mit den Normentwürfen.',
     priority: 'HIGH'
-  ,
+  },
   {
     id: 'reg-07',
     sourceCode: 'EU · AI Office',
@@ -165,7 +165,6 @@ export const REGULATORY_EVENTS: RegulatoryEvent[] = [
     officialUrl: 'https://artificialintelligenceact.eu/',
     actionRequired: 'Sofortiger Status-Check: Systeme prüfen, ob Anhang-III-Einstufung vorliegt und ob Konformitätsdokumentation lückenlos vorliegt. Bußgelder bis 15 Mio. € oder 3 % des Umsatzes drohen.',
     priority: 'CRITICAL'
-  }
   }
 ];
 

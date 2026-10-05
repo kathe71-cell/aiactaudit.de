@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Scale, Mail, Phone, ExternalLink } from 'lucide-react';
+import { Scale, Mail, ExternalLink } from 'lucide-react';
 
 interface ImpressumPageProps {
   navigate: (path: string) => void;
@@ -57,13 +57,6 @@ export const ImpressumPage: React.FC<ImpressumPageProps> = ({ navigate }) => {
                   <span>E-Mail: </span>
                   <a href="mailto:jens@kathe.org" className="font-semibold text-slate-900 hover:text-emerald-700 underline">
                     jens@kathe.org
-                  </a>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Phone className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>Telefon: </span>
-                  <a href="tel:+491786652623" className="font-semibold text-slate-900 hover:text-emerald-700">
-                    +49 178 6652623
                   </a>
                 </div>
               </div>
