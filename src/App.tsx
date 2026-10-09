@@ -1,3 +1,4 @@
+import ProjektuebernahmePage from "./pages/ProjektuebernahmePage";
 import React, { useState, useEffect, useCallback } from 'react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
@@ -22,6 +23,7 @@ export const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
     if (path.startsWith('/audit-check')) return `/audit-check${search}`;
     if (path.startsWith('/hochrisiko-matrix')) return '/hochrisiko-matrix';
     if (path.startsWith('/fristen-guide')) return '/fristen-guide';
+    if (path.startsWith('/projektuebernahme')) return '/projektuebernahme';
     if (path.startsWith('/impressum')) return '/impressum';
     if (path.startsWith('/datenschutz')) return '/datenschutz';
     if (path.startsWith('/rechner-embed')) return '/rechner-embed';
@@ -197,6 +199,7 @@ export const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
         return <MatrixPage navigate={navigate} />;
       case '/fristen-guide':
         return <TimelinePage navigate={navigate} />;
+      case '/projektuebernahme': return <ProjektuebernahmePage />;
       case '/impressum':
         return <ImpressumPage navigate={navigate} />;
       case '/datenschutz':

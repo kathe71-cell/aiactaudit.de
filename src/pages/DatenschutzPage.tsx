@@ -47,7 +47,6 @@ export const DatenschutzPage: React.FC<DatenschutzPageProps> = ({ navigate }) =>
             <p className="text-xs text-slate-700 leading-relaxed">
               Dieses Fachportal verwendet keine externen Schriftarten (keine Google Fonts CDNs) – stattdessen greift der native System-Font-Stack Ihres Betriebssystems. 
               Sämtliche interaktiven Selbstevaluationen und Risiko-Checks werden rein lokal im Browser-Arbeitsspeicher ausgeführt und niemals auf unseren Servern gespeichert. 
-              Werbeeinbindungen durch Google AdSense sind in Ziffer 5 transparent und detailliert ausgewiesen.
             </p>
           </div>
 
@@ -110,19 +109,14 @@ export const DatenschutzPage: React.FC<DatenschutzPageProps> = ({ navigate }) =>
                 Es werden keine externen Verbindungen zu Google Fonts oder ähnlichen Drittanbieter-Netzwerken aufgebaut.
                 Alle interaktiven Checks (wie der Audit-Readiness Rechner und der Bußgeld-Kalkulator) laufen rein lokal im Arbeitsspeicher Ihres 
                 Browsers und werden zu keinem Zeitpunkt an unsere Server übermittelt oder gespeichert.
-                Hinsichtlich Werbe-Cookies verweisen wir auf die nachfolgende Ziffer 5 zu Google AdSense.
               </p>
             </div>
 
-            {/* 5. Google AdSense */}
             <div>
-              <h2 className="text-base font-bold text-slate-900 mb-2">5. Google AdSense</h2>
               <p>
-                Diese Website nutzt Google AdSense, einen Dienst zum Einbinden von Werbeanzeigen der Google Ireland Limited, 
                 Gordon House, Barrow Street, Dublin 4, Irland („Google“).
               </p>
               <p className="mt-2">
-                Google AdSense verwendet Cookies und Web Beacons (unsichtbare Grafiken), um die Schaltung von Werbung zu optimieren 
                 und die Nutzung der Website auszuwerten. Die durch Cookies und Web Beacons erzeugten Informationen über die Benutzung 
                 dieser Website (einschließlich Ihrer IP-Adresse) werden in der Regel an Server von Google in den USA übertragen und dort gespeichert.
               </p>
